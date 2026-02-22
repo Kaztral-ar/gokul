@@ -354,71 +354,13 @@ if (capabilitiesDeck) {
   deckVisibilityObserver.observe(capabilitiesDeck);
 }
 
-// Projects premium tilt + flip cards
+// Projects clean two-sided flip cards
 const projectCards = document.querySelectorAll('.project-card');
-const supportsTilt = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
 projectCards.forEach((card) => {
-  const inner = card.querySelector('.project-inner');
-  if (!inner) return;
-
-  let tiltX = 0;
-  let tiltY = 0;
-  let tiltScale = 1;
-
-  function applyCardTransform() {
-    const isFlipped = card.classList.contains('flipped');
-    const x = isFlipped ? 0 : tiltX;
-    const y = isFlipped ? 0 : tiltY;
-    const scale = isFlipped ? 1 : tiltScale;
-    const flipRotation = isFlipped ? 180 : 0;
-
-    inner.style.transform = `translateZ(0) rotateX(${x}deg) rotateY(${flipRotation + y}deg) scale(${scale})`;
-  }
-
-  function resetTilt() {
-    card.classList.remove('is-tilting');
-    inner.style.boxShadow = '';
-    tiltX = 0;
-    tiltY = 0;
-    tiltScale = 1;
-    applyCardTransform();
-  }
-
-  function handlePointerMove(event) {
-    if (!supportsTilt || card.classList.contains('flipped')) return;
-
-    const rect = card.getBoundingClientRect();
-    const px = (event.clientX - rect.left) / rect.width;
-    const py = (event.clientY - rect.top) / rect.height;
-
-    const rotateY = (px - 0.5) * 24;
-    const rotateX = (0.5 - py) * 24;
-
-    card.style.setProperty('--light-x', `${px * 100}%`);
-    card.style.setProperty('--light-y', `${py * 100}%`);
-
-    card.classList.add('is-tilting');
-    tiltX = rotateX;
-    tiltY = rotateY;
-    tiltScale = 1.03;
-    applyCardTransform();
-
-    const shadowX = (px - 0.5) * -22;
-    const shadowY = 22 + (py - 0.5) * 10;
-    inner.style.boxShadow = `${shadowX}px ${shadowY}px 38px rgba(0, 0, 0, 0.45), 0 0 18px rgba(217, 119, 87, 0.17)`;
-  }
-
-  if (supportsTilt) {
-    card.addEventListener('mousemove', handlePointerMove);
-    card.addEventListener('mouseleave', resetTilt);
-  }
-
-  function toggleFlip() {
+  const toggleFlip = () => {
     card.classList.toggle('flipped');
-    resetTilt();
-    applyCardTransform();
-  }
+  };
 
   card.addEventListener('click', (event) => {
     if (event.target.closest('a, button')) return;
@@ -431,8 +373,6 @@ projectCards.forEach((card) => {
       toggleFlip();
     }
   });
-
-  applyCardTransform();
 });
 
 // Contact form email delivery via Google Apps Script
