@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Elite dark-themed developer portfolio for Alex Carter featuring origin story, garage projects, technical arsenal, and contact section."
+    />
+    <meta name="keywords" content="developer portfolio, web developer, JavaScript, automation, indie hacker" />
+    <meta name="author" content="Alex Carter" />
+    <meta property="og:title" content="Alex Carter | Developer Portfolio" />
+    <meta
+      property="og:description"
+      content="Modern premium portfolio built with pure HTML, CSS, and JavaScript."
+    />
+    <meta property="og:type" content="website" />
+    <title>Alex Carter | Elite Developer Portfolio</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+    <header class="site-header" id="top">
+      <nav class="container nav" aria-label="Primary navigation">
+        <a href="#home" class="brand" aria-label="Go to home">AC//</a>
+
+        <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navMenu">
+          <span></span><span></span><span></span>
+          <span class="sr-only">Toggle menu</span>
+        </button>
+
+        <ul class="nav-menu" id="navMenu">
+          <li><a class="nav-link active" href="#home">Home</a></li>
+          <li><a class="nav-link" href="#origin">Origin</a></li>
+          <li><a class="nav-link" href="#garage">Garage</a></li>
+          <li><a class="nav-link" href="#arsenal">Arsenal</a></li>
+          <li><a class="nav-link" href="#signal">Signal Me</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero section" id="home" aria-label="Hero section">
+        <div class="hero-glow" aria-hidden="true"></div>
+        <div class="container hero-content reveal">
+          <p class="kicker">Independent Developer</p>
+          <h1>Alex Carter</h1>
+          <p class="hero-tagline">Designing fast, intelligent products that ship with intent.</p>
+          <p class="typing-wrap">
+            <span>I build as a </span><span id="typingText" aria-live="polite"></span><span class="cursor">|</span>
+          </p>
+          <p class="hero-subline">From MVPs to scalable systems — clarity, speed, and reliability in every release.</p>
+
+          <div class="hero-actions">
+            <a href="#garage" class="btn btn-primary">Explore Garage</a>
+            <a href="#signal" class="btn btn-ghost">Contact Me</a>
+          </div>
+
+          <div class="social-links" aria-label="Social links">
+            <a href="https://github.com" target="_blank" rel="noopener" aria-label="GitHub">GitHub</a>
+            <a href="https://x.com" target="_blank" rel="noopener" aria-label="X">X</a>
+            <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram">Instagram</a>
+            <a href="https://linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn">LinkedIn</a>
+            <a href="https://ko-fi.com" target="_blank" rel="noopener" aria-label="Ko-fi">Ko-fi</a>
+          </div>
+
+          <a href="#origin" class="scroll-indicator" aria-label="Scroll to Origin section">
+            <span></span>
+          </a>
+        </div>
+      </section>
+
+      <section class="section" id="origin" aria-label="Origin section">
+        <div class="container reveal">
+          <div class="section-heading">
+            <p class="kicker">Origin</p>
+            <h2>Built for depth, speed, and long-term impact.</h2>
+          </div>
+
+          <div class="origin-grid">
+            <figure class="origin-visual">
+              <img
+                src="https://images.unsplash.com/photo-1484417894907-623942c8ee29?auto=format&fit=crop&w=900&q=80"
+                alt="Developer setup with laptop and dark ambient lighting"
+                loading="lazy"
+              />
+            </figure>
+
+            <div class="origin-content">
+              <article>
+                <h3>Who I Am</h3>
+                <p>Product-minded full-stack developer obsessed with clean architecture and polished UX.</p>
+              </article>
+              <article>
+                <h3>What I Build</h3>
+                <p>Web apps, automation systems, and tools that eliminate friction and scale with confidence.</p>
+              </article>
+              <article>
+                <h3>How I Think</h3>
+                <p>Ship lean, measure early, optimize relentlessly. Every line should serve purpose.</p>
+              </article>
+              <article>
+                <h3>Long-Term Vision</h3>
+                <p>Build a portfolio of durable products that help teams move faster and think smarter.</p>
+              </article>
+            </div>
+          </div>
+
+          <div class="stack-strengths">
+            <div>
+              <h3>Tech Stack</h3>
+              <div class="chip-grid" aria-label="Tech stack chips">
+                <span>🌐 HTML</span><span>🎨 CSS</span><span>🧠 JavaScript</span><span>🟩 Node.js</span>
+                <span>🧪 APIs</span><span>🐍 Python</span><span>🐧 Linux</span><span>⚙️ Bash</span>
+              </div>
+            </div>
+            <div>
+              <h3>Core Strengths</h3>
+              <ul class="strengths-list">
+                <li>Problem-solving under complexity</li>
+                <li>Clean code mindset</li>
+                <li>Performance-focused builds</li>
+                <li>Automation-driven thinking</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="garage" aria-label="Garage projects section">
+        <div class="container reveal">
+          <div class="section-heading">
+            <p class="kicker">Garage</p>
+            <h2>Where ideas become products.</h2>
+          </div>
+
+          <div class="filters" role="toolbar" aria-label="Project category filters">
+            <button class="filter-btn active" data-filter="all" type="button">All</button>
+            <button class="filter-btn" data-filter="web" type="button">Web</button>
+            <button class="filter-btn" data-filter="bots" type="button">Bots</button>
+            <button class="filter-btn" data-filter="tools" type="button">Tools</button>
+            <button class="filter-btn" data-filter="experiments" type="button">Experiments</button>
+          </div>
+
+          <div class="projects-grid" id="projectsGrid">
+            <article class="project-card" data-category="bots">
+              <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=900&q=80" alt="AI Chat Bot dashboard preview" loading="lazy" />
+              <div class="project-body">
+                <h3>AI Chat Bot</h3>
+                <p>Conversational assistant with contextual memory, intent routing, and response analytics.</p>
+                <div class="tags"><span>Node.js</span><span>NLP</span><span>WebSocket</span></div>
+                <div class="project-links"><a class="btn btn-ghost" href="https://github.com" target="_blank" rel="noopener">GitHub</a><a class="btn btn-primary" href="https://example.com/ai-chat-bot" target="_blank" rel="noopener" aria-label="Live demo for AI Chat Bot">Live Demo</a></div>
+              </div>
+            </article>
+
+            <article class="project-card" data-category="tools">
+              <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=900&q=80" alt="Automation Toolkit preview" loading="lazy" />
+              <div class="project-body">
+                <h3>Automation Toolkit</h3>
+                <p>Task runners and workflow scripts for repetitive engineering tasks and deployment chores.</p>
+                <div class="tags"><span>Python</span><span>Bash</span><span>CLI</span></div>
+                <div class="project-links"><a class="btn btn-ghost" href="https://github.com" target="_blank" rel="noopener">GitHub</a><a class="btn btn-primary" href="https://example.com/automation-toolkit" target="_blank" rel="noopener" aria-label="Live demo for Automation Toolkit">Live Demo</a></div>
+              </div>
+            </article>
+
+            <article class="project-card" data-category="web">
+              <img src="https://images.unsplash.com/photo-1523437113738-bbd3cc89fb19?auto=format&fit=crop&w=900&q=80" alt="Developer Portfolio preview" loading="lazy" />
+              <div class="project-body">
+                <h3>Developer Portfolio</h3>
+                <p>High-conversion personal brand site with smooth interactions and conversion-focused layout.</p>
+                <div class="tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+                <div class="project-links"><a class="btn btn-ghost" href="https://github.com" target="_blank" rel="noopener">GitHub</a><a class="btn btn-primary" href="https://example.com/developer-portfolio" target="_blank" rel="noopener" aria-label="Live demo for Developer Portfolio">Live Demo</a></div>
+              </div>
+            </article>
+
+            <article class="project-card" data-category="tools">
+              <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=900&q=80" alt="CLI Utility terminal preview" loading="lazy" />
+              <div class="project-body">
+                <h3>CLI Utility</h3>
+                <p>A lightweight terminal utility for project scaffolding, task generation, and script chaining.</p>
+                <div class="tags"><span>Node CLI</span><span>DX</span><span>Automation</span></div>
+                <div class="project-links"><a class="btn btn-ghost" href="https://github.com" target="_blank" rel="noopener">GitHub</a><a class="btn btn-primary" href="https://example.com/cli-utility" target="_blank" rel="noopener" aria-label="Live demo for CLI Utility">Live Demo</a></div>
+              </div>
+            </article>
+
+            <article class="project-card" data-category="experiments">
+              <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=900&q=80" alt="Experimental UI Lab preview" loading="lazy" />
+              <div class="project-body">
+                <h3>Experimental UI Lab</h3>
+                <p>Creative interaction prototypes exploring motion systems, micro-states, and UI behavior models.</p>
+                <div class="tags"><span>Motion</span><span>UI</span><span>Prototyping</span></div>
+                <div class="project-links"><a class="btn btn-ghost" href="https://github.com" target="_blank" rel="noopener">GitHub</a><a class="btn btn-primary" href="https://example.com/experimental-ui-lab" target="_blank" rel="noopener" aria-label="Live demo for Experimental UI Lab">Live Demo</a></div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="arsenal" aria-label="Arsenal skills section">
+        <div class="container reveal">
+          <div class="section-heading">
+            <p class="kicker">Arsenal</p>
+            <h2>Technical range with execution discipline.</h2>
+          </div>
+
+          <div class="arsenal-grid">
+            <article class="skill-block"><h3>Frontend</h3><p>HTML · CSS · JavaScript · UI Design</p></article>
+            <article class="skill-block"><h3>Backend</h3><p>Node.js · APIs · Authentication</p></article>
+            <article class="skill-block"><h3>Automation</h3><p>Bash · Python · Script Tooling</p></article>
+            <article class="skill-block"><h3>Tools</h3><p>Git · GitHub · VS Code · Linux</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="signal" aria-label="Contact section">
+        <div class="container reveal">
+          <div class="section-heading">
+            <p class="kicker">Signal Me</p>
+            <h2>Let’s Build Something Powerful</h2>
+          </div>
+
+          <form class="contact-form" id="contactForm" aria-label="Contact form">
+            <label for="name">Name</label>
+            <input id="name" name="name" type="text" autocomplete="name" required />
+
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" autocomplete="email" required />
+
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+
+            <button class="btn btn-primary" type="submit">Send Signal</button>
+            <p class="form-success" id="formSuccess" role="status" aria-live="polite"></p>
+          </form>
+
+          <div class="social-links" aria-label="Contact social links">
+            <a href="https://github.com" target="_blank" rel="noopener">GitHub</a>
+            <a href="https://x.com" target="_blank" rel="noopener">X</a>
+            <a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a>
+            <a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn</a>
+            <a href="https://ko-fi.com" target="_blank" rel="noopener">Ko-fi</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer-inner">
+        <p>© <span id="year"></span> Alex Carter. Crafted with intent.</p>
+        <a href="#home" class="to-top" aria-label="Back to top">↑ Top</a>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
