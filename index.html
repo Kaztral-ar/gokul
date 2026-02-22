@@ -5,22 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Elite dark-themed developer portfolio for Alex Carter featuring origin story, garage projects, technical arsenal, and contact section."
+      content="Dark terminal-style developer portfolio for Kaztral featuring intro, profile, projects, technical arsenal, and contact section."
     />
-    <meta name="keywords" content="developer portfolio, web developer, JavaScript, automation, indie hacker" />
-    <meta name="author" content="Alex Carter" />
-    <meta property="og:title" content="Alex Carter | Developer Portfolio" />
+    <meta name="keywords" content="Kaztral, developer portfolio, web developer, terminal UI, JavaScript, automation" />
+    <meta name="author" content="Kaztral" />
+    <meta property="og:title" content="Kaztral | Developer Portfolio" />
     <meta
       property="og:description"
-      content="Modern premium portfolio built with pure HTML, CSS, and JavaScript."
+      content="Modern terminal-inspired portfolio built with pure HTML, CSS, and JavaScript."
     />
     <meta property="og:type" content="website" />
-    <title>Alex Carter | Elite Developer Portfolio</title>
+    <title>Kaztral | Developer Portfolio</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
@@ -31,7 +31,7 @@
 
     <header class="site-header" id="top">
       <nav class="container nav" aria-label="Primary navigation">
-        <a href="#home" class="brand" aria-label="Go to home">AC//</a>
+        <a href="#home" class="brand" aria-label="Go to home">KZ//</a>
 
         <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navMenu">
           <span></span><span></span><span></span>
@@ -40,136 +40,103 @@
 
         <ul class="nav-menu" id="navMenu">
           <li><a class="nav-link active" href="#home">Home</a></li>
-          <li><a class="nav-link" href="#origin">Origin</a></li>
-          <li><a class="nav-link" href="#garage">Garage</a></li>
+          <li><a class="nav-link" href="#origin">About</a></li>
+          <li><a class="nav-link" href="#projects">Projects</a></li>
           <li><a class="nav-link" href="#arsenal">Arsenal</a></li>
-          <li><a class="nav-link" href="#signal">Signal Me</a></li>
+          <li><a class="nav-link" href="#signal">Contact</a></li>
         </ul>
       </nav>
     </header>
 
     <main>
       <section class="hero section" id="home" aria-label="Hero section">
-        <div class="hero-glow" aria-hidden="true"></div>
-        <div class="container hero-content reveal">
-          <p class="kicker">Independent Developer</p>
-          <h1>Alex Carter</h1>
-          <p class="hero-tagline">Designing fast, intelligent products that ship with intent.</p>
-          <p class="typing-wrap">
-            <span>I build as a </span><span id="typingText" aria-live="polite"></span><span class="cursor">|</span>
-          </p>
-          <p class="hero-subline">From MVPs to scalable systems — clarity, speed, and reliability in every release.</p>
+        <div class="container reveal">
+          <article class="terminal-window hero-terminal" aria-label="Terminal intro">
+            <div class="terminal-bar" aria-hidden="true">
+              <span class="dot dot-red"></span>
+              <span class="dot dot-yellow"></span>
+              <span class="dot dot-green"></span>
+              <p class="terminal-title">kaztral@portfolio:~</p>
+            </div>
+            <div class="terminal-body">
+              <p class="line">Initializing Portfolio...</p>
+              <p class="line">Loading Developer Profile...</p>
+              <p class="line"><span class="label">User:</span> Kaztral</p>
+              <p class="line"><span class="label">Status:</span> Online</p>
+              <p class="line"><span class="label">Role:</span> <span id="typingText" aria-live="polite"></span><span class="cursor">▋</span></p>
+            </div>
+          </article>
 
           <div class="hero-actions">
-            <a href="#garage" class="btn btn-primary">Explore Garage</a>
-            <a href="#signal" class="btn btn-ghost">Contact Me</a>
+            <a href="#projects" class="btn btn-primary">View Projects</a>
+            <a href="#signal" class="btn btn-ghost">Contact</a>
           </div>
 
-          <div class="social-links" aria-label="Social links">
-            <a href="https://github.com" target="_blank" rel="noopener" aria-label="GitHub">GitHub</a>
-            <a href="https://x.com" target="_blank" rel="noopener" aria-label="X">X</a>
-            <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram">Instagram</a>
-            <a href="https://linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn">LinkedIn</a>
-            <a href="https://ko-fi.com" target="_blank" rel="noopener" aria-label="Ko-fi">Ko-fi</a>
-          </div>
-
-          <a href="#origin" class="scroll-indicator" aria-label="Scroll to Origin section">
+          <a href="#origin" class="scroll-indicator" aria-label="Scroll to About section">
             <span></span>
           </a>
         </div>
       </section>
 
-      <section class="section" id="origin" aria-label="Origin section">
+      <section class="section" id="origin" aria-label="About section">
         <div class="container reveal">
           <div class="section-heading">
             <p class="kicker">About</p>
             <h2>Terminal session: Kaztral</h2>
           </div>
 
-          <article class="about-terminal" id="aboutTerminal" aria-label="Terminal style about profile">
-            <div class="about-terminal__bar" aria-hidden="true">
+          <article class="terminal-window" id="aboutTerminal" aria-label="Terminal style about profile">
+            <div class="terminal-bar" aria-hidden="true">
               <span class="dot dot-red"></span>
               <span class="dot dot-yellow"></span>
               <span class="dot dot-green"></span>
+              <p class="terminal-title">profile.log</p>
             </div>
-            <div class="about-terminal__body">
+            <div class="terminal-body">
               <p class="about-accent" data-type-line="* Loading Kaztral profile..."></p>
               <div class="about-lines" aria-live="polite">
-                <p class="about-line" data-prefix="> " data-type-line="Hello."></p>
-                <p class="about-line" data-prefix="> " data-type-line="My name is Kaztral."></p>
-                <p class="about-line" data-prefix="> " data-type-line="I build web systems, automation tools, and AI-powered bots."></p>
-                <p class="about-line" data-prefix="> " data-type-line="I focus on performance, clean architecture, and scalable design."></p>
-                <p class="about-line" data-prefix="> " data-type-line="Engineering clarity. Building precision."></p>
-                <p class="about-line" data-prefix="> " data-type-line="Welcome to my workspace."></p>
+                <p class="about-line" data-prefix="> " data-type-line="Hello, I am Kaztral."></p>
+                <p class="about-line" data-prefix="> " data-type-line="Developer, web designer, and Bash tool builder."></p>
+                <p class="about-line" data-prefix="> " data-type-line="I craft reliable web systems and automation workflows."></p>
+                <p class="about-line" data-prefix="> " data-type-line="I value clean architecture, speed, and practical UX."></p>
               </div>
             </div>
           </article>
         </div>
       </section>
 
-      <section class="section" id="garage" aria-label="Garage projects section">
+      <section class="section" id="projects" aria-label="Projects section">
         <div class="container reveal">
           <div class="section-heading">
-            <p class="kicker">Garage</p>
-            <h2>Where ideas become products.</h2>
+            <p class="kicker">🚀 Projects</p>
+            <h2>Built for automation, speed, and utility.</h2>
           </div>
 
-          <div class="filters" role="toolbar" aria-label="Project category filters">
-            <button class="filter-btn active" data-filter="all" type="button">All</button>
-            <button class="filter-btn" data-filter="web" type="button">Web</button>
-            <button class="filter-btn" data-filter="bots" type="button">Bots</button>
-            <button class="filter-btn" data-filter="tools" type="button">Tools</button>
-            <button class="filter-btn" data-filter="experiments" type="button">Experiments</button>
-          </div>
-
-          <div class="projects-grid" id="projectsGrid">
-            <article class="project-card" data-category="bots">
-              <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=900&q=80" alt="AI Chat Bot dashboard preview" loading="lazy" />
-              <div class="project-body">
-                <h3>AI Chat Bot</h3>
-                <p>Conversational assistant with contextual memory, intent routing, and response analytics.</p>
-                <div class="tags"><span>Node.js</span><span>NLP</span><span>WebSocket</span></div>
-                <div class="project-links"><a class="btn btn-ghost" href="https://github.com" target="_blank" rel="noopener">GitHub</a><a class="btn btn-primary" href="https://example.com/ai-chat-bot" target="_blank" rel="noopener" aria-label="Live demo for AI Chat Bot">Live Demo</a></div>
-              </div>
-            </article>
-
+          <div class="projects-grid">
             <article class="project-card" data-category="tools">
-              <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=900&q=80" alt="Automation Toolkit preview" loading="lazy" />
               <div class="project-body">
-                <h3>Automation Toolkit</h3>
-                <p>Task runners and workflow scripts for repetitive engineering tasks and deployment chores.</p>
-                <div class="tags"><span>Python</span><span>Bash</span><span>CLI</span></div>
-                <div class="project-links"><a class="btn btn-ghost" href="https://github.com" target="_blank" rel="noopener">GitHub</a><a class="btn btn-primary" href="https://example.com/automation-toolkit" target="_blank" rel="noopener" aria-label="Live demo for Automation Toolkit">Live Demo</a></div>
+                <h3>Delulu Terminal Assistant</h3>
+                <p>Advanced terminal-based AI assistant with offline + API modes.</p>
+                <div class="project-links">
+                  <a class="btn btn-ghost" href="https://github.com/Kaztral-ar/delulubot.git" target="_blank" rel="noopener">GitHub</a>
+                </div>
               </div>
             </article>
 
-            <article class="project-card" data-category="web">
-              <img src="https://images.unsplash.com/photo-1523437113738-bbd3cc89fb19?auto=format&fit=crop&w=900&q=80" alt="Developer Portfolio preview" loading="lazy" />
+            <article class="project-card" data-category="automation">
               <div class="project-body">
-                <h3>Developer Portfolio</h3>
-                <p>High-conversion personal brand site with smooth interactions and conversion-focused layout.</p>
-                <div class="tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
-                <div class="project-links"><a class="btn btn-ghost" href="https://github.com" target="_blank" rel="noopener">GitHub</a><a class="btn btn-primary" href="https://example.com/developer-portfolio" target="_blank" rel="noopener" aria-label="Live demo for Developer Portfolio">Live Demo</a></div>
+                <h3>Tele Bot Template</h3>
+                <p>Telegram bot template for scalable automation deployments.</p>
               </div>
             </article>
 
-            <article class="project-card" data-category="tools">
-              <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=900&q=80" alt="CLI Utility terminal preview" loading="lazy" />
+            <article class="project-card" data-category="automation">
               <div class="project-body">
-                <h3>CLI Utility</h3>
-                <p>A lightweight terminal utility for project scaffolding, task generation, and script chaining.</p>
-                <div class="tags"><span>Node CLI</span><span>DX</span><span>Automation</span></div>
-                <div class="project-links"><a class="btn btn-ghost" href="https://github.com" target="_blank" rel="noopener">GitHub</a><a class="btn btn-primary" href="https://example.com/cli-utility" target="_blank" rel="noopener" aria-label="Live demo for CLI Utility">Live Demo</a></div>
-              </div>
-            </article>
-
-            <article class="project-card" data-category="experiments">
-              <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=900&q=80" alt="Experimental UI Lab preview" loading="lazy" />
-              <div class="project-body">
-                <h3>Experimental UI Lab</h3>
-                <p>Creative interaction prototypes exploring motion systems, micro-states, and UI behavior models.</p>
-                <div class="tags"><span>Motion</span><span>UI</span><span>Prototyping</span></div>
-                <div class="project-links"><a class="btn btn-ghost" href="https://github.com" target="_blank" rel="noopener">GitHub</a><a class="btn btn-primary" href="https://example.com/experimental-ui-lab" target="_blank" rel="noopener" aria-label="Live demo for Experimental UI Lab">Live Demo</a></div>
+                <h3>Channel Manage Bot</h3>
+                <p>Telegram channel automation and moderation bot.</p>
+                <div class="project-links">
+                  <a class="btn btn-ghost" href="https://github.com/Kaztral-ar/Telebot.git" target="_blank" rel="noopener">GitHub</a>
+                </div>
               </div>
             </article>
           </div>
@@ -184,10 +151,10 @@
           </div>
 
           <div class="arsenal-grid">
-            <article class="skill-block"><h3>Frontend</h3><p>HTML · CSS · JavaScript · UI Design</p></article>
+            <article class="skill-block"><h3>Frontend</h3><p>HTML · CSS · JavaScript · Terminal UI</p></article>
             <article class="skill-block"><h3>Backend</h3><p>Node.js · APIs · Authentication</p></article>
-            <article class="skill-block"><h3>Automation</h3><p>Bash · Python · Script Tooling</p></article>
-            <article class="skill-block"><h3>Tools</h3><p>Git · GitHub · VS Code · Linux</p></article>
+            <article class="skill-block"><h3>Automation</h3><p>Bash · Python · CLI Tooling</p></article>
+            <article class="skill-block"><h3>Workflow</h3><p>Git · GitHub · Linux · CI</p></article>
           </div>
         </div>
       </section>
@@ -195,8 +162,8 @@
       <section class="section" id="signal" aria-label="Contact section">
         <div class="container reveal">
           <div class="section-heading">
-            <p class="kicker">Signal Me</p>
-            <h2>Let’s Build Something Powerful</h2>
+            <p class="kicker">Contact</p>
+            <h2>Let’s build something powerful.</h2>
           </div>
 
           <form class="contact-form" id="contactForm" aria-label="Contact form">
@@ -212,23 +179,16 @@
             <button class="btn btn-primary" type="submit">Send Signal</button>
             <p class="form-success" id="formSuccess" role="status" aria-live="polite"></p>
           </form>
-
-          <div class="social-links" aria-label="Contact social links">
-            <a href="https://github.com" target="_blank" rel="noopener">GitHub</a>
-            <a href="https://x.com" target="_blank" rel="noopener">X</a>
-            <a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a>
-            <a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn</a>
-            <a href="https://ko-fi.com" target="_blank" rel="noopener">Ko-fi</a>
-          </div>
         </div>
       </section>
     </main>
 
     <footer class="footer">
       <div class="container footer-inner">
-        <p>© <span id="year"></span> Alex Carter. Crafted with intent.</p>
+        <p>© <span id="year"></span> Kaztral. Crafted in terminal mode.</p>
         <a href="#home" class="to-top" aria-label="Back to top">↑ Top</a>
       </div>
+      <p class="sr-only">Kaztral terminal portfolio website.</p>
     </footer>
 
     <script src="script.js"></script>

@@ -19,22 +19,21 @@ if (navToggle && navMenu) {
 
 // Typing effect
 const typingText = document.getElementById('typingText');
-const roles = ['Full-Stack Engineer', 'Automation Architect', 'Product-Focused Builder'];
-let roleIndex = 0;
+const roles = ['Developer | Web Designer | Bash Tool Builder'];
 let charIndex = 0;
 let isDeleting = false;
 
 function runTyping() {
   if (!typingText) return;
 
-  const role = roles[roleIndex];
+  const role = roles[0];
 
   if (!isDeleting) {
     charIndex += 1;
     typingText.textContent = role.slice(0, charIndex);
     if (charIndex === role.length) {
       isDeleting = true;
-      setTimeout(runTyping, 1200);
+      setTimeout(runTyping, 1300);
       return;
     }
   } else {
@@ -43,11 +42,10 @@ function runTyping() {
 
     if (charIndex === 0) {
       isDeleting = false;
-      roleIndex = (roleIndex + 1) % roles.length;
     }
   }
 
-  setTimeout(runTyping, isDeleting ? 45 : 75);
+  setTimeout(runTyping, isDeleting ? 28 : 52);
 }
 
 runTyping();
@@ -55,7 +53,7 @@ runTyping();
 // About terminal typing effect
 const aboutTerminal = document.getElementById('aboutTerminal');
 
-function typeLine(element, text, speed = 32) {
+function typeLine(element, text, speed = 24) {
   return new Promise((resolve) => {
     let i = 0;
 
@@ -81,8 +79,8 @@ async function runAboutTyping() {
   aboutTerminal.dataset.typed = 'true';
 
   for (const line of lines) {
-    await typeLine(line, line.dataset.typeLine || '', 30);
-    await new Promise((resolve) => window.setTimeout(resolve, 180));
+    await typeLine(line, line.dataset.typeLine || '', 24);
+    await new Promise((resolve) => window.setTimeout(resolve, 130));
   }
 }
 
@@ -155,24 +153,6 @@ function setActiveNav() {
 window.addEventListener('scroll', setActiveNav, { passive: true });
 setActiveNav();
 
-// Garage filters
-const filterButtons = document.querySelectorAll('.filter-btn');
-const projectCards = document.querySelectorAll('.project-card');
-
-filterButtons.forEach((button) => {
-  button.addEventListener('click', () => {
-    const filter = button.dataset.filter;
-
-    filterButtons.forEach((btn) => btn.classList.remove('active'));
-    button.classList.add('active');
-
-    projectCards.forEach((card) => {
-      const match = filter === 'all' || card.dataset.category === filter;
-      card.style.display = match ? '' : 'none';
-    });
-  });
-});
-
 // Contact success message
 const contactForm = document.getElementById('contactForm');
 const formSuccess = document.getElementById('formSuccess');
@@ -180,7 +160,7 @@ const formSuccess = document.getElementById('formSuccess');
 if (contactForm && formSuccess) {
   contactForm.addEventListener('submit', (event) => {
     event.preventDefault();
-    formSuccess.textContent = 'Signal received. I will get back to you shortly.';
+    formSuccess.textContent = 'Signal received. Kaztral will respond shortly.';
     contactForm.reset();
     window.setTimeout(() => {
       formSuccess.textContent = '';
