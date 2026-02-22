@@ -355,22 +355,22 @@ if (capabilitiesDeck) {
 }
 
 // Projects clean two-sided flip cards
-const projectCards = document.querySelectorAll('.project-card');
+const cards = document.querySelectorAll('.card');
 
-projectCards.forEach((card) => {
-  const toggleFlip = () => {
-    card.classList.toggle('flipped');
+cards.forEach((card) => {
+  const toggleFunction = () => {
+    card.classList.toggle('active');
   };
 
   card.addEventListener('click', (event) => {
     if (event.target.closest('a, button')) return;
-    toggleFlip();
+    toggleFunction();
   });
 
   card.addEventListener('keydown', (event) => {
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault();
-      toggleFlip();
+      toggleFunction();
     }
   });
 });
