@@ -52,6 +52,56 @@ function runTyping() {
 
 runTyping();
 
+// About terminal typing effect
+const aboutTerminal = document.getElementById('aboutTerminal');
+
+function typeLine(element, text, speed = 32) {
+  return new Promise((resolve) => {
+    let i = 0;
+
+    function step() {
+      element.textContent = text.slice(0, i);
+      i += 1;
+      if (i <= text.length) {
+        window.setTimeout(step, speed);
+      } else {
+        element.classList.add('typed');
+        resolve();
+      }
+    }
+
+    step();
+  });
+}
+
+async function runAboutTyping() {
+  if (!aboutTerminal || aboutTerminal.dataset.typed === 'true') return;
+
+  const lines = aboutTerminal.querySelectorAll('[data-type-line]');
+  aboutTerminal.dataset.typed = 'true';
+
+  for (const line of lines) {
+    await typeLine(line, line.dataset.typeLine || '', 30);
+    await new Promise((resolve) => window.setTimeout(resolve, 180));
+  }
+}
+
+if (aboutTerminal) {
+  const aboutObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          runAboutTyping();
+          aboutObserver.disconnect();
+        }
+      });
+    },
+    { threshold: 0.35 }
+  );
+
+  aboutObserver.observe(aboutTerminal);
+}
+
 // Scroll progress bar
 const scrollProgress = document.getElementById('scrollProgress');
 

@@ -20,7 +20,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
@@ -82,57 +82,28 @@
       <section class="section" id="origin" aria-label="Origin section">
         <div class="container reveal">
           <div class="section-heading">
-            <p class="kicker">Origin</p>
-            <h2>Built for depth, speed, and long-term impact.</h2>
+            <p class="kicker">About</p>
+            <h2>Terminal session: Kaztral</h2>
           </div>
 
-          <div class="origin-grid">
-            <figure class="origin-visual">
-              <img
-                src="https://images.unsplash.com/photo-1484417894907-623942c8ee29?auto=format&fit=crop&w=900&q=80"
-                alt="Developer setup with laptop and dark ambient lighting"
-                loading="lazy"
-              />
-            </figure>
-
-            <div class="origin-content">
-              <article>
-                <h3>Who I Am</h3>
-                <p>Product-minded full-stack developer obsessed with clean architecture and polished UX.</p>
-              </article>
-              <article>
-                <h3>What I Build</h3>
-                <p>Web apps, automation systems, and tools that eliminate friction and scale with confidence.</p>
-              </article>
-              <article>
-                <h3>How I Think</h3>
-                <p>Ship lean, measure early, optimize relentlessly. Every line should serve purpose.</p>
-              </article>
-              <article>
-                <h3>Long-Term Vision</h3>
-                <p>Build a portfolio of durable products that help teams move faster and think smarter.</p>
-              </article>
+          <article class="about-terminal" id="aboutTerminal" aria-label="Terminal style about profile">
+            <div class="about-terminal__bar" aria-hidden="true">
+              <span class="dot dot-red"></span>
+              <span class="dot dot-yellow"></span>
+              <span class="dot dot-green"></span>
             </div>
-          </div>
-
-          <div class="stack-strengths">
-            <div>
-              <h3>Tech Stack</h3>
-              <div class="chip-grid" aria-label="Tech stack chips">
-                <span>🌐 HTML</span><span>🎨 CSS</span><span>🧠 JavaScript</span><span>🟩 Node.js</span>
-                <span>🧪 APIs</span><span>🐍 Python</span><span>🐧 Linux</span><span>⚙️ Bash</span>
+            <div class="about-terminal__body">
+              <p class="about-accent" data-type-line="* Loading Kaztral profile..."></p>
+              <div class="about-lines" aria-live="polite">
+                <p class="about-line" data-prefix="> " data-type-line="Hello."></p>
+                <p class="about-line" data-prefix="> " data-type-line="My name is Kaztral."></p>
+                <p class="about-line" data-prefix="> " data-type-line="I build web systems, automation tools, and AI-powered bots."></p>
+                <p class="about-line" data-prefix="> " data-type-line="I focus on performance, clean architecture, and scalable design."></p>
+                <p class="about-line" data-prefix="> " data-type-line="Engineering clarity. Building precision."></p>
+                <p class="about-line" data-prefix="> " data-type-line="Welcome to my workspace."></p>
               </div>
             </div>
-            <div>
-              <h3>Core Strengths</h3>
-              <ul class="strengths-list">
-                <li>Problem-solving under complexity</li>
-                <li>Clean code mindset</li>
-                <li>Performance-focused builds</li>
-                <li>Automation-driven thinking</li>
-              </ul>
-            </div>
-          </div>
+          </article>
         </div>
       </section>
 

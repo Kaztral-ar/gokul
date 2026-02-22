@@ -275,25 +275,82 @@ h3 {
   100% { transform: translateY(15px); opacity: 0.1; }
 }
 
-.origin-grid {
-  display: grid;
-  gap: 1.2rem;
-}
-
-.origin-visual img {
+.about-terminal {
+  margin-top: 1.2rem;
+  background: #111;
+  border: 1px solid rgba(255, 120, 73, 0.55);
   border-radius: 18px;
-  border: 1px solid var(--line);
-  box-shadow: var(--shadow);
-  height: 100%;
-  object-fit: cover;
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.45);
+  overflow: hidden;
+  font-family: "JetBrains Mono", "Fira Code", ui-monospace, SFMono-Regular, Menlo, monospace;
+  transition: box-shadow 0.25s ease, border-color 0.25s ease;
 }
 
-.origin-content {
-  display: grid;
-  gap: 0.9rem;
+.about-terminal:hover {
+  border-color: rgba(255, 120, 73, 0.85);
+  box-shadow: 0 0 0 1px rgba(255, 120, 73, 0.35), 0 0 22px rgba(255, 120, 73, 0.22);
 }
 
-.origin-content article,
+.about-terminal__bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1rem;
+  border-bottom: 1px solid rgba(255, 120, 73, 0.2);
+  background: #0d0d0d;
+}
+
+.dot {
+  width: 0.72rem;
+  height: 0.72rem;
+  border-radius: 50%;
+}
+
+.dot-red { background: #ff5f57; }
+.dot-yellow { background: #febc2e; }
+.dot-green { background: #28c840; }
+
+.about-terminal__body {
+  padding: 1.1rem 1rem 1.2rem;
+  color: #e6e6e6;
+  font-size: clamp(0.9rem, 0.75rem + 0.35vw, 1.05rem);
+}
+
+.about-accent,
+.about-line {
+  margin: 0;
+  min-height: 1.9em;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.about-accent {
+  color: #ff7849;
+}
+
+.about-line {
+  color: #d6d6d6;
+}
+
+.about-line::before {
+  content: attr(data-prefix);
+  color: #ff7849;
+}
+
+.about-accent::after,
+.about-line::after {
+  content: "█";
+  margin-left: 0.28rem;
+  color: #ff7849;
+  animation: blink 1s steps(1) infinite;
+}
+
+.about-accent.typed::after,
+.about-line.typed::after {
+  opacity: 0;
+}
+
 .skill-block,
 .project-card,
 .contact-form,
@@ -517,14 +574,6 @@ h3 {
   .hero-actions {
     flex-direction: row;
     justify-content: center;
-  }
-
-  .origin-grid {
-    grid-template-columns: 0.9fr 1.1fr;
-  }
-
-  .stack-strengths {
-    grid-template-columns: 1fr 1fr;
   }
 
   .projects-grid {
