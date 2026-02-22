@@ -202,7 +202,59 @@ body.loaded .page-content {
 }
 
 .hero {
+  position: relative;
   padding-top: 3.2rem;
+  overflow: hidden;
+}
+
+.hero-code-bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.9s ease;
+}
+
+.hero-code-bg.active {
+  opacity: 1;
+}
+
+.hero-code-bg pre {
+  margin: 0;
+  padding: 1rem;
+  min-width: 100%;
+  min-height: 200%;
+  color: rgba(168, 194, 230, 0.09);
+  font-family: 'JetBrains Mono', 'Fira Code', 'IBM Plex Mono', monospace;
+  font-size: clamp(0.62rem, 0.9vw, 0.78rem);
+  line-height: 1.45;
+  white-space: pre;
+  letter-spacing: 0.01em;
+  filter: blur(8px);
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+  animation: heroCodeScroll 28s linear infinite;
+  animation-play-state: paused;
+}
+
+.hero-code-bg.active pre {
+  animation-play-state: running;
+}
+
+@keyframes heroCodeScroll {
+  from {
+    transform: translate3d(0, -12%, 0);
+  }
+  to {
+    transform: translate3d(0, -52%, 0);
+  }
+}
+
+.hero .container {
+  position: relative;
+  z-index: 2;
 }
 
 .hero-terminal {
@@ -225,6 +277,8 @@ body.loaded .page-content {
 }
 
 .hero-actions {
+  position: relative;
+  z-index: 2;
   margin-top: 1.3rem;
   display: flex;
   justify-content: center;
@@ -261,6 +315,8 @@ body.loaded .page-content {
 }
 
 .scroll-indicator {
+  position: relative;
+  z-index: 2;
   margin: 1.8rem auto 0;
   display: inline-flex;
   width: 28px;

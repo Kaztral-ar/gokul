@@ -23,6 +23,7 @@ function typeLoaderLine(element, text, speed = 40) {
 async function runLoaderSequence() {
   if (!loaderOverlay || !pageContent) {
     document.body.classList.add('loaded');
+    activateHeroCodeBackground();
     return;
   }
 
@@ -37,9 +38,66 @@ async function runLoaderSequence() {
   await new Promise((resolve) => window.setTimeout(resolve, 1000));
   loaderOverlay.classList.add('hidden');
   document.body.classList.add('loaded');
+  window.setTimeout(activateHeroCodeBackground, 220);
 }
 
 runLoaderSequence();
+
+
+const heroCodeBg = document.getElementById('heroCodeBg');
+const heroCodePre = document.getElementById('heroCodePre');
+
+const heroCodeSnippets = [
+  "const buildSession = await bootstrap({ env: 'prod', cache: true });",
+  "if (!response.ok) throw new Error(`API ${response.status}: retrying...`);",
+  "git checkout -b feat/hero-bg && git commit -m \"chore: refine hero motion\"",
+  "curl -s https://api.kaztral.dev/v1/status | jq '.uptime,.region'",
+  "npm run lint && npm run test:smoke",
+  "[INFO] 14:22:11 websocket connected :: user=kaztral latency=31ms",
+  "docker compose up -d gateway worker redis",
+  "SELECT service, health, latency_ms FROM runtime_metrics ORDER BY latency_ms ASC;",
+  "for branch in $(git branch --format='%(refname:short)'); do echo \"sync:$branch\"; done",
+  "fetch('/api/deploy', { method: 'POST', body: JSON.stringify(payload) });",
+  "[WARN] auth.refresh token nearing expiry; rotating credentials",
+  "ssh prod-node-03 'journalctl -u edge-proxy -n 25 --no-pager'",
+  "const queueDepth = metrics.jobs.pending + metrics.jobs.retry;",
+  "rsync -az --delete ./dist/ deploy@edge:/srv/www/kaztral/",
+  "git log --oneline --decorate --graph -n 12",
+  "[TRACE] request_id=8f42d route=/signal method=POST status=202",
+  "pnpm dlx playwright test --project=chromium",
+  "watch -n 2 'kubectl get pods -n kaztral-stack'",
+  "const latencyBudgetMs = 120; // SLO guardrail",
+  "bash deploy.sh --region=ap-southeast --canary=15",
+  "[API] GET /v1/projects -> 200 (cache hit, 12ms)",
+  "git rebase origin/main --rebase-merges",
+  "const fallback = primary ?? secondary ?? emergencyMirror;",
+  "tar -czf backups/session-$(date +%F-%H%M).tgz ./logs ./config"
+];
+
+function randomCodeLine() {
+  const randomSnippet = heroCodeSnippets[Math.floor(Math.random() * heroCodeSnippets.length)];
+  const pad = ' '.repeat(Math.floor(Math.random() * 14));
+  const prefix = Math.random() > 0.5 ? '$ ' : '> ';
+  return `${pad}${prefix}${randomSnippet}`;
+}
+
+function generateHeroCodeBackground() {
+  if (!heroCodePre) return;
+
+  const lineCount = Math.floor(Math.random() * 41) + 80;
+  const lines = Array.from({ length: lineCount }, randomCodeLine);
+  heroCodePre.textContent = lines.join('\n');
+}
+
+function activateHeroCodeBackground() {
+  if (!heroCodeBg || !heroCodePre) return;
+
+  generateHeroCodeBackground();
+
+  window.requestAnimationFrame(() => {
+    heroCodeBg.classList.add('active');
+  });
+}
 
 // Mobile navigation
 const navToggle = document.getElementById('navToggle');
