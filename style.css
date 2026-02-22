@@ -215,10 +215,11 @@ body.loaded .page-content {
   z-index: 1;
   opacity: 0;
   transition: opacity 0.9s ease;
+  background: linear-gradient(180deg, rgba(116, 159, 204, 0.04), rgba(116, 159, 204, 0));
 }
 
 .hero-code-bg.active {
-  opacity: 1;
+  opacity: 0.92;
 }
 
 .hero-code-bg pre {

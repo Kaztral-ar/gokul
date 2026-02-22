@@ -50,7 +50,7 @@ function decorateLoaderLine(line) {
 async function runLoaderSequence() {
   if (!loaderOverlay || !pageContent) {
     document.body.classList.add('loaded');
-    activateHeroCodeBackground();
+    window.setTimeout(activateHeroCodeBackground, 760);
     return;
   }
 
@@ -66,7 +66,7 @@ async function runLoaderSequence() {
   await new Promise((resolve) => window.setTimeout(resolve, 1000));
   loaderOverlay.classList.add('hidden');
   document.body.classList.add('loaded');
-  window.setTimeout(activateHeroCodeBackground, 220);
+  window.setTimeout(activateHeroCodeBackground, 920);
 }
 
 runLoaderSequence();
