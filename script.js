@@ -120,6 +120,10 @@ if (navToggle && navMenu) {
 // About terminal typing effect
 const aboutTerminal = document.getElementById('aboutTerminal');
 
+function wait(ms) {
+  return new Promise((resolve) => window.setTimeout(resolve, ms));
+}
+
 function writeTypeLine(element, text, speed = 22) {
   return new Promise((resolve) => {
     let i = 0;
@@ -141,22 +145,34 @@ function writeTypeLine(element, text, speed = 22) {
   });
 }
 
-async function runAboutTypingLoop() {
+async function runAboutSequence() {
   if (!aboutTerminal) return;
 
-  const lines = Array.from(aboutTerminal.querySelectorAll('[data-type-line]'));
+  const loadingLine = aboutTerminal.querySelector('.about-accent');
+  const profileLines = Array.from(aboutTerminal.querySelectorAll('.about-line'));
+  const profileContainer = aboutTerminal.querySelector('.about-lines');
 
-  while (true) {
-    for (const line of lines) {
-      line.textContent = '';
-    }
+  if (!loadingLine || !profileContainer || profileLines.length === 0) return;
 
-    for (const line of lines) {
-      await writeTypeLine(line, line.dataset.typeLine || '', 22);
-      await new Promise((resolve) => window.setTimeout(resolve, 120));
-    }
+  loadingLine.textContent = '';
+  profileContainer.classList.remove('is-visible');
 
-    await new Promise((resolve) => window.setTimeout(resolve, 2600));
+  await writeTypeLine(loadingLine, loadingLine.dataset.typeLine || '', 30);
+
+  await wait(1150);
+
+  loadingLine.classList.add('is-clearing');
+  await wait(220);
+  loadingLine.textContent = '';
+  loadingLine.classList.remove('is-clearing');
+
+  await wait(160);
+  profileContainer.classList.add('is-visible');
+
+  for (const line of profileLines) {
+    line.textContent = '';
+    await writeTypeLine(line, line.dataset.typeLine || '', 20);
+    await wait(120);
   }
 }
 
@@ -166,7 +182,7 @@ if (aboutTerminal) {
       entries.forEach((entry) => {
         if (entry.isIntersecting && aboutTerminal.dataset.typingActive !== 'true') {
           aboutTerminal.dataset.typingActive = 'true';
-          runAboutTypingLoop();
+          runAboutSequence();
           aboutObserver.disconnect();
         }
       });

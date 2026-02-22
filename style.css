@@ -399,6 +399,26 @@ h2 { font-size: clamp(1.4rem, 2.5vw, 2rem); }
   min-height: 1.4em;
 }
 
+.about-accent {
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.about-accent.is-clearing {
+  opacity: 0;
+  transform: translateY(-4px);
+}
+
+.about-lines {
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.about-lines.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 
 .about-accent.is-typing::after,
 .about-line.is-typing::after {
