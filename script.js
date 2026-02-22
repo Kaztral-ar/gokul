@@ -1,3 +1,46 @@
+// Initial terminal loader
+const loaderOverlay = document.getElementById('loaderOverlay');
+const pageContent = document.getElementById('pageContent');
+
+function typeLoaderLine(element, text, speed = 40) {
+  return new Promise((resolve) => {
+    let i = 0;
+
+    function step() {
+      element.textContent = text.slice(0, i);
+      i += 1;
+      if (i <= text.length) {
+        window.setTimeout(step, speed);
+      } else {
+        resolve();
+      }
+    }
+
+    step();
+  });
+}
+
+async function runLoaderSequence() {
+  if (!loaderOverlay || !pageContent) {
+    document.body.classList.add('loaded');
+    return;
+  }
+
+  const loaderLines = loaderOverlay.querySelectorAll('[data-loader-line]');
+
+  for (const line of loaderLines) {
+    const text = line.dataset.loaderLine || '';
+    await typeLoaderLine(line, text, 34);
+    await new Promise((resolve) => window.setTimeout(resolve, 180));
+  }
+
+  await new Promise((resolve) => window.setTimeout(resolve, 1000));
+  loaderOverlay.classList.add('hidden');
+  document.body.classList.add('loaded');
+}
+
+runLoaderSequence();
+
 // Mobile navigation
 const navToggle = document.getElementById('navToggle');
 const navMenu = document.getElementById('navMenu');

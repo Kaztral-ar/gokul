@@ -28,6 +28,51 @@ body {
   line-height: 1.6;
 }
 
+
+body:not(.loaded) {
+  overflow: hidden;
+}
+
+.page-content {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.8s ease;
+}
+
+body.loaded .page-content {
+  opacity: 1;
+  visibility: visible;
+}
+
+.loader-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  display: grid;
+  place-items: center;
+  padding: 1.2rem;
+  background: radial-gradient(circle at top, #191e29, var(--bg) 50%);
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.loader-overlay.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.loader-terminal {
+  width: min(640px, 100%);
+}
+
+.loader-terminal .terminal-body {
+  min-height: 170px;
+}
+
+.loader-cursor-line {
+  margin-top: 0.8rem;
+}
+
 .container {
   width: min(1120px, 92vw);
   margin: 0 auto;
@@ -401,6 +446,11 @@ textarea:focus {
   .projects-grid,
   .arsenal-grid {
     grid-template-columns: 1fr;
+  }
+
+  .loader-terminal .terminal-body {
+    min-height: 150px;
+    padding: 1rem;
   }
 
   .footer-inner {

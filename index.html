@@ -27,7 +27,26 @@
   </head>
 
   <body>
-    <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+    <div class="loader-overlay" id="loaderOverlay" aria-live="polite">
+      <article class="terminal-window loader-terminal" aria-label="Loading session terminal">
+        <div class="terminal-bar" aria-hidden="true">
+          <span class="dot dot-red"></span>
+          <span class="dot dot-yellow"></span>
+          <span class="dot dot-green"></span>
+          <p class="terminal-title">boot.session</p>
+        </div>
+        <div class="terminal-body">
+          <p class="line" data-loader-line="kaztral@portfolio:~$"></p>
+          <p class="line" data-loader-line="Checking system status..."></p>
+          <p class="line" data-loader-line="Establishing secure session..."></p>
+          <p class="line" data-loader-line="Status: ONLINE"></p>
+          <p class="line loader-cursor-line"><span class="cursor" aria-hidden="true">▋</span></p>
+        </div>
+      </article>
+    </div>
+
+    <div class="page-content" id="pageContent">
+      <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
 
     <header class="site-header" id="top">
       <nav class="container nav" aria-label="Primary navigation">
@@ -190,6 +209,8 @@
       </div>
       <p class="sr-only">Kaztral terminal portfolio website.</p>
     </footer>
+
+    </div>
 
     <script src="script.js"></script>
   </body>
