@@ -415,18 +415,67 @@ projectCards.forEach((card) => {
   });
 });
 
-// Contact success message
+// Contact form email delivery via Google Apps Script
 const contactForm = document.getElementById('contactForm');
-const formSuccess = document.getElementById('formSuccess');
+const formStatus = document.getElementById('formStatus');
+const GOOGLE_APPS_SCRIPT_ENDPOINT = 'https://script.google.com/macros/s/REPLACE_WITH_DEPLOYMENT_ID/exec';
 
-if (contactForm && formSuccess) {
-  contactForm.addEventListener('submit', (event) => {
+if (contactForm && formStatus) {
+  contactForm.addEventListener('submit', async (event) => {
     event.preventDefault();
-    formSuccess.textContent = 'Signal received. Kaztral will respond shortly.';
-    contactForm.reset();
-    window.setTimeout(() => {
-      formSuccess.textContent = '';
-    }, 2800);
+
+    const submitButton = contactForm.querySelector('button[type="submit"]');
+    const name = contactForm.name.value.trim();
+    const email = contactForm.email.value.trim();
+    const message = contactForm.message.value.trim();
+
+    formStatus.textContent = '';
+
+    if (!name || !email || !message) {
+      formStatus.textContent = 'Please complete all fields before sending.';
+      return;
+    }
+
+    const payload = {
+      to: 'Kaztralgaming@gmail.com',
+      subject: 'New Message from Kaztral Portfolio',
+      body: `Name: ${name}
+Email: ${email}
+Message:
+${message}`,
+      name,
+      email,
+      message
+    };
+
+    try {
+      if (submitButton) {
+        submitButton.disabled = true;
+        submitButton.textContent = 'Sending...';
+      }
+
+      const response = await fetch(GOOGLE_APPS_SCRIPT_ENDPOINT, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to send message: ${response.status}`);
+      }
+
+      formStatus.textContent = 'Message sent successfully. Kaztral will reply soon.';
+      contactForm.reset();
+    } catch {
+      formStatus.textContent = 'Unable to send message right now. Please try again shortly.';
+    } finally {
+      if (submitButton) {
+        submitButton.disabled = false;
+        submitButton.textContent = 'Send Message';
+      }
+    }
   });
 }
 
