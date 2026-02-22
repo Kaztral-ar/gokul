@@ -196,6 +196,85 @@ function setActiveNav() {
 window.addEventListener('scroll', setActiveNav, { passive: true });
 setActiveNav();
 
+
+// Arsenal swipe deck
+function initArsenalDeck() {
+  const arsenalSection = document.getElementById('arsenal');
+  const deck = document.getElementById('arsenalDeck');
+  if (!arsenalSection || !deck) return;
+
+  const cards = Array.from(deck.querySelectorAll('.arsenal-card'));
+  if (!cards.length) return;
+
+  let activeIndex = 0;
+  let isAnimating = false;
+  const maxIndex = cards.length - 1;
+
+  function paintDeck() {
+    cards.forEach((card, index) => {
+      card.classList.remove('is-active', 'is-prev', 'is-next');
+
+      if (index === activeIndex) {
+        card.classList.add('is-active');
+      } else if (index < activeIndex) {
+        card.classList.add('is-prev');
+      } else {
+        card.classList.add('is-next');
+      }
+    });
+  }
+
+  function shiftDeck(direction) {
+    if (isAnimating) return false;
+
+    if (direction > 0 && activeIndex < maxIndex) {
+      activeIndex += 1;
+    } else if (direction < 0 && activeIndex > 0) {
+      activeIndex -= 1;
+    } else {
+      return false;
+    }
+
+    isAnimating = true;
+    paintDeck();
+    window.setTimeout(() => {
+      isAnimating = false;
+    }, 520);
+    return true;
+  }
+
+  function onWheel(event) {
+    if (Math.abs(event.deltaY) < 8) return;
+    const moved = shiftDeck(event.deltaY > 0 ? 1 : -1);
+    if (moved) {
+      event.preventDefault();
+    }
+  }
+
+  let startY = 0;
+  let movedY = 0;
+
+  deck.addEventListener('wheel', onWheel, { passive: false });
+
+  deck.addEventListener('touchstart', (event) => {
+    startY = event.touches[0].clientY;
+    movedY = 0;
+  }, { passive: true });
+
+  deck.addEventListener('touchmove', (event) => {
+    movedY = event.touches[0].clientY - startY;
+  }, { passive: true });
+
+  deck.addEventListener('touchend', () => {
+    if (Math.abs(movedY) < 45) return;
+    shiftDeck(movedY < 0 ? 1 : -1);
+  });
+
+  paintDeck();
+}
+
+initArsenalDeck();
+
 // Contact success message
 const contactForm = document.getElementById('contactForm');
 const formSuccess = document.getElementById('formSuccess');
