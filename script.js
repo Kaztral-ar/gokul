@@ -362,16 +362,27 @@ projectCards.forEach((card) => {
   const inner = card.querySelector('.project-inner');
   if (!inner) return;
 
-  function setTilt(xDeg = 0, yDeg = 0, scale = 1) {
-    inner.style.setProperty('--tilt-x', `${xDeg}deg`);
-    inner.style.setProperty('--tilt-y', `${yDeg}deg`);
-    inner.style.setProperty('--tilt-scale', String(scale));
+  let tiltX = 0;
+  let tiltY = 0;
+  let tiltScale = 1;
+
+  function applyCardTransform() {
+    const isFlipped = card.classList.contains('flipped');
+    const x = isFlipped ? 0 : tiltX;
+    const y = isFlipped ? 0 : tiltY;
+    const scale = isFlipped ? 1 : tiltScale;
+    const flipRotation = isFlipped ? 180 : 0;
+
+    inner.style.transform = `translateZ(0) rotateX(${x}deg) rotateY(${flipRotation + y}deg) scale(${scale})`;
   }
 
   function resetTilt() {
     card.classList.remove('is-tilting');
     inner.style.boxShadow = '';
-    setTilt(0, 0, 1);
+    tiltX = 0;
+    tiltY = 0;
+    tiltScale = 1;
+    applyCardTransform();
   }
 
   function handlePointerMove(event) {
@@ -388,7 +399,10 @@ projectCards.forEach((card) => {
     card.style.setProperty('--light-y', `${py * 100}%`);
 
     card.classList.add('is-tilting');
-    setTilt(rotateX, rotateY, 1.03);
+    tiltX = rotateX;
+    tiltY = rotateY;
+    tiltScale = 1.03;
+    applyCardTransform();
 
     const shadowX = (px - 0.5) * -22;
     const shadowY = 22 + (py - 0.5) * 10;
@@ -403,9 +417,13 @@ projectCards.forEach((card) => {
   function toggleFlip() {
     card.classList.toggle('flipped');
     resetTilt();
+    applyCardTransform();
   }
 
-  card.addEventListener('click', toggleFlip);
+  card.addEventListener('click', (event) => {
+    if (event.target.closest('a, button')) return;
+    toggleFlip();
+  });
 
   card.addEventListener('keydown', (event) => {
     if (event.key === 'Enter' || event.key === ' ') {
@@ -413,6 +431,8 @@ projectCards.forEach((card) => {
       toggleFlip();
     }
   });
+
+  applyCardTransform();
 });
 
 // Contact form email delivery via Google Apps Script
