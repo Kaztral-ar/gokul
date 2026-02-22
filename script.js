@@ -17,52 +17,14 @@ if (navToggle && navMenu) {
   });
 }
 
-// Typing effect
-const typingText = document.getElementById('typingText');
-const roles = ['Full-Stack Engineer', 'Automation Architect', 'Product-Focused Builder'];
-let roleIndex = 0;
-let charIndex = 0;
-let isDeleting = false;
-
-function runTyping() {
-  if (!typingText) return;
-
-  const role = roles[roleIndex];
-
-  if (!isDeleting) {
-    charIndex += 1;
-    typingText.textContent = role.slice(0, charIndex);
-    if (charIndex === role.length) {
-      isDeleting = true;
-      setTimeout(runTyping, 1200);
-      return;
-    }
-  } else {
-    charIndex -= 1;
-    typingText.textContent = role.slice(0, charIndex);
-
-    if (charIndex === 0) {
-      isDeleting = false;
-      roleIndex = (roleIndex + 1) % roles.length;
-    }
-  }
-
-  setTimeout(runTyping, isDeleting ? 45 : 75);
-}
-
-runTyping();
-
-// About terminal typing effect
-const aboutTerminal = document.getElementById('aboutTerminal');
-
-function typeLine(element, text, speed = 32) {
+function typeLine(element, text, speed = 30) {
   return new Promise((resolve) => {
-    let i = 0;
+    let index = 0;
 
     function step() {
-      element.textContent = text.slice(0, i);
-      i += 1;
-      if (i <= text.length) {
+      element.textContent = text.slice(0, index);
+      index += 1;
+      if (index <= text.length) {
         window.setTimeout(step, speed);
       } else {
         element.classList.add('typed');
@@ -74,33 +36,34 @@ function typeLine(element, text, speed = 32) {
   });
 }
 
-async function runAboutTyping() {
-  if (!aboutTerminal || aboutTerminal.dataset.typed === 'true') return;
+async function runTerminalTyping(containerId, threshold = 0.35) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
 
-  const lines = aboutTerminal.querySelectorAll('[data-type-line]');
-  aboutTerminal.dataset.typed = 'true';
-
-  for (const line of lines) {
-    await typeLine(line, line.dataset.typeLine || '', 30);
-    await new Promise((resolve) => window.setTimeout(resolve, 180));
-  }
-}
-
-if (aboutTerminal) {
-  const aboutObserver = new IntersectionObserver(
+  const observer = new IntersectionObserver(
     (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          runAboutTyping();
-          aboutObserver.disconnect();
+      entries.forEach(async (entry) => {
+        if (entry.isIntersecting && container.dataset.typed !== 'true') {
+          container.dataset.typed = 'true';
+          const lines = container.querySelectorAll('[data-type-line]');
+
+          for (const line of lines) {
+            await typeLine(line, line.dataset.typeLine || '', 28);
+            await new Promise((resolve) => window.setTimeout(resolve, 160));
+          }
+
+          observer.disconnect();
         }
       });
     },
-    { threshold: 0.35 }
+    { threshold }
   );
 
-  aboutObserver.observe(aboutTerminal);
+  observer.observe(container);
 }
+
+runTerminalTyping('heroTerminal', 0.2);
+runTerminalTyping('aboutTerminal', 0.35);
 
 // Scroll progress bar
 const scrollProgress = document.getElementById('scrollProgress');
@@ -155,24 +118,6 @@ function setActiveNav() {
 window.addEventListener('scroll', setActiveNav, { passive: true });
 setActiveNav();
 
-// Garage filters
-const filterButtons = document.querySelectorAll('.filter-btn');
-const projectCards = document.querySelectorAll('.project-card');
-
-filterButtons.forEach((button) => {
-  button.addEventListener('click', () => {
-    const filter = button.dataset.filter;
-
-    filterButtons.forEach((btn) => btn.classList.remove('active'));
-    button.classList.add('active');
-
-    projectCards.forEach((card) => {
-      const match = filter === 'all' || card.dataset.category === filter;
-      card.style.display = match ? '' : 'none';
-    });
-  });
-});
-
 // Contact success message
 const contactForm = document.getElementById('contactForm');
 const formSuccess = document.getElementById('formSuccess');
@@ -180,7 +125,7 @@ const formSuccess = document.getElementById('formSuccess');
 if (contactForm && formSuccess) {
   contactForm.addEventListener('submit', (event) => {
     event.preventDefault();
-    formSuccess.textContent = 'Signal received. I will get back to you shortly.';
+    formSuccess.textContent = 'Signal received. Kaztral will get back to you shortly.';
     contactForm.reset();
     window.setTimeout(() => {
       formSuccess.textContent = '';
