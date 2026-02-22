@@ -336,13 +336,13 @@ h2 { font-size: clamp(1.4rem, 2.5vw, 2rem); }
   position: relative;
   height: 100%;
   min-height: 240px;
+  transform-origin: center;
   transform-style: preserve-3d;
   transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
   will-change: transform;
   border-radius: 18px;
   border: 1px solid var(--line);
   overflow: hidden;
-  transform: translateZ(0);
   box-shadow: 0 16px 34px rgba(0, 0, 0, 0.35);
 }
 
@@ -368,7 +368,7 @@ h2 { font-size: clamp(1.4rem, 2.5vw, 2rem); }
 }
 
 .project-card.flipped .project-inner {
-  transform: rotateY(180deg) translateZ(0);
+  transform: rotateY(180deg);
 }
 
 .project-body,
