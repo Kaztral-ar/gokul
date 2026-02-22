@@ -196,6 +196,86 @@ function setActiveNav() {
 window.addEventListener('scroll', setActiveNav, { passive: true });
 setActiveNav();
 
+
+// Arsenal stacked swipe deck
+const arsenalDeck = document.getElementById('arsenalDeck');
+
+if (arsenalDeck) {
+  const arsenalCards = Array.from(arsenalDeck.querySelectorAll('.arsenal-card'));
+  let activeIndex = 0;
+  let deckLocked = false;
+  let touchStartY = 0;
+
+  function paintDeck() {
+    arsenalCards.forEach((card, index) => {
+      card.classList.remove('is-active', 'is-prev', 'is-next');
+
+      if (index === activeIndex) {
+        card.classList.add('is-active');
+      } else if (index < activeIndex) {
+        card.classList.add('is-prev');
+      } else {
+        card.classList.add('is-next');
+      }
+    });
+  }
+
+  function shiftDeck(direction) {
+    if (deckLocked) return false;
+
+    const nextIndex = activeIndex + direction;
+    if (nextIndex < 0 || nextIndex >= arsenalCards.length) return false;
+
+    deckLocked = true;
+    activeIndex = nextIndex;
+    paintDeck();
+
+    window.setTimeout(() => {
+      deckLocked = false;
+    }, 520);
+
+    return true;
+  }
+
+  paintDeck();
+
+  arsenalDeck.addEventListener(
+    'wheel',
+    (event) => {
+      if (Math.abs(event.deltaY) < 5) return;
+
+      const moved = event.deltaY > 0 ? shiftDeck(1) : shiftDeck(-1);
+      if (moved) {
+        event.preventDefault();
+      }
+    },
+    { passive: false }
+  );
+
+  arsenalDeck.addEventListener(
+    'touchstart',
+    (event) => {
+      touchStartY = event.touches[0].clientY;
+    },
+    { passive: true }
+  );
+
+  arsenalDeck.addEventListener(
+    'touchmove',
+    (event) => {
+      const delta = touchStartY - event.touches[0].clientY;
+      if (Math.abs(delta) < 35) return;
+
+      const moved = delta > 0 ? shiftDeck(1) : shiftDeck(-1);
+      if (moved) {
+        touchStartY = event.touches[0].clientY;
+        event.preventDefault();
+      }
+    },
+    { passive: false }
+  );
+}
+
 // Contact success message
 const contactForm = document.getElementById('contactForm');
 const formSuccess = document.getElementById('formSuccess');
