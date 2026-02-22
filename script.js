@@ -379,6 +379,14 @@ projectCards.forEach((card) => {
 const contactForm = document.getElementById('contactForm');
 const formStatus = document.getElementById('formStatus');
 const GOOGLE_APPS_SCRIPT_ENDPOINT = 'https://script.google.com/macros/s/REPLACE_WITH_DEPLOYMENT_ID/exec';
+const hasConfiguredEmailEndpoint =
+  GOOGLE_APPS_SCRIPT_ENDPOINT && !GOOGLE_APPS_SCRIPT_ENDPOINT.includes('REPLACE_WITH_DEPLOYMENT_ID');
+
+function openMailClientFallback(name, email, message) {
+  const subject = encodeURIComponent('New Message from Kaztral Portfolio');
+  const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\nMessage:\n${message}`);
+  window.location.href = `mailto:Kaztralgaming@gmail.com?subject=${subject}&body=${body}`;
+}
 
 if (contactForm && formStatus) {
   contactForm.addEventListener('submit', async (event) => {
@@ -408,6 +416,12 @@ ${message}`,
       message
     };
 
+    if (!hasConfiguredEmailEndpoint) {
+      openMailClientFallback(name, email, message);
+      formStatus.textContent = 'No email gateway is configured yet. Your email app was opened instead.';
+      return;
+    }
+
     try {
       if (submitButton) {
         submitButton.disabled = true;
@@ -429,7 +443,8 @@ ${message}`,
       formStatus.textContent = 'Message sent successfully. Kaztral will reply soon.';
       contactForm.reset();
     } catch {
-      formStatus.textContent = 'Unable to send message right now. Please try again shortly.';
+      openMailClientFallback(name, email, message);
+      formStatus.textContent = 'Unable to send from the web form right now. Your email app was opened as a fallback.';
     } finally {
       if (submitButton) {
         submitButton.disabled = false;
