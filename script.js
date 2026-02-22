@@ -287,7 +287,7 @@ projectCards.forEach((card) => {
 
   function setCardTransform(xDeg = 0, yDeg = 0, scale = 1) {
     const flipPart = card.classList.contains('flipped') ? ' rotateY(180deg)' : '';
-    inner.style.transform = `rotateX(${xDeg}deg) rotateY(${yDeg}deg) scale(${scale})${flipPart} translateZ(0)`;
+    inner.style.transform = `rotateX(${xDeg}deg) rotateY(${yDeg}deg) scale(${scale})${flipPart}`;
   }
 
   function resetTilt() {
