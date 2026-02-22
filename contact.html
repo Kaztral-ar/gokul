@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Contact Kaztral through a dedicated terminal-style contact page."
+    />
+    <title>Kaztral | Contact</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="contact.css" />
+  </head>
+  <body>
+    <header class="site-header" id="top">
+      <nav class="container nav" aria-label="Primary navigation">
+        <a href="index.html#home" class="brand" aria-label="Go to homepage">KZ//</a>
+
+        <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navMenu">
+          <span></span><span></span><span></span>
+          <span class="sr-only">Toggle menu</span>
+        </button>
+
+        <ul class="nav-menu" id="navMenu">
+          <li><a class="nav-link" href="index.html#home">Home</a></li>
+          <li><a class="nav-link" href="index.html#origin">About</a></li>
+          <li><a class="nav-link" href="index.html#projects">Projects</a></li>
+          <li><a class="nav-link" href="index.html#capabilities">Core Capabilities</a></li>
+          <li><a class="nav-link active" href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section class="section contact-page" aria-label="Contact section">
+        <div class="container reveal visible">
+          <div class="section-heading">
+            <p class="kicker">Contact</p>
+            <h1>Let’s build something powerful.</h1>
+          </div>
+
+          <form class="contact-form" id="contactForm" aria-label="Contact form">
+            <label for="name">Name</label>
+            <input id="name" name="name" type="text" autocomplete="name" required />
+
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" autocomplete="email" required />
+
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="6" required></textarea>
+
+            <button class="btn btn-primary" type="submit">Send Message</button>
+            <p class="form-success" id="formStatus" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer-inner">
+        <p>© <span id="year"></span> Kaztral. Crafted in terminal mode.</p>
+        <a href="index.html#home" class="to-top" aria-label="Back to homepage">← Home</a>
+      </div>
+      <p class="sr-only">Kaztral contact page.</p>
+    </footer>
+
+    <script src="contact.js"></script>
+  </body>
+</html>
