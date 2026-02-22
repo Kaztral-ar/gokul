@@ -43,7 +43,6 @@ async function runLoaderSequence() {
 
 runLoaderSequence();
 
-
 const heroCodeBg = document.getElementById('heroCodeBg');
 const heroCodePre = document.getElementById('heroCodePre');
 
@@ -52,26 +51,26 @@ const heroCodeSnippets = [
   "if (!response.ok) throw new Error(`API ${response.status}: retrying...`);",
   "git checkout -b feat/hero-bg && git commit -m \"chore: refine hero motion\"",
   "curl -s https://api.kaztral.dev/v1/status | jq '.uptime,.region'",
-  "npm run lint && npm run test:smoke",
-  "[INFO] 14:22:11 websocket connected :: user=kaztral latency=31ms",
-  "docker compose up -d gateway worker redis",
-  "SELECT service, health, latency_ms FROM runtime_metrics ORDER BY latency_ms ASC;",
+  'npm run lint && npm run test:smoke',
+  '[INFO] 14:22:11 websocket connected :: user=kaztral latency=31ms',
+  'docker compose up -d gateway worker redis',
+  'SELECT service, health, latency_ms FROM runtime_metrics ORDER BY latency_ms ASC;',
   "for branch in $(git branch --format='%(refname:short)'); do echo \"sync:$branch\"; done",
   "fetch('/api/deploy', { method: 'POST', body: JSON.stringify(payload) });",
-  "[WARN] auth.refresh token nearing expiry; rotating credentials",
+  '[WARN] auth.refresh token nearing expiry; rotating credentials',
   "ssh prod-node-03 'journalctl -u edge-proxy -n 25 --no-pager'",
-  "const queueDepth = metrics.jobs.pending + metrics.jobs.retry;",
-  "rsync -az --delete ./dist/ deploy@edge:/srv/www/kaztral/",
-  "git log --oneline --decorate --graph -n 12",
-  "[TRACE] request_id=8f42d route=/signal method=POST status=202",
-  "pnpm dlx playwright test --project=chromium",
+  'const queueDepth = metrics.jobs.pending + metrics.jobs.retry;',
+  'rsync -az --delete ./dist/ deploy@edge:/srv/www/kaztral/',
+  'git log --oneline --decorate --graph -n 12',
+  '[TRACE] request_id=8f42d route=/signal method=POST status=202',
+  'pnpm dlx playwright test --project=chromium',
   "watch -n 2 'kubectl get pods -n kaztral-stack'",
-  "const latencyBudgetMs = 120; // SLO guardrail",
-  "bash deploy.sh --region=ap-southeast --canary=15",
-  "[API] GET /v1/projects -> 200 (cache hit, 12ms)",
-  "git rebase origin/main --rebase-merges",
-  "const fallback = primary ?? secondary ?? emergencyMirror;",
-  "tar -czf backups/session-$(date +%F-%H%M).tgz ./logs ./config"
+  'const latencyBudgetMs = 120; // SLO guardrail',
+  'bash deploy.sh --region=ap-southeast --canary=15',
+  '[API] GET /v1/projects -> 200 (cache hit, 12ms)',
+  'git rebase origin/main --rebase-merges',
+  'const fallback = primary ?? secondary ?? emergencyMirror;',
+  'tar -czf backups/session-$(date +%F-%H%M).tgz ./logs ./config'
 ];
 
 function randomCodeLine() {
@@ -118,53 +117,22 @@ if (navToggle && navMenu) {
   });
 }
 
-// Typing effect
-const typingText = document.getElementById('typingText');
-const roles = ['Developer | Web Designer | Bash Tool Builder'];
-let charIndex = 0;
-let isDeleting = false;
-
-function runTyping() {
-  if (!typingText) return;
-
-  const role = roles[0];
-
-  if (!isDeleting) {
-    charIndex += 1;
-    typingText.textContent = role.slice(0, charIndex);
-    if (charIndex === role.length) {
-      isDeleting = true;
-      setTimeout(runTyping, 1300);
-      return;
-    }
-  } else {
-    charIndex -= 1;
-    typingText.textContent = role.slice(0, charIndex);
-
-    if (charIndex === 0) {
-      isDeleting = false;
-    }
-  }
-
-  setTimeout(runTyping, isDeleting ? 28 : 52);
-}
-
-runTyping();
-
 // About terminal typing effect
 const aboutTerminal = document.getElementById('aboutTerminal');
 
-function typeLine(element, text, speed = 24) {
+function writeTypeLine(element, text, speed = 22) {
   return new Promise((resolve) => {
     let i = 0;
+    element.classList.add('is-typing');
 
     function step() {
       element.textContent = text.slice(0, i);
       i += 1;
+
       if (i <= text.length) {
         window.setTimeout(step, speed);
       } else {
-        element.classList.add('typed');
+        element.classList.remove('is-typing');
         resolve();
       }
     }
@@ -173,15 +141,22 @@ function typeLine(element, text, speed = 24) {
   });
 }
 
-async function runAboutTyping() {
-  if (!aboutTerminal || aboutTerminal.dataset.typed === 'true') return;
+async function runAboutTypingLoop() {
+  if (!aboutTerminal) return;
 
-  const lines = aboutTerminal.querySelectorAll('[data-type-line]');
-  aboutTerminal.dataset.typed = 'true';
+  const lines = Array.from(aboutTerminal.querySelectorAll('[data-type-line]'));
 
-  for (const line of lines) {
-    await typeLine(line, line.dataset.typeLine || '', 24);
-    await new Promise((resolve) => window.setTimeout(resolve, 130));
+  while (true) {
+    for (const line of lines) {
+      line.textContent = '';
+    }
+
+    for (const line of lines) {
+      await writeTypeLine(line, line.dataset.typeLine || '', 22);
+      await new Promise((resolve) => window.setTimeout(resolve, 120));
+    }
+
+    await new Promise((resolve) => window.setTimeout(resolve, 2600));
   }
 }
 
@@ -189,8 +164,9 @@ if (aboutTerminal) {
   const aboutObserver = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          runAboutTyping();
+        if (entry.isIntersecting && aboutTerminal.dataset.typingActive !== 'true') {
+          aboutTerminal.dataset.typingActive = 'true';
+          runAboutTypingLoop();
           aboutObserver.disconnect();
         }
       });
@@ -254,18 +230,24 @@ function setActiveNav() {
 window.addEventListener('scroll', setActiveNav, { passive: true });
 setActiveNav();
 
+// Core capabilities stacked swipe deck
+const capabilitiesDeck = document.getElementById('capabilitiesDeck');
 
-// Arsenal stacked swipe deck
-const arsenalDeck = document.getElementById('arsenalDeck');
-
-if (arsenalDeck) {
-  const arsenalCards = Array.from(arsenalDeck.querySelectorAll('.arsenal-card'));
+if (capabilitiesDeck) {
+  const capabilityCards = Array.from(capabilitiesDeck.querySelectorAll('.arsenal-card'));
   let activeIndex = 0;
   let deckLocked = false;
   let touchStartY = 0;
+  let isDeckInteracting = false;
+
+  function setDeckLockState(locked) {
+    if (isDeckInteracting === locked) return;
+    isDeckInteracting = locked;
+    document.body.classList.toggle('deck-interacting', locked);
+  }
 
   function paintDeck() {
-    arsenalCards.forEach((card, index) => {
+    capabilityCards.forEach((card, index) => {
       card.classList.remove('is-active', 'is-prev', 'is-next');
 
       if (index === activeIndex) {
@@ -282,7 +264,7 @@ if (arsenalDeck) {
     if (deckLocked) return false;
 
     const nextIndex = activeIndex + direction;
-    if (nextIndex < 0 || nextIndex >= arsenalCards.length) return false;
+    if (nextIndex < 0 || nextIndex >= capabilityCards.length) return false;
 
     deckLocked = true;
     activeIndex = nextIndex;
@@ -297,20 +279,25 @@ if (arsenalDeck) {
 
   paintDeck();
 
-  arsenalDeck.addEventListener(
+  capabilitiesDeck.addEventListener('pointerenter', () => setDeckLockState(true));
+  capabilitiesDeck.addEventListener('pointerleave', () => setDeckLockState(false));
+  capabilitiesDeck.addEventListener('touchstart', () => setDeckLockState(true), { passive: true });
+  capabilitiesDeck.addEventListener('touchend', () => setDeckLockState(false), { passive: true });
+  capabilitiesDeck.addEventListener('touchcancel', () => setDeckLockState(false), { passive: true });
+
+  capabilitiesDeck.addEventListener(
     'wheel',
     (event) => {
       if (Math.abs(event.deltaY) < 5) return;
 
       const moved = event.deltaY > 0 ? shiftDeck(1) : shiftDeck(-1);
-      if (moved) {
-        event.preventDefault();
-      }
+      event.preventDefault();
+      if (!moved) return;
     },
     { passive: false }
   );
 
-  arsenalDeck.addEventListener(
+  capabilitiesDeck.addEventListener(
     'touchstart',
     (event) => {
       touchStartY = event.touches[0].clientY;
@@ -318,22 +305,38 @@ if (arsenalDeck) {
     { passive: true }
   );
 
-  arsenalDeck.addEventListener(
+  capabilitiesDeck.addEventListener(
     'touchmove',
     (event) => {
       const delta = touchStartY - event.touches[0].clientY;
-      if (Math.abs(delta) < 35) return;
+      if (Math.abs(delta) < 30) {
+        event.preventDefault();
+        return;
+      }
 
       const moved = delta > 0 ? shiftDeck(1) : shiftDeck(-1);
       if (moved) {
         touchStartY = event.touches[0].clientY;
-        event.preventDefault();
       }
+
+      event.preventDefault();
     },
     { passive: false }
   );
-}
 
+  const deckVisibilityObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) {
+          setDeckLockState(false);
+        }
+      });
+    },
+    { threshold: 0.05 }
+  );
+
+  deckVisibilityObserver.observe(capabilitiesDeck);
+}
 
 // Projects premium tilt + flip cards
 const projectCards = document.querySelectorAll('.project-card');
@@ -343,15 +346,16 @@ projectCards.forEach((card) => {
   const inner = card.querySelector('.project-inner');
   if (!inner) return;
 
-  function setCardTransform(xDeg = 0, yDeg = 0, scale = 1) {
-    const flipPart = card.classList.contains('flipped') ? ' rotateY(180deg)' : '';
-    inner.style.transform = `rotateX(${xDeg}deg) rotateY(${yDeg}deg) scale(${scale})${flipPart}`;
+  function setTilt(xDeg = 0, yDeg = 0, scale = 1) {
+    inner.style.setProperty('--tilt-x', `${xDeg}deg`);
+    inner.style.setProperty('--tilt-y', `${yDeg}deg`);
+    inner.style.setProperty('--tilt-scale', String(scale));
   }
 
   function resetTilt() {
     card.classList.remove('is-tilting');
     inner.style.boxShadow = '';
-    setCardTransform(0, 0, 1);
+    setTilt(0, 0, 1);
   }
 
   function handlePointerMove(event) {
@@ -368,7 +372,7 @@ projectCards.forEach((card) => {
     card.style.setProperty('--light-y', `${py * 100}%`);
 
     card.classList.add('is-tilting');
-    setCardTransform(rotateX, rotateY, 1.03);
+    setTilt(rotateX, rotateY, 1.03);
 
     const shadowX = (px - 0.5) * -22;
     const shadowY = 22 + (py - 0.5) * 10;
@@ -380,16 +384,17 @@ projectCards.forEach((card) => {
     card.addEventListener('mouseleave', resetTilt);
   }
 
-  card.addEventListener('click', () => {
+  function toggleFlip() {
     card.classList.toggle('flipped');
     resetTilt();
-  });
+  }
+
+  card.addEventListener('click', toggleFlip);
 
   card.addEventListener('keydown', (event) => {
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault();
-      card.classList.toggle('flipped');
-      resetTilt();
+      toggleFlip();
     }
   });
 });
