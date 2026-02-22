@@ -276,6 +276,66 @@ if (arsenalDeck) {
   );
 }
 
+
+// Projects premium tilt + flip cards
+const projectCards = document.querySelectorAll('.project-card');
+const supportsTilt = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+projectCards.forEach((card) => {
+  const inner = card.querySelector('.project-inner');
+  if (!inner) return;
+
+  function setCardTransform(xDeg = 0, yDeg = 0, scale = 1) {
+    const flipPart = card.classList.contains('flipped') ? ' rotateY(180deg)' : '';
+    inner.style.transform = `rotateX(${xDeg}deg) rotateY(${yDeg}deg) scale(${scale})${flipPart} translateZ(0)`;
+  }
+
+  function resetTilt() {
+    card.classList.remove('is-tilting');
+    inner.style.boxShadow = '';
+    setCardTransform(0, 0, 1);
+  }
+
+  function handlePointerMove(event) {
+    if (!supportsTilt || card.classList.contains('flipped')) return;
+
+    const rect = card.getBoundingClientRect();
+    const px = (event.clientX - rect.left) / rect.width;
+    const py = (event.clientY - rect.top) / rect.height;
+
+    const rotateY = (px - 0.5) * 24;
+    const rotateX = (0.5 - py) * 24;
+
+    card.style.setProperty('--light-x', `${px * 100}%`);
+    card.style.setProperty('--light-y', `${py * 100}%`);
+
+    card.classList.add('is-tilting');
+    setCardTransform(rotateX, rotateY, 1.03);
+
+    const shadowX = (px - 0.5) * -22;
+    const shadowY = 22 + (py - 0.5) * 10;
+    inner.style.boxShadow = `${shadowX}px ${shadowY}px 38px rgba(0, 0, 0, 0.45), 0 0 18px rgba(217, 119, 87, 0.17)`;
+  }
+
+  if (supportsTilt) {
+    card.addEventListener('mousemove', handlePointerMove);
+    card.addEventListener('mouseleave', resetTilt);
+  }
+
+  card.addEventListener('click', () => {
+    card.classList.toggle('flipped');
+    resetTilt();
+  });
+
+  card.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      card.classList.toggle('flipped');
+      resetTilt();
+    }
+  });
+});
+
 // Contact success message
 const contactForm = document.getElementById('contactForm');
 const formSuccess = document.getElementById('formSuccess');
