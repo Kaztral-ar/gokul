@@ -335,8 +335,9 @@ if (capabilitiesDeck) {
       if (Math.abs(event.deltaY) < 5) return;
 
       const moved = event.deltaY > 0 ? shiftDeck(1) : shiftDeck(-1);
-      event.preventDefault();
-      if (!moved) return;
+      if (moved) {
+        event.preventDefault();
+      }
     },
     { passive: false }
   );
@@ -440,6 +441,7 @@ cards.forEach((card) => {
 
 if (projectsGrid) {
   let autoDirection = 1;
+  let resumeTimer;
 
   const moveProjectsHorizontally = () => {
     const maxScroll = projectsGrid.scrollWidth - projectsGrid.clientWidth;
@@ -466,6 +468,27 @@ if (projectsGrid) {
   projectsGrid.addEventListener('mouseleave', resumeAutoScroll);
   projectsGrid.addEventListener('touchstart', pauseAutoScroll, { passive: true });
   projectsGrid.addEventListener('touchend', resumeAutoScroll, { passive: true });
+
+  projectsGrid.addEventListener(
+    'wheel',
+    (event) => {
+      if (Math.abs(event.deltaY) < 4) return;
+
+      const canScrollHorizontally = projectsGrid.scrollWidth > projectsGrid.clientWidth;
+      if (!canScrollHorizontally) return;
+
+      event.preventDefault();
+      pauseAutoScroll();
+      projectsGrid.scrollBy({
+        left: event.deltaY,
+        behavior: 'smooth'
+      });
+
+      window.clearTimeout(resumeTimer);
+      resumeTimer = window.setTimeout(resumeAutoScroll, 900);
+    },
+    { passive: false }
+  );
 }
 
 // Footer year
