@@ -1,76 +1,373 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="Contact Kaztral through a dedicated terminal-style contact page."
-    />
-    <title>Kaztral | Contact</title>
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Let's Connect</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="contact.css" />
-  </head>
-  <body>
-    <header class="site-header" id="top">
-      <nav class="container nav" aria-label="Primary navigation">
-        <a href="index.html#home" class="brand" aria-label="Go to homepage">KZ//</a>
+    body {
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 1.5rem;
+      font-family: 'Space Mono', monospace;
+    }
 
-        <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navMenu">
-          <span></span><span></span><span></span>
-          <span class="sr-only">Toggle menu</span>
-        </button>
+    .card {
+      width: 100%;
+      max-width: 700px;
+      border: 1px solid #2e2e2e;
+      background: #0a0a0a;
+    }
 
-        <ul class="nav-menu" id="navMenu">
-          <li><a class="nav-link" href="index.html#home">Home</a></li>
-          <li><a class="nav-link" href="index.html#origin">About</a></li>
-          <li><a class="nav-link" href="index.html#projects">Projects</a></li>
-          <li><a class="nav-link" href="index.html#capabilities">Core Capabilities</a></li>
-          <li><a class="nav-link active" href="contact.html">Contact</a></li>
-        </ul>
-      </nav>
-    </header>
+    .back-row {
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid #2e2e2e;
+    }
 
-    <main>
-      <section class="section contact-page" aria-label="Contact section">
-        <div class="container reveal visible">
-          <div class="section-heading">
-            <p class="kicker">Contact</p>
-            <h1>Let’s build something powerful.</h1>
-          </div>
+    .back-btn {
+      color: #bbb;
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
 
-          <form class="contact-form" id="contactForm" aria-label="Contact form">
-            <label for="name">Name</label>
-            <input id="name" name="name" type="text" autocomplete="name" required />
+    .hero-row {
+      padding: 1.2rem 1rem 1rem;
+      border-bottom: 1px solid #2e2e2e;
+    }
 
-            <label for="email">Email</label>
-            <input id="email" name="email" type="email" autocomplete="email" required />
+    .hero-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3.5rem, 13.5vw, 6rem);
+      letter-spacing: 0.015em;
+      color: #f0ede6;
+      line-height: 1;
+    }
 
-            <label for="message">Message</label>
-            <textarea id="message" name="message" rows="6" required></textarea>
+    .info-grid {
+      display: grid;
+      grid-template-columns: 0.75fr 1.5fr 1.3fr 1.3fr;
+      border-bottom: 1px solid #2e2e2e;
+    }
 
-            <button class="btn btn-primary" type="submit">Send Message</button>
-            <p class="form-success" id="formStatus" role="status" aria-live="polite"></p>
-          </form>
+    .info-cell {
+      border-right: 1px solid #2e2e2e;
+      padding: 0.65rem 0.75rem 0.85rem;
+      min-height: 145px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .info-cell:last-child { border-right: none; }
+
+    .cell-label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.44rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #777;
+      margin-bottom: 0.8rem;
+    }
+
+    .cell-label .arr { color: #444; }
+
+    .cell-body { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; }
+
+    .star { font-size: 0.95rem; color: #ccc; margin-bottom: 0.6rem; }
+
+    .name-text {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #e8e4dc;
+    }
+
+    .link-icon { margin-bottom: 0.45rem; }
+    .link-icon svg { width: 20px; height: 20px; fill: #bbb; }
+
+    .cell-main {
+      font-size: 0.52rem;
+      color: #ddd;
+      line-height: 1.45;
+      word-break: break-all;
+      margin-bottom: 0.3rem;
+    }
+
+    .cell-sub {
+      font-size: 0.38rem;
+      color: #4a4a4a;
+      line-height: 1.6;
+    }
+
+    .keypad {
+      display: grid;
+      grid-template-columns: repeat(3, 5px);
+      gap: 3.5px;
+      margin-bottom: 0.45rem;
+    }
+
+    .keypad span { width: 5px; height: 5px; background: #bbb; display: block; }
+
+    .pin-icon { margin-bottom: 0.45rem; }
+    .pin-icon svg { width: 16px; height: 18px; fill: #bbb; }
+
+    .location-text {
+      font-size: 0.42rem;
+      color: #ccc;
+      line-height: 1.6;
+    }
+
+    .bottom-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .socials-cell {
+      border-right: 1px solid #2e2e2e;
+      padding: 0.65rem 0.75rem 1rem;
+    }
+
+    .section-label {
+      font-size: 0.44rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #777;
+      margin-bottom: 1.3rem;
+    }
+
+    .socials-date {
+      font-size: 0.38rem;
+      color: #444;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.55rem;
+    }
+
+    .socials-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.38rem;
+    }
+
+    .socials-list li {
+      font-size: 0.48rem;
+      color: #999;
+      letter-spacing: 0.04em;
+    }
+
+    .socials-list li .platform { color: #555; }
+    .socials-list li .handle { color: #999; }
+
+    .recent-cell {
+      padding: 0.65rem 0.75rem 0;
+      position: relative;
+      overflow: hidden;
+      min-height: 185px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .recent-port-label {
+      font-size: 0.38rem;
+      color: #555;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.15rem;
+      margin-top: 0.4rem;
+    }
+
+    .recent-url {
+      font-size: 0.46rem;
+      color: #888;
+      text-decoration: underline;
+      letter-spacing: 0.02em;
+    }
+
+    .blob-wrap {
+      position: absolute;
+      right: -14px;
+      bottom: 52px;
+      width: 120px;
+      height: 115px;
+      pointer-events: none;
+    }
+
+    .blob {
+      width: 100%;
+      height: 100%;
+      border-radius: 55% 45% 60% 40% / 48% 58% 42% 52%;
+      background:
+        radial-gradient(ellipse at 38% 28%, #ffffff 0%, #e4e0da 18%, #c0bbb5 40%, #95918c 65%, #605d59 90%);
+      box-shadow:
+        inset -14px -14px 22px rgba(0,0,0,0.55),
+        inset 10px 10px 18px rgba(255,255,255,0.22),
+        5px 10px 24px rgba(0,0,0,0.75);
+      transform: rotate(-18deg);
+      position: relative;
+    }
+
+    .blob::after {
+      content: '';
+      position: absolute;
+      top: 14%;
+      left: 18%;
+      width: 28%;
+      height: 18%;
+      background: rgba(255,255,255,0.38);
+      border-radius: 50%;
+      filter: blur(5px);
+      transform: rotate(-22deg);
+    }
+
+    .recent-bottom {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 0 0.75rem 0;
+    }
+
+    .recent-date {
+      font-size: 0.38rem;
+      color: #444;
+      text-align: right;
+      margin-bottom: 0.18rem;
+    }
+
+    .recent-headline {
+      font-family: 'Space Mono', monospace;
+      font-style: italic;
+      font-size: clamp(0.7rem, 3vw, 1.05rem);
+      color: #e8e4dc;
+      line-height: 1.2;
+      text-align: right;
+      margin-bottom: 0;
+    }
+
+    .recent-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      font-size: 0.34rem;
+      color: #444;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      line-height: 1.5;
+      border-top: 1px solid #1e1e1e;
+      margin-top: 0.4rem;
+      padding: 0.35rem 0 0.4rem;
+    }
+
+    @media (max-width: 780px) {
+      .info-grid,
+      .bottom-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .info-cell,
+      .socials-cell {
+        border-right: none;
+        border-bottom: 1px solid #2e2e2e;
+      }
+
+      .recent-cell {
+        min-height: 220px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="back-row">
+      <span class="back-btn">←</span>
+    </div>
+
+    <div class="hero-row">
+      <h1 class="hero-title">LET'S CONNECT</h1>
+    </div>
+
+    <div class="info-grid">
+      <div class="info-cell">
+        <div class="cell-label">NAME <span class="arr">→</span></div>
+        <div class="cell-body">
+          <div class="star">★</div>
+          <div class="name-text">Shashish A</div>
         </div>
-      </section>
-    </main>
-
-    <footer class="footer">
-      <div class="container footer-inner">
-        <p>© <span id="year"></span> Kaztral. Crafted in terminal mode.</p>
-        <a href="index.html#home" class="to-top" aria-label="Back to homepage">← Home</a>
       </div>
-      <p class="sr-only">Kaztral contact page.</p>
-    </footer>
 
-    <script src="contact.js"></script>
-  </body>
+      <div class="info-cell">
+        <div class="cell-label">EMAIL <span class="arr">→</span></div>
+        <div class="cell-body">
+          <div class="link-icon">
+            <svg viewBox="0 0 24 24"><path d="M17 7h-4v2h4c1.65 0 3 1.35 3 3s-1.35 3-3 3h-4v2h4c2.76 0 5-2.24 5-5s-2.24-5-5-5zm-6 8H7c-1.65 0-3-1.35-3-3s1.35-3 3-3h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-2zm-3-4h8v2H8z"/></svg>
+          </div>
+          <div class="cell-main">15.shashish.09.1509@gmail.com</div>
+          <div class="cell-sub">For professional correspondence, kindly reach out via email.</div>
+        </div>
+      </div>
+
+      <div class="info-cell">
+        <div class="cell-label">PHONE <span class="arr">→</span></div>
+        <div class="cell-body">
+          <div class="keypad">
+            <span></span><span></span><span></span>
+            <span></span><span></span><span></span>
+            <span></span><span></span><span></span>
+          </div>
+          <div class="cell-main">+91 99868 24100</div>
+          <div class="cell-sub">Call availability is minimal; email remains the primary channel.</div>
+        </div>
+      </div>
+
+      <div class="info-cell">
+        <div class="cell-label">LOCATION <span class="arr">→</span></div>
+        <div class="cell-body">
+          <div class="pin-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+          </div>
+          <div class="location-text">RV University Campus, RV Vidyaniketan Post, 8th Mile, Mysuru Road, Bengaluru – 560059</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bottom-grid">
+      <div class="socials-cell">
+        <div class="section-label">SOCIALS</div>
+        <div class="socials-date">JANUARY 2026</div>
+        <ul class="socials-list">
+          <li><span class="platform">LINKEDIN: </span><span class="handle">/shashish-a</span></li>
+          <li><span class="platform">INSTAGRAM: </span><span class="handle">@_shashish</span></li>
+          <li><span class="platform">BEHANCE: </span><span class="handle">/shashisha1</span></li>
+          <li><span class="platform">GITHUB: </span><span class="handle">/redbluvr69</span></li>
+        </ul>
+      </div>
+
+      <div class="recent-cell">
+        <div class="section-label">RECENTLY ADDED</div>
+        <div class="recent-port-label">PORTFOLIO:</div>
+        <div class="recent-url">redbluvr69.github.io/portfolio</div>
+
+        <div class="blob-wrap">
+          <div class="blob"></div>
+        </div>
+
+        <div class="recent-bottom">
+          <div class="recent-date">27 02 2024</div>
+          <div class="recent-headline"><em>leveraging the<br/>Attention Economy</em></div>
+          <div class="recent-footer">
+            <span>DESIGNED BY<br/>SHASHISH</span>
+            <span>PRECISION PROMPTING</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
 </html>
