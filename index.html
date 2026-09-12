@@ -9,30 +9,53 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#fff;--ink:#171717;--muted:#6f6f6f;--line:#e8e8e8;--accent:#4f46e5}
+:root{--bg:#fff;--ink:#171717;--muted:#687080;--line:#dfe2e8;--accent:#4f46e5;--soft:#f7f7fa}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:'IBM Plex Mono',monospace;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:hidden}
+a{color:inherit}
 .logo-wrap{padding:42px 8vw 0}
-.logo,.section-title{display:inline-block;border:1.5px dashed var(--accent);color:var(--accent);border-radius:8px;padding:6px 10px;font-size:14px;font-weight:600;letter-spacing:-.035em;cursor:pointer;user-select:none;transition:transform .18s ease,background .18s ease}
-.logo:active,.section-title:active{transform:scale(.97);background:#4f46e50d}
-.intro{padding:48px 8vw 70px;display:flex;align-items:flex-start;justify-content:center;flex-direction:column}
+.logo,.section-tag{display:inline-block;border:1.5px dashed var(--accent);color:var(--accent);border-radius:8px;padding:6px 10px;font-size:14px;font-weight:600;letter-spacing:-.035em;cursor:pointer;user-select:none;transition:transform .18s ease,background .18s ease}
+.logo:active{transform:scale(.94);background:#4f46e50d}
+.intro{padding:48px 8vw 95px;display:flex;align-items:flex-start;flex-direction:column}
 .eyebrow{font-size:10px;font-weight:600;letter-spacing:.12em;color:var(--muted);margin-bottom:20px}
 h1{font-size:clamp(42px,7vw,82px);line-height:1;letter-spacing:-.07em;margin:0 0 28px;font-weight:600}
 .intro p{max-width:700px;color:var(--muted);font-size:clamp(17px,2.1vw,24px);font-weight:400;line-height:1.65;margin:0;letter-spacing:-.025em}
-section{margin:0 8vw;padding:54px 0;border-top:1px solid var(--line)}
-.section-title{margin:0 0 28px;font-size:14px;cursor:default}
-.projects{display:grid;gap:18px}
-.project{display:block;padding:18px 0;text-decoration:none;color:inherit;border-bottom:1px solid var(--line);transition:padding-left .18s ease}
-.project:hover{padding-left:8px}
-.project-name{font-size:21px;font-weight:600;margin-bottom:8px}
-.project-desc{font-size:14px;line-height:1.6;color:var(--muted)}
-.contact-text{max-width:700px;font-size:17px;line-height:1.7;color:var(--muted);margin:0 0 24px}
-.links{display:flex;flex-wrap:wrap;gap:10px}
-.links a{display:inline-block;padding:6px 10px;border:1.5px dashed var(--accent);border-radius:8px;color:var(--accent);text-decoration:none;font-size:14px;font-weight:500;transition:transform .18s ease,background .18s ease}
-.links a:hover{background:#4f46e50d;transform:translateY(-1px)}
+.projects-section{padding:0 8vw 100px}
+.project-tree{display:grid;grid-template-columns:190px 1fr;gap:48px;max-width:1120px;margin:0 auto}
+.tree-label{padding-top:4px;position:relative}
+.section-tag{cursor:default;position:relative;z-index:2}
+.spark{position:absolute;top:-10px;right:26px;width:18px;height:18px}
+.spark:before,.spark:after{content:'';position:absolute;background:var(--accent);height:1.5px;transform-origin:center}
+.spark:before{width:18px;top:9px;left:0;transform:rotate(-45deg)}
+.spark:after{width:10px;top:3px;left:9px;transform:rotate(-90deg)}
+.tree-list{position:relative;padding-left:28px}
+.tree-list:before{content:'';position:absolute;left:0;top:0;width:2px;height:calc(100% - 40px);background:var(--line);border-radius:2px}
+.project{position:relative;display:flex;align-items:center;gap:22px;min-height:118px;margin-bottom:22px;padding:20px 22px 20px 30px;border:1px solid var(--line);border-radius:12px;background:#fff;text-decoration:none;transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease}
+.project:before{content:'';position:absolute;left:-28px;top:50%;width:28px;height:2px;background:var(--line)}
+.project:hover{transform:translateX(5px);border-color:#c9cdd6;box-shadow:0 10px 30px rgba(23,23,23,.05)}
+.project:last-child{margin-bottom:0}
+.icon{width:72px;height:72px;flex:0 0 72px;display:grid;place-items:center;border-radius:12px;font-size:30px;background:var(--soft);color:var(--ink)}
+.icon.sneex{background:#ecebff;color:var(--accent)}
+.icon.number{background:#e9f8ed}
+.icon.filter{background:#fff1d8}
+.icon.bot{background:#e8f1ff}
+.icon.lance{background:#ffe9ee}
+.icon.more{background:#eeeef2}
+.icon svg{width:34px;height:34px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.project-copy{min-width:0;flex:1}
+.project-name{font-size:20px;font-weight:600;line-height:1.3;margin-bottom:9px}
+.project-desc{font-size:14px;line-height:1.65;color:var(--muted)}
+.arrow{font-size:26px;color:#4c5568;flex:0 0 auto;transition:transform .2s ease}
+.project:hover .arrow{transform:translateX(4px)}
+.github-more{display:inline-block;margin:25px 0 0 2px;color:var(--muted);font-size:14px;text-decoration:underline;text-underline-offset:5px}
+.contact{padding:0 8vw 70px}
+.contact-inner{max-width:1120px;margin:0 auto}
+.contact-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.contact-links a{display:inline-flex;align-items:center;gap:8px;padding:9px 13px;border:1.5px dashed var(--accent);border-radius:8px;color:var(--accent);text-decoration:none;font-size:14px;font-weight:500;transition:transform .18s ease,background .18s ease}
+.contact-links a:hover{transform:translateY(-2px);background:#4f46e50d}
 footer{padding:30px 8vw 60px;color:var(--muted);font-size:12px}
-@media(max-width:600px){.logo-wrap{padding:28px 22px 0}.intro{padding:42px 22px 55px}.logo,.section-title{font-size:13px;padding:5px 9px}.intro p{font-size:17px;line-height:1.65}h1{font-size:clamp(40px,12vw,58px);margin-bottom:24px}section{margin:0 22px;padding:42px 0}.project-name{font-size:19px}.project-desc{font-size:13px}.contact-text{font-size:16px}.links a{font-size:13px}footer{padding:24px 22px 50px}}
+@media(max-width:760px){.logo-wrap{padding:28px 22px 0}.intro{padding:42px 22px 70px}.logo{font-size:13px;padding:5px 9px}.intro p{font-size:17px;line-height:1.65}h1{font-size:clamp(40px,12vw,58px);margin-bottom:24px}.projects-section{padding:0 22px 75px}.project-tree{display:block;margin:0}.tree-label{margin-bottom:26px}.spark{right:auto;left:132px}.tree-list{padding-left:20px}.tree-list:before{left:0;top:0;height:calc(100% - 32px)}.project{min-height:108px;margin-bottom:16px;padding:16px 16px 16px 18px;gap:14px;border-radius:10px}.project:before{left:-20px;width:20px}.icon{width:56px;height:56px;flex-basis:56px;border-radius:10px;font-size:24px}.icon svg{width:28px;height:28px}.project-name{font-size:17px;margin-bottom:6px}.project-desc{font-size:12px;line-height:1.55}.arrow{font-size:21px}.github-more{font-size:12px;margin-top:20px}.contact{padding:0 22px 50px}.contact-links a{font-size:13px}footer{padding:24px 22px 45px}}
 </style>
 </head>
 <body>
@@ -43,33 +66,44 @@ footer{padding:30px 8vw 60px;color:var(--muted);font-size:12px}
 <p>BDS student and a developer. I build simple tools, bots and web projects.</p>
 </main>
 
-<section id="projects">
-<h2 class="section-title">Projects</h2>
-<div class="projects">
+<section id="projects" class="projects-section">
+<div class="project-tree">
+<div class="tree-label"><span class="section-tag">Projects</span><span class="spark" aria-hidden="true"></span></div>
+<div class="tree-list">
+<a class="project" href="https://github.com/Kaztral-ar" target="_blank" rel="noopener noreferrer">
+<div class="icon sneex" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M20 5 33 12.5v15L20 35 7 27.5v-15L20 5Z"/><path d="m7 12.5 13 7.5 13-7.5M20 20v15"/></svg></div>
+<div class="project-copy"><div class="project-name">SNEEX</div><div class="project-desc">Visual web scraper for the modern web.<br>Browser extension, CLI and more.</div></div><span class="arrow">→</span>
+</a>
 <a class="project" href="https://github.com/Kaztral-ar/number-rush" target="_blank" rel="noopener noreferrer">
-<div class="project-name">number-rush</div>
-<div class="project-desc">A JavaScript number game.</div>
+<div class="icon number" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M11 12h18M11 20h18M11 28h12"/></svg></div>
+<div class="project-copy"><div class="project-name">number-rush</div><div class="project-desc">A JavaScript number game.<br>Simple, fast and fun.</div></div><span class="arrow">→</span>
 </a>
 <a class="project" href="https://github.com/Kaztral-ar/advanced-filter-bot" target="_blank" rel="noopener noreferrer">
-<div class="project-name">advanced-filter-bot</div>
-<div class="project-desc">A Python Telegram custom-message filter bot.</div>
+<div class="icon filter" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M7 9h26M11 20h18M16 31h8"/></svg></div>
+<div class="project-copy"><div class="project-name">advanced-filter-bot</div><div class="project-desc">Python Telegram custom-message filter bot.<br>Built for flexible group management.</div></div><span class="arrow">→</span>
 </a>
 <a class="project" href="https://github.com/Kaztral-ar/bot" target="_blank" rel="noopener noreferrer">
-<div class="project-name">bot</div>
-<div class="project-desc">A Python Discord community bot.</div>
+<div class="icon bot" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M10 13h20v17H10zM15 8v5M25 8v5M15 20h.1M25 20h.1M15 25h10"/></svg></div>
+<div class="project-copy"><div class="project-name">Discord Bot</div><div class="project-desc">A Python community bot with useful<br>features and commands.</div></div><span class="arrow">→</span>
 </a>
 <a class="project" href="https://github.com/Kaztral-ar/sir-lancebot" target="_blank" rel="noopener noreferrer">
-<div class="project-name">sir-lancebot</div>
-<div class="project-desc">An open-source Discord bot project.</div>
+<div class="icon lance" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M12 10h16a4 4 0 0 1 4 4v12a4 4 0 0 1-4 4H12a4 4 0 0 1-4-4V14a4 4 0 0 1 4-4Z"/><path d="m15 17 4 3-4 3M22 24h5"/></svg></div>
+<div class="project-copy"><div class="project-name">sir-lancebot</div><div class="project-desc">Open-source Discord bot project.<br>Built and maintained on GitHub.</div></div><span class="arrow">→</span>
 </a>
+<a class="project" href="https://github.com/Kaztral-ar" target="_blank" rel="noopener noreferrer">
+<div class="icon more" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="m15 11-8 9 8 9M25 11l8 9-8 9M22 8l-4 24"/></svg></div>
+<div class="project-copy"><div class="project-name">More Projects</div><div class="project-desc">Check out all my projects and<br>open-source work on GitHub.</div></div><span class="arrow">→</span>
+</a>
+<a class="github-more" href="https://github.com/Kaztral-ar" target="_blank" rel="noopener noreferrer">More projects on GitHub →</a>
+</div>
 </div>
 </section>
 
-<section id="contact">
-<h2 class="section-title">Contact</h2>
+<section id="contact" class="contact">
+<div class="contact-inner">
+<span class="section-tag">Contact</span>
 <p class="contact-text">Find me and my work on GitHub.</p>
-<div class="links">
-<a href="https://github.com/Kaztral-ar" target="_blank" rel="noopener noreferrer">GitHub</a>
+<div class="contact-links"><a href="https://github.com/Kaztral-ar" target="_blank" rel="noopener noreferrer">GitHub →</a></div>
 </div>
 </section>
 
