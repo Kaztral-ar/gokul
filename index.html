@@ -9,28 +9,28 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#f1eee8;--ink:#11110f;--muted:#706c63;--line:#11110f20}
+:root{--bg:#fff;--ink:#111827;--muted:#64748b;--accent:#5b5bf7}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:hidden}
-.logo-wrap{padding:42px 8vw 0}
-.logo{display:inline-block;border:1.5px dashed #706c63;border-radius:8px;padding:6px 10px;font-size:14px;font-weight:600;letter-spacing:-.035em;cursor:pointer;user-select:none;transition:transform .18s ease,background .18s ease}
-.logo:active{transform:scale(.94);background:#11110f0a}
-.divider{height:1px;background:var(--line);margin:42px 8vw 0}
-.intro{min-height:72vh;padding:70px 8vw 100px;display:flex;align-items:flex-start;justify-content:center;flex-direction:column}
-.eyebrow{font-size:10px;font-weight:700;letter-spacing:.15em;color:var(--muted);margin-bottom:20px}
-h1{font-size:clamp(52px,8vw,100px);line-height:.86;letter-spacing:-.075em;margin:0 0 28px;font-weight:700}
+.page{padding:42px 8vw 100px}
+.logo{display:inline-block;border:1.5px dashed var(--accent);border-radius:8px;padding:6px 10px;color:var(--accent);font-size:14px;font-weight:600;letter-spacing:-.035em;cursor:pointer;user-select:none;transition:transform .18s ease,background .18s ease}
+.logo:active{transform:scale(.94);background:#5b5bf70d}
+.intro{padding-top:18px}
+.eyebrow{font-size:10px;font-weight:700;letter-spacing:.15em;color:var(--muted);margin:0 0 18px}
+h1{font-size:clamp(52px,8vw,100px);line-height:.86;letter-spacing:-.075em;margin:0 0 24px;font-weight:700}
 .intro p{max-width:620px;color:var(--muted);font-size:clamp(18px,2.4vw,28px);font-weight:400;line-height:1.45;margin:0;letter-spacing:-.02em}
-@media(max-width:600px){.logo-wrap{padding:28px 22px 0}.divider{margin:30px 22px 0}.intro{min-height:70vh;padding:55px 22px 80px}.logo{font-size:13px;padding:5px 9px}.intro p{font-size:18px}}
+@media(max-width:600px){.page{padding:28px 22px 80px}.intro{padding-top:16px}.logo{font-size:13px;padding:5px 9px}.eyebrow{margin-bottom:16px}.intro p{font-size:18px}}
 </style>
 </head>
 <body>
-<header class="logo-wrap"><a class="logo" id="kaztralLogo" href="#intro" aria-label="Kaztral">Kaztral</a></header>
-<div class="divider" aria-hidden="true"></div>
-<main id="intro" class="intro">
+<main class="page">
+<a class="logo" id="kaztralLogo" href="#intro" aria-label="Kaztral">Kaztral</a>
+<section id="intro" class="intro">
 <div class="eyebrow">GOKUL (KAZTRAL) • DEVELOPER</div>
 <h1>Hi, I'm Gokul.</h1>
 <p>BDS student and a developer. I build simple tools, bots and web projects.</p>
+</section>
 </main>
 <script>
 (() => {
