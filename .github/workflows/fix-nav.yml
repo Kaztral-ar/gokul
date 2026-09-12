@@ -1,0 +1,37 @@
+name: Fix nav visibility
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    if: "!contains(github.event.head_commit.message, 'Fix nav visibility')"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fix navigation behavior
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('index.html')
+          s = p.read_text()
+          old = '''<script>\n(function(){const nav=document.getElementById('siteNav');if(!nav)return;let timer;function showNav(){nav.classList.add('is-visible');clearTimeout(timer);timer=setTimeout(()=>nav.classList.remove('is-visible'),900)}window.addEventListener('scroll',showNav,{passive:true});window.addEventListener('touchmove',showNav,{passive:true});window.addEventListener('wheel',showNav,{passive:true});nav.addEventListener('pointerenter',()=>nav.classList.add('is-visible'));nav.addEventListener('pointerleave',()=>{clearTimeout(timer);timer=setTimeout(()=>nav.classList.remove('is-visible'),900)});})();</script>'''
+          new = '''<script>\n(function(){const nav=document.getElementById('siteNav');if(!nav)return;let timer;function hideNav(){nav.classList.remove('is-visible');clearTimeout(timer)}function showAfterScroll(){hideNav();timer=setTimeout(()=>nav.classList.add('is-visible'),450)}window.addEventListener('scroll',showAfterScroll,{passive:true});nav.addEventListener('pointerdown',()=>{nav.classList.add('is-visible');clearTimeout(timer)},{passive:true});})();</script>'''
+          if old not in s:
+              raise SystemExit('old navigation script not found')
+          p.write_text(s.replace(old,new))
+          PY
+      - name: Commit and remove temporary workflow
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add index.html
+          git commit -m "Fix nav visibility"
+          rm -f .github/workflows/fix-nav.yml
+          git add .github/workflows/fix-nav.yml
+          git commit -m "Remove nav fix workflow"
+          git push
