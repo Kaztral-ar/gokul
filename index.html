@@ -3,29 +3,63 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Kaztral — Gokul's personal portfolio.">
-<title>Kaztral — Gokul</title>
+<meta name="description" content="Gokul (Kaztral) — BDS student and self-taught developer.">
+<title>Gokul — Kaztral</title>
 <style>
+:root{--bg:#f1eee8;--ink:#11110f;--muted:#706c63;--line:#11110f20}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;background:#f7f7f5;color:#151515;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-.page{width:min(1000px,88vw);margin:auto;padding:42px 0 120px}
-.logo{display:inline-block;padding:12px 20px;border:2px dashed #8b8f94;border-radius:12px;font-size:24px;font-weight:800;letter-spacing:-.04em}
-.divider{height:1px;background:#d9dadd;margin:48px 0 72px}
-.intro{max-width:760px}
-.intro h1{margin:0 0 18px;font-size:clamp(48px,8vw,86px);line-height:.95;letter-spacing:-.07em;font-weight:800}
-.intro p{margin:0;color:#68717d;font-size:clamp(20px,3vw,30px);line-height:1.35;letter-spacing:-.02em}
-@media(max-width:600px){.page{width:calc(100% - 40px);padding-top:28px}.divider{margin:38px 0 58px}.logo{font-size:20px}.intro h1{font-size:clamp(46px,14vw,70px)}.intro p{font-size:20px}}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;overflow-x:hidden}
+.logo-wrap{padding:42px 8vw 0}
+.logo{display:inline-block;border:1.5px dashed #706c63;border-radius:9px;padding:7px 11px;font-size:16px;font-weight:700;letter-spacing:-.04em;cursor:pointer;user-select:none;transition:transform .18s ease,background .18s ease}
+.logo:active{transform:scale(.94);background:#11110f0a}
+.divider{height:1px;background:var(--line);margin:42px 8vw 0}
+.intro{min-height:72vh;padding:70px 8vw 100px;display:flex;align-items:flex-start;justify-content:center;flex-direction:column}
+.eyebrow{font-size:10px;font-weight:800;letter-spacing:.15em;color:var(--muted);margin-bottom:20px}
+h1{font-size:clamp(52px,8vw,100px);line-height:.86;letter-spacing:-.08em;margin:0 0 28px}
+.intro p{max-width:620px;color:var(--muted);font-size:clamp(18px,2.4vw,28px);line-height:1.45;margin:0}
+@media(max-width:600px){.logo-wrap{padding:28px 22px 0}.divider{margin:30px 22px 0}.intro{min-height:70vh;padding:55px 22px 80px}.logo{font-size:14px;padding:6px 10px}.intro p{font-size:18px}}
 </style>
 </head>
 <body>
-<main class="page">
-  <div class="logo">Kaztral</div>
-  <div class="divider"></div>
-  <section class="intro" aria-label="Introduction">
-    <h1>Hi, I'm Gokul.</h1>
-    <p>BDS student and a developer. I build simple tools, bots and web projects.</p>
-  </section>
+<header class="logo-wrap"><a class="logo" id="kaztralLogo" href="#intro" aria-label="Kaztral">Kaztral</a></header>
+<div class="divider" aria-hidden="true"></div>
+<main id="intro" class="intro">
+<div class="eyebrow">GOKUL (KAZTRAL) • DEVELOPER</div>
+<h1>Hi, I'm Gokul.</h1>
+<p>BDS student and a developer. I build simple tools, bots and web projects.</p>
 </main>
+<script>
+(() => {
+  const logo = document.getElementById('kaztralLogo');
+  let audioContext;
+
+  function touchSound() {
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContext) return;
+
+    audioContext ||= new AudioContext();
+    if (audioContext.state === 'suspended') audioContext.resume();
+
+    const oscillator = audioContext.createOscillator();
+    const gain = audioContext.createGain();
+    const now = audioContext.currentTime;
+
+    oscillator.type = 'sine';
+    oscillator.frequency.setValueAtTime(520, now);
+    oscillator.frequency.exponentialRampToValueAtTime(780, now + 0.06);
+    gain.gain.setValueAtTime(0.0001, now);
+    gain.gain.exponentialRampToValueAtTime(0.07, now + 0.008);
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.11);
+
+    oscillator.connect(gain);
+    gain.connect(audioContext.destination);
+    oscillator.start(now);
+    oscillator.stop(now + 0.12);
+  }
+
+  logo.addEventListener('pointerdown', touchSound, {passive:true});
+})();
+</script>
 </body>
 </html>
