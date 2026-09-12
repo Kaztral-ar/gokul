@@ -5,20 +5,23 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="Gokul (Kaztral) — BDS student and self-taught developer.">
 <title>Gokul — Kaztral</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#f1eee8;--ink:#11110f;--muted:#706c63;--line:#11110f20}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;overflow-x:hidden}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:hidden}
 .logo-wrap{padding:42px 8vw 0}
-.logo{display:inline-block;border:1.5px dashed #706c63;border-radius:9px;padding:7px 11px;font-size:16px;font-weight:700;letter-spacing:-.04em;cursor:pointer;user-select:none;transition:transform .18s ease,background .18s ease}
+.logo{display:inline-block;border:1.5px dashed #706c63;border-radius:8px;padding:6px 10px;font-size:14px;font-weight:600;letter-spacing:-.035em;cursor:pointer;user-select:none;transition:transform .18s ease,background .18s ease}
 .logo:active{transform:scale(.94);background:#11110f0a}
 .divider{height:1px;background:var(--line);margin:42px 8vw 0}
 .intro{min-height:72vh;padding:70px 8vw 100px;display:flex;align-items:flex-start;justify-content:center;flex-direction:column}
-.eyebrow{font-size:10px;font-weight:800;letter-spacing:.15em;color:var(--muted);margin-bottom:20px}
-h1{font-size:clamp(52px,8vw,100px);line-height:.86;letter-spacing:-.08em;margin:0 0 28px}
-.intro p{max-width:620px;color:var(--muted);font-size:clamp(18px,2.4vw,28px);line-height:1.45;margin:0}
-@media(max-width:600px){.logo-wrap{padding:28px 22px 0}.divider{margin:30px 22px 0}.intro{min-height:70vh;padding:55px 22px 80px}.logo{font-size:14px;padding:6px 10px}.intro p{font-size:18px}}
+.eyebrow{font-size:10px;font-weight:700;letter-spacing:.15em;color:var(--muted);margin-bottom:20px}
+h1{font-size:clamp(52px,8vw,100px);line-height:.86;letter-spacing:-.075em;margin:0 0 28px;font-weight:700}
+.intro p{max-width:620px;color:var(--muted);font-size:clamp(18px,2.4vw,28px);font-weight:400;line-height:1.45;margin:0;letter-spacing:-.02em}
+@media(max-width:600px){.logo-wrap{padding:28px 22px 0}.divider{margin:30px 22px 0}.intro{min-height:70vh;padding:55px 22px 80px}.logo{font-size:13px;padding:5px 9px}.intro p{font-size:18px}}
 </style>
 </head>
 <body>
@@ -37,7 +40,6 @@ h1{font-size:clamp(52px,8vw,100px);line-height:.86;letter-spacing:-.08em;margin:
   function touchSound() {
     const AudioContext = window.AudioContext || window.webkitAudioContext;
     if (!AudioContext) return;
-
     audioContext ||= new AudioContext();
     if (audioContext.state === 'suspended') audioContext.resume();
 
@@ -51,7 +53,6 @@ h1{font-size:clamp(52px,8vw,100px);line-height:.86;letter-spacing:-.08em;margin:
     gain.gain.setValueAtTime(0.0001, now);
     gain.gain.exponentialRampToValueAtTime(0.07, now + 0.008);
     gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.11);
-
     oscillator.connect(gain);
     gain.connect(audioContext.destination);
     oscillator.start(now);
