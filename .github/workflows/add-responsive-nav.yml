@@ -9,7 +9,7 @@ permissions:
 
 jobs:
   nav:
-    if: "!contains(github.event.head_commit.message, 'responsive portfolio navigation')"
+    if: "!contains(github.event.head_commit.message, 'Add responsive portfolio navigation')"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
