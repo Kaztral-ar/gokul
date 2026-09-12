@@ -1,0 +1,45 @@
+name: Add responsive nav
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  nav:
+    if: "!contains(github.event.head_commit.message, 'responsive portfolio navigation')"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Add responsive navigation
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('index.html')
+          s = p.read_text()
+          if 'id="siteNav"' in s:
+              raise SystemExit(0)
+          css = '''.site-nav{position:fixed;right:22px;top:50%;transform:translateY(-50%);z-index:1000;display:flex;flex-direction:column;gap:4px;padding:6px;border:1px solid #dedede;border-radius:12px;background:rgba(255,255,255,.94);box-shadow:0 8px 24px rgba(0,0,0,.06);backdrop-filter:blur(10px)}.site-nav a{display:flex;align-items:center;justify-content:center;min-width:82px;padding:7px 9px;border-radius:7px;color:#666;text-decoration:none;font-size:10px;font-weight:500;transition:background .15s,color .15s,transform .15s}.site-nav a:hover{background:#f4f4f7;color:#171717}.site-nav a.active{background:#171717;color:#fff}.site-nav a:active{transform:scale(.96)}@media(max-width:900px){.site-nav{left:50%;right:auto;top:auto;bottom:14px;transform:translateX(-50%);flex-direction:row;gap:3px;padding:5px;border-radius:12px;max-width:calc(100vw - 24px)}.site-nav a{min-width:0;padding:7px 9px;font-size:9px;white-space:nowrap}}@media(max-width:420px){.site-nav a{padding:7px 7px;font-size:8px}}@media(prefers-reduced-motion:reduce){.site-nav a{transition:none}}'''
+          s = s.replace('</style>', css + '</style>', 1)
+          nav = '<nav class="site-nav" id="siteNav" aria-label="Main navigation"><a href="#intro" data-section="intro">Intro</a><a href="#languages" data-section="languages">Languages</a><a href="#projects" data-section="projects">Projects</a><a href="#contact" data-section="contact">Contact</a></nav>'
+          s = s.replace('<div class="page">', nav + '<div class="page">', 1)
+          js = '''<script>(function(){const nav=document.getElementById('siteNav');if(!nav)return;const links=[...nav.querySelectorAll('a')],sections=links.map(a=>document.getElementById(a.dataset.section)).filter(Boolean);const setActive=id=>links.forEach(a=>a.classList.toggle('active',a.dataset.section===id));const io=new IntersectionObserver(es=>{const v=es.filter(e=>e.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];if(v)setActive(v.target.id)},{rootMargin:'-35% 0px -55% 0px',threshold:[.05,.2,.5]});sections.forEach(s=>io.observe(s));links.forEach(a=>a.addEventListener('click',()=>setActive(a.dataset.section)));setActive('intro')})();</script>'''
+          s = s.replace('</body>', js + '</body>', 1)
+          p.write_text(s)
+          PY
+      - name: Commit navigation
+        run: |
+          if git diff --quiet; then exit 0; fi
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add index.html
+          git commit -m "Add responsive portfolio navigation"
+          git push
+      - name: Remove temporary workflow
+        if: success()
+        run: |
+          git rm .github/workflows/add-responsive-nav.yml
+          git commit -m "Remove temporary nav workflow"
+          git push
