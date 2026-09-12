@@ -9,18 +9,29 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#fff;--ink:#171717;--muted:#6f6f6f;--accent:#4f46e5}
+:root{--bg:#fff;--ink:#171717;--muted:#6f6f6f;--line:#e8e8e8;--accent:#4f46e5}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:'IBM Plex Mono',monospace;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:hidden}
 .logo-wrap{padding:42px 8vw 0}
 .logo{display:inline-block;border:1.5px dashed var(--accent);color:var(--accent);border-radius:8px;padding:6px 10px;font-size:14px;font-weight:600;letter-spacing:-.035em;cursor:pointer;user-select:none;transition:transform .18s ease,background .18s ease}
 .logo:active{transform:scale(.94);background:#4f46e50d}
-.intro{padding:48px 8vw 100px;display:flex;align-items:flex-start;justify-content:center;flex-direction:column}
+.intro{padding:48px 8vw 70px;display:flex;align-items:flex-start;justify-content:center;flex-direction:column}
 .eyebrow{font-size:10px;font-weight:600;letter-spacing:.12em;color:var(--muted);margin-bottom:20px}
 h1{font-size:clamp(42px,7vw,82px);line-height:1;letter-spacing:-.07em;margin:0 0 28px;font-weight:600}
 .intro p{max-width:700px;color:var(--muted);font-size:clamp(17px,2.1vw,24px);font-weight:400;line-height:1.65;margin:0;letter-spacing:-.025em}
-@media(max-width:600px){.logo-wrap{padding:28px 22px 0}.intro{padding:42px 22px 80px}.logo{font-size:13px;padding:5px 9px}.intro p{font-size:17px;line-height:1.65}h1{font-size:clamp(40px,12vw,58px);margin-bottom:24px}}
+section{margin:0 8vw;padding:54px 0;border-top:1px solid var(--line)}
+.section-title{font-size:16px;font-weight:500;color:var(--muted);margin:0 0 28px}
+.projects{display:grid;gap:18px}
+.project{display:block;padding:18px 0;text-decoration:none;color:inherit;border-bottom:1px solid var(--line);transition:padding-left .18s ease}
+.project:hover{padding-left:8px}
+.project-name{font-size:21px;font-weight:600;margin-bottom:8px}
+.project-desc{font-size:14px;line-height:1.6;color:var(--muted)}
+.contact-text{max-width:700px;font-size:17px;line-height:1.7;color:var(--muted);margin:0 0 24px}
+.links{display:flex;flex-wrap:wrap;gap:10px}
+.links a{color:var(--ink);text-decoration:underline;text-underline-offset:4px;font-size:15px}
+footer{padding:30px 8vw 60px;color:var(--muted);font-size:12px}
+@media(max-width:600px){.logo-wrap{padding:28px 22px 0}.intro{padding:42px 22px 55px}.logo{font-size:13px;padding:5px 9px}.intro p{font-size:17px;line-height:1.65}h1{font-size:clamp(40px,12vw,58px);margin-bottom:24px}section{margin:0 22px;padding:42px 0}.project-name{font-size:19px}.project-desc{font-size:13px}.contact-text{font-size:16px}footer{padding:24px 22px 50px}}
 </style>
 </head>
 <body>
@@ -30,6 +41,39 @@ h1{font-size:clamp(42px,7vw,82px);line-height:1;letter-spacing:-.07em;margin:0 0
 <h1>Hi, I'm Gokul.</h1>
 <p>BDS student and a developer. I build simple tools, bots and web projects.</p>
 </main>
+
+<section id="projects">
+<h2 class="section-title">## Projects</h2>
+<div class="projects">
+<a class="project" href="https://github.com/Kaztral-ar/number-rush" target="_blank" rel="noopener noreferrer">
+<div class="project-name">number-rush</div>
+<div class="project-desc">A JavaScript number game.</div>
+</a>
+<a class="project" href="https://github.com/Kaztral-ar/advanced-filter-bot" target="_blank" rel="noopener noreferrer">
+<div class="project-name">advanced-filter-bot</div>
+<div class="project-desc">A Python Telegram custom-message filter bot.</div>
+</a>
+<a class="project" href="https://github.com/Kaztral-ar/bot" target="_blank" rel="noopener noreferrer">
+<div class="project-name">bot</div>
+<div class="project-desc">A Python Discord community bot.</div>
+</a>
+<a class="project" href="https://github.com/Kaztral-ar/sir-lancebot" target="_blank" rel="noopener noreferrer">
+<div class="project-name">sir-lancebot</div>
+<div class="project-desc">An open-source Discord bot project.</div>
+</a>
+</div>
+</section>
+
+<section id="contact">
+<h2 class="section-title">## Contact</h2>
+<p class="contact-text">Find me and my work on GitHub. Instagram is intentionally not included.</p>
+<div class="links">
+<a href="https://github.com/Kaztral-ar" target="_blank" rel="noopener noreferrer">GitHub</a>
+</div>
+</section>
+
+<footer>© Gokul — Kaztral</footer>
+
 <script>
 (() => {
   const logo = document.getElementById('kaztralLogo');
