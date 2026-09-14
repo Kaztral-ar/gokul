@@ -201,3 +201,7 @@ footer { padding: 22px 0 40px; color: var(--muted); font-size: 10px; }
 /* Keep the vertical Work category connector; remove only the section divider lines. */
 .work-tree:before { display: block !important; content: '' !important; position: absolute !important; left: 6px !important; top: 0 !important; bottom: 0 !important; width: 1px !important; background: #dfe4ec !important; }
 .tools-section::before, .projects-section::before, .contact::before { display: none !important; content: none !important; }
+
+/* Hide only the Tools heading and leave clear space after the Code languages. */
+.tools-section > .section-title { display: none !important; }
+.tools-section { padding-top: clamp(70px,9vw,96px) !important; }
