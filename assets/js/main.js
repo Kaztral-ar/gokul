@@ -54,6 +54,34 @@
   }
   loadGithubLanguages();
 
+  // Small popup for the Tools folder in the Work tree.
+  const toolsFolder=document.querySelector('.work-folder.tools');
+  if(toolsFolder){
+    const category=toolsFolder.closest('.work-category');
+    const items=category?.querySelector('.work-items');
+    if(category){
+      const button=document.createElement('button');
+      button.type='button';
+      button.className='work-folder tools tools-toggle';
+      button.setAttribute('aria-expanded','false');
+      button.setAttribute('aria-label','Open tools');
+      button.innerHTML=toolsFolder.innerHTML;
+      toolsFolder.replaceWith(button);
+      const popup=document.createElement('div');
+      popup.className='tools-popup';
+      popup.setAttribute('role','dialog');
+      popup.innerHTML='<div class="tools-popup-title">Tools</div><a href="https://github.com/Kaztral-ar/Termokali" target="_blank" rel="noopener"><span>TermoKali</span><small>Linux / Termux</small></a>';
+      category.appendChild(popup);
+      items?.remove();
+      const style=document.createElement('style');
+      style.textContent='.tools-toggle{border:0;padding:0;background:none;font:inherit;text-align:left;cursor:pointer;width:auto}.tools-toggle:focus-visible{outline:1px solid currentColor;outline-offset:4px;border-radius:3px}.tools-popup{position:absolute;z-index:20;left:46px;top:42px;width:180px;padding:9px;background:#fff;border:1px solid #e2e6ed;border-radius:7px;box-shadow:0 8px 24px rgba(20,30,50,.08);opacity:0;transform:translateY(-4px) scale(.98);pointer-events:none;transition:opacity .16s ease,transform .16s ease}.work-category.is-open .tools-popup{opacity:1;transform:translateY(0) scale(1);pointer-events:auto}.tools-popup-title{padding:2px 6px 7px;color:#737b8c;font:500 9px/1.2 "IBM Plex Mono",monospace;letter-spacing:.08em;text-transform:uppercase}.tools-popup a{display:block;padding:7px 6px;text-decoration:none;border-radius:5px;color:#171b2b}.tools-popup a:hover{background:#f5f3ff}.tools-popup span{display:block;font:500 13px/1.25 "IBM Plex Mono",monospace}.tools-popup small{display:block;margin-top:3px;color:#737b8c;font:10px/1.3 "IBM Plex Mono",monospace}@media(max-width:700px){.tools-popup{left:36px;top:38px;width:165px}.tools-popup span{font-size:12px}.tools-popup small{font-size:9.5px}}';
+      document.head.appendChild(style);
+      button.addEventListener('click',e=>{e.stopPropagation();const open=category.classList.toggle('is-open');button.setAttribute('aria-expanded',String(open))});
+      document.addEventListener('click',e=>{if(!category.contains(e.target)){category.classList.remove('is-open');button.setAttribute('aria-expanded','false')}});
+      document.addEventListener('keydown',e=>{if(e.key==='Escape'){category.classList.remove('is-open');button.setAttribute('aria-expanded','false')}});
+    }
+  }
+
   const nav=document.getElementById('siteNav');if(!nav)return;const links=[...nav.querySelectorAll('a')],sections=links.map(a=>document.getElementById(a.dataset.section)).filter(Boolean);const setActive=id=>links.forEach(a=>a.classList.toggle('active',a.dataset.section===id));
   const io=new IntersectionObserver(es=>{const v=es.filter(e=>e.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];if(v)setActive(v.target.id)},{rootMargin:'-35% 0px -55% 0px',threshold:[.05,.2,.5]});sections.forEach(s=>io.observe(s));links.forEach(a=>a.addEventListener('click',()=>setActive(a.dataset.section)));setActive('intro');
   let timer;function hide(){nav.classList.remove('is-visible');clearTimeout(timer)}function show(){hide();timer=setTimeout(()=>nav.classList.add('is-visible'),450)}window.addEventListener('scroll',show,{passive:true});nav.addEventListener('pointerdown',()=>{nav.classList.add('is-visible');clearTimeout(timer)},{passive:true});
