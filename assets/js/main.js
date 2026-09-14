@@ -13,13 +13,47 @@
   window.addEventListener('deviceorientation',e=>{if(typeof e.gamma==='number')setMotion((e.gamma+45)/90)},{passive:true});
   function animate(){current+=(target-current)*.12;fill.style.left=(current*100)+'%';requestAnimationFrame(animate)}
   animate();
-  const list=document.getElementById('languageList');
-  if(list){const saved=JSON.parse(localStorage.getItem('kaztral-language-x')||'{}');list.querySelectorAll('.language').forEach((item,i)=>{const x=Number(saved[i]||0);item.dataset.x=x;item.style.transform=`translateX(${x}px)`});let drag=null;
-    list.addEventListener('pointerdown',e=>{const item=e.target.closest('.language');if(!item)return;drag={item,startX:e.clientX,baseX:Number(item.dataset.x||0)};item.classList.add('dragging');item.setPointerCapture(e.pointerId)},{passive:true});
-    list.addEventListener('pointermove',e=>{if(!drag)return;const area=list.getBoundingClientRect(),item=drag.item.getBoundingClientRect(),raw=drag.baseX+(e.clientX-drag.startX),min=area.left-item.left+drag.baseX+2,max=area.right-item.right+drag.baseX-2,x=Math.max(Math.min(raw,max),min);drag.item.style.transform=`translateX(${x}px)`;drag.item.dataset.temp=x},{passive:true});
-    list.addEventListener('pointerup',e=>{if(!drag)return;const item=drag.item;item.releasePointerCapture?.(e.pointerId);item.classList.remove('dragging');const x=Number(item.dataset.temp??item.dataset.x??0);item.dataset.x=x;item.style.transform=`translateX(${x}px)`;const positions={};[...list.querySelectorAll('.language')].forEach((el,i)=>positions[i]=Number(el.dataset.x||0));localStorage.setItem('kaztral-language-x',JSON.stringify(positions));drag=null},{passive:true});
-    list.addEventListener('pointercancel',()=>{if(drag){drag.item.classList.remove('dragging');drag.item.style.transform=`translateX(${Number(drag.item.dataset.x||0)}px)`;drag=null}});
+
+  // Keep the Code section synced with languages actually used in Kaztral-ar repositories.
+  const languageList=document.getElementById('languageList');
+  const fallbackLanguages=['Python','JavaScript','HTML','CSS','Shell'];
+  const githubUser='Kaztral-ar';
+  const ignoredRepos=new Set(['gokul']);
+  const languageAliases={'JavaScript':'JavaScript','TypeScript':'TypeScript','HTML':'HTML','CSS':'CSS','Shell':'Shell'};
+  function renderLanguages(languages){
+    if(!languageList)return;
+    const names=[...languages].sort((a,b)=>a.localeCompare(b));
+    languageList.innerHTML=names.map(name=>`<span class="language">${name}</span>`).join('');
   }
+  async function loadGithubLanguages(){
+    if(!languageList)return;
+    renderLanguages(fallbackLanguages);
+    try{
+      const repos=[];
+      for(let page=1;page<=3;page++){
+        const response=await fetch(`https://api.github.com/users/${githubUser}/repos?per_page=100&page=${page}&type=owner&sort=updated`,{headers:{Accept:'application/vnd.github+json'}});
+        if(!response.ok)throw new Error(`GitHub repos request failed: ${response.status}`);
+        const batch=await response.json();
+        repos.push(...batch);
+        if(batch.length<100)break;
+      }
+      const owned=repos.filter(repo=>!repo.fork&&!ignoredRepos.has(repo.name));
+      const languageSets=await Promise.all(owned.map(async repo=>{
+        try{
+          const response=await fetch(repo.languages_url,{headers:{Accept:'application/vnd.github+json'}});
+          if(!response.ok)return [];
+          return Object.keys(await response.json());
+        }catch{return []}
+      }));
+      const languages=new Set();
+      languageSets.flat().forEach(language=>languages.add(languageAliases[language]||language));
+      if(languages.size)renderLanguages(languages);
+    }catch(error){
+      console.warn('Could not sync GitHub languages:',error);
+    }
+  }
+  loadGithubLanguages();
+
   const nav=document.getElementById('siteNav');if(!nav)return;const links=[...nav.querySelectorAll('a')],sections=links.map(a=>document.getElementById(a.dataset.section)).filter(Boolean);const setActive=id=>links.forEach(a=>a.classList.toggle('active',a.dataset.section===id));
   const io=new IntersectionObserver(es=>{const v=es.filter(e=>e.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];if(v)setActive(v.target.id)},{rootMargin:'-35% 0px -55% 0px',threshold:[.05,.2,.5]});sections.forEach(s=>io.observe(s));links.forEach(a=>a.addEventListener('click',()=>setActive(a.dataset.section)));setActive('intro');
   let timer;function hide(){nav.classList.remove('is-visible');clearTimeout(timer)}function show(){hide();timer=setTimeout(()=>nav.classList.add('is-visible'),450)}window.addEventListener('scroll',show,{passive:true});nav.addEventListener('pointerdown',()=>{nav.classList.add('is-visible');clearTimeout(timer)},{passive:true});
