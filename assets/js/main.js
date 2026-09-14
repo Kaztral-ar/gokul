@@ -14,12 +14,10 @@
   function animate(){current+=(target-current)*.12;fill.style.left=(current*100)+'%';requestAnimationFrame(animate)}
   animate();
 
-  // Keep the Code section synced with real programming languages used in Kaztral-ar repositories.
+  // Keep the Code section synced with real programming languages used in all Kaztral-ar repositories, including the portfolio.
   const languageList=document.getElementById('languageList');
   const fallbackLanguages=['Python','JavaScript','HTML','CSS','Shell'];
   const githubUser='Kaztral-ar';
-  const ignoredRepos=new Set(['gokul']);
-  // GitHub Linguist can report repository/config files as language names. Keep those out of Code.
   const ignoredLanguages=new Set(['Procfile','Dockerfile','Makefile','CMake','Nix','Smarty','Git Attributes','Git Config','Git Revision List','Git Shell','Ignore List','Diff','JSON with Comments']);
   const languageAliases={'JavaScript':'JavaScript','TypeScript':'TypeScript','HTML':'HTML','CSS':'CSS','Shell':'Shell'};
   function renderLanguages(languages){
@@ -39,7 +37,7 @@
         repos.push(...batch);
         if(batch.length<100)break;
       }
-      const owned=repos.filter(repo=>!repo.fork&&!ignoredRepos.has(repo.name));
+      const owned=repos.filter(repo=>!repo.fork);
       const languageSets=await Promise.all(owned.map(async repo=>{
         try{
           const response=await fetch(repo.languages_url,{headers:{Accept:'application/vnd.github+json'}});
