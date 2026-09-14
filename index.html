@@ -20,6 +20,24 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
+  <style>
+    .work-tree{position:relative;margin-top:6px;padding:2px 0 4px 18px;font-family:'IBM Plex Mono',monospace}
+    .work-tree:before{content:'';position:absolute;left:18px;top:0;bottom:0;width:1px;background:#dfe4ec}
+    .work-category{position:relative;padding-left:58px;margin-bottom:30px}
+    .work-category:before{content:'';position:absolute;left:18px;top:25px;width:38px;height:1px;background:#dfe4ec}
+    .work-folder{display:flex;align-items:center;gap:12px;min-height:50px;color:#2563eb;font-size:24px;font-weight:500;letter-spacing:-.035em}
+    .work-folder svg{width:34px;height:34px;flex:0 0 34px;stroke:currentColor}
+    .work-folder.apps{color:#c56b20}.work-folder.tools{color:#5b31d4}
+    .work-items{position:relative;margin-left:15px;padding-left:31px;border-left:1px solid #dfe4ec}
+    .work-item{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px 20px;padding:15px 0 15px 22px;text-decoration:none;color:inherit}
+    .work-item:before{content:'';position:absolute;left:-1px;top:28px;width:23px;height:1px;background:#dfe4ec}
+    .work-item:hover .work-name{color:#2563eb}
+    .work-main{min-width:0}.work-name{display:block;font-size:18px;line-height:1.25;font-weight:500;color:#171b2b;transition:color .15s}
+    .work-desc{display:block;margin-top:7px;color:#737b8c;font-size:13px;line-height:1.5;overflow-wrap:anywhere}
+    .work-tag{align-self:start;margin-top:2px;padding:7px 10px;border-radius:6px;background:#edf3ff;color:#2563eb;font:500 10px/1 'IBM Plex Mono',monospace;letter-spacing:.05em;white-space:nowrap}
+    .work-tag.telegram{background:#e7f8ef;color:#188453}.work-tag.mobile{background:#fff0f0;color:#c43d4c}.work-tag.linux{background:#f0ebff;color:#6445cf}
+    @media(max-width:700px){.work-tree{padding-left:6px}.work-tree:before{left:6px}.work-category{padding-left:42px}.work-category:before{left:6px;width:30px}.work-folder{font-size:21px;gap:9px}.work-folder svg{width:29px;height:29px;flex-basis:29px}.work-items{margin-left:10px;padding-left:22px}.work-item{grid-template-columns:1fr;gap:8px;padding-left:17px}.work-item:before{width:16px}.work-tag{justify-self:start}.work-name{font-size:17px}.work-desc{font-size:12px}}
+  </style>
 </head>
 <body>
   <nav class="site-nav" id="siteNav" aria-label="Main navigation">
@@ -46,43 +64,30 @@
     <section id="tools" class="tools-section">
       <h2 class="section-title">Tools</h2>
       <div class="tool-groups">
-        <div class="tool-group">
-          <span class="tool-label">AI &amp; Coding</span>
-          <div class="tool-list"><span class="tool">ChatGPT</span><span class="tool">Claude</span><span class="tool">GitHub Copilot</span></div>
-        </div>
-        <div class="tool-group">
-          <span class="tool-label">Development</span>
-          <div class="tool-list"><span class="tool">VS Code</span><span class="tool">Git</span><span class="tool">GitHub</span><span class="tool">Postman</span></div>
-        </div>
-        <div class="tool-group">
-          <span class="tool-label">Terminal &amp; Platform</span>
-          <div class="tool-list"><span class="tool">Termux</span><span class="tool">Linux</span><span class="tool">Docker</span></div>
-        </div>
+        <div class="tool-group"><span class="tool-label">AI &amp; Coding</span><div class="tool-list"><span class="tool">ChatGPT</span><span class="tool">Claude</span><span class="tool">GitHub Copilot</span></div></div>
+        <div class="tool-group"><span class="tool-label">Development</span><div class="tool-list"><span class="tool">VS Code</span><span class="tool">Git</span><span class="tool">GitHub</span><span class="tool">Postman</span></div></div>
+        <div class="tool-group"><span class="tool-label">Terminal &amp; Platform</span><div class="tool-list"><span class="tool">Termux</span><span class="tool">Linux</span><span class="tool">Docker</span></div></div>
       </div>
     </section>
     <section id="projects" class="projects-section">
-      <h2 class="section-title">Projects</h2>
-      <div class="project-tree">
-        <span class="project-number">01</span>
-        <a class="project" href="https://github.com/Kaztral-ar/sir-lancebot" target="_blank" rel="noopener">
-          <span class="icon dark" aria-hidden="true"><svg viewBox="0 0 24 24" role="img"><rect x="4" y="3" width="16" height="18" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 8h8M8 12l3 2-3 2M13 16h3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-          <span class="project-copy"><span class="project-name">Sir Lancebot</span><span class="project-desc">Discord bot project for the Python Discord community.</span></span><span class="project-tag">DISCORD BOT</span>
-        </a>
-        <span class="project-number">02</span>
-        <a class="project" href="https://github.com/Kaztral-ar/bot" target="_blank" rel="noopener">
-          <span class="icon green" aria-hidden="true"><svg viewBox="0 0 24 24" role="img"><rect x="5" y="7" width="14" height="12" rx="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 4v3M8.5 12h.01M15.5 12h.01M9 16h6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M3.5 11v4M20.5 11v4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
-          <span class="project-copy"><span class="project-name">Python Utility Bot</span><span class="project-desc">Discord utilities and tools for community management.</span></span><span class="project-tag">BOT</span>
-        </a>
-        <span class="project-number">03</span>
-        <a class="project" href="https://github.com/Kaztral-ar/advanced-filter-bot" target="_blank" rel="noopener">
-          <span class="icon blue" aria-hidden="true"><svg viewBox="0 0 24 24" role="img"><path d="M4 5h16l-6.5 7v5l-3 2v-7L4 5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M8 8h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
-          <span class="project-copy"><span class="project-name">Advanced Filter Bot</span><span class="project-desc">Modular Telegram filter engine with persistent storage.</span></span><span class="project-tag">TELEGRAM</span>
-        </a>
-        <span class="project-number">04</span>
-        <a class="project" href="https://github.com/Kaztral-ar/number-rush" target="_blank" rel="noopener">
-          <span class="icon purple" aria-hidden="true"><svg viewBox="0 0 24 24" role="img"><rect x="4" y="5" width="16" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 9h.01M12 9h.01M16 9h.01M8 13h.01M12 13h.01M16 13h.01M8 17h8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
-          <span class="project-copy"><span class="project-name">Number Rush</span><span class="project-desc">Fast-paced number-order game built with React Native and Expo.</span></span><span class="project-tag">MOBILE</span>
-        </a>
+      <h2 class="section-title">Work</h2>
+      <div class="work-tree">
+        <div class="work-category">
+          <div class="work-folder"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" aria-hidden="true"><path d="M3.5 6.5A2.5 2.5 0 0 1 6 4h4l2 2h6a2.5 2.5 0 0 1 2.5 2.5v9A2.5 2.5 0 0 1 18 20H6a2.5 2.5 0 0 1-2.5-2.5v-11Z"/><path d="M3.5 9h17"/></svg><span>Bots</span></div>
+          <div class="work-items">
+            <a class="work-item" href="https://github.com/Kaztral-ar/sir-lancebot" target="_blank" rel="noopener"><span class="work-main"><span class="work-name">Sir Lancebot</span><span class="work-desc">Discord bot for the Python Discord community</span></span><span class="work-tag">DISCORD</span></a>
+            <a class="work-item" href="https://github.com/Kaztral-ar/bot" target="_blank" rel="noopener"><span class="work-main"><span class="work-name">Python Utility Bot</span><span class="work-desc">Discord utilities and community tools</span></span><span class="work-tag">DISCORD</span></a>
+            <a class="work-item" href="https://github.com/Kaztral-ar/advanced-filter-bot" target="_blank" rel="noopener"><span class="work-main"><span class="work-name">Advanced Filter Bot</span><span class="work-desc">Modular Telegram filtering system</span></span><span class="work-tag telegram">TELEGRAM</span></a>
+          </div>
+        </div>
+        <div class="work-category">
+          <div class="work-folder apps"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" aria-hidden="true"><path d="M3.5 6.5A2.5 2.5 0 0 1 6 4h4l2 2h6a2.5 2.5 0 0 1 2.5 2.5v9A2.5 2.5 0 0 1 18 20H6a2.5 2.5 0 0 1-2.5-2.5v-11Z"/><path d="M3.5 9h17"/></svg><span>Apps</span></div>
+          <div class="work-items"><a class="work-item" href="https://github.com/Kaztral-ar/number-rush" target="_blank" rel="noopener"><span class="work-main"><span class="work-name">Number Rush</span><span class="work-desc">Fast-paced number-order game</span></span><span class="work-tag mobile">MOBILE</span></a></div>
+        </div>
+        <div class="work-category">
+          <div class="work-folder tools"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" aria-hidden="true"><path d="M3.5 6.5A2.5 2.5 0 0 1 6 4h4l2 2h6a2.5 2.5 0 0 1 2.5 2.5v9A2.5 2.5 0 0 1 18 20H6a2.5 2.5 0 0 1-2.5-2.5v-11Z"/><path d="M3.5 9h17"/></svg><span>Tools</span></div>
+          <div class="work-items"><a class="work-item" href="https://github.com/Kaztral-ar/Termokali" target="_blank" rel="noopener"><span class="work-main"><span class="work-name">TermoKali</span><span class="work-desc">Kali Linux environment for Termux</span></span><span class="work-tag linux">LINUX</span></a></div>
+        </div>
       </div>
     </section>
     <section id="contact" class="contact">
