@@ -198,9 +198,5 @@ footer { padding: 22px 0 40px; color: var(--muted); font-size: 10px; }
   .work-tag { padding: 3px 4px !important; font-size: 6px !important; }
 }
 
-@media (max-width: 420px) {
-  .work-folder { font-size: 12px !important; }
-  .work-folder svg { width: 16px !important; height: 16px !important; flex-basis: 16px !important; }
-  .work-name { font-size: 10px !important; }
-  .work-desc { font-size: 7.5px !important; }
-}
+/* Remove the vertical connector between Work category folders. */
+.work-tree:before { display: none !important; }
