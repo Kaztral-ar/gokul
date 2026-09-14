@@ -14,15 +14,17 @@
   function animate(){current+=(target-current)*.12;fill.style.left=(current*100)+'%';requestAnimationFrame(animate)}
   animate();
 
-  // Keep the Code section synced with languages actually used in Kaztral-ar repositories.
+  // Keep the Code section synced with real programming languages used in Kaztral-ar repositories.
   const languageList=document.getElementById('languageList');
   const fallbackLanguages=['Python','JavaScript','HTML','CSS','Shell'];
   const githubUser='Kaztral-ar';
   const ignoredRepos=new Set(['gokul']);
+  // GitHub Linguist can report repository/config files as language names. Keep those out of Code.
+  const ignoredLanguages=new Set(['Procfile','Dockerfile','Makefile','CMake','Nix','Smarty','Git Attributes','Git Config','Git Revision List','Git Shell','Ignore List','Diff','JSON with Comments']);
   const languageAliases={'JavaScript':'JavaScript','TypeScript':'TypeScript','HTML':'HTML','CSS':'CSS','Shell':'Shell'};
   function renderLanguages(languages){
     if(!languageList)return;
-    const names=[...languages].sort((a,b)=>a.localeCompare(b));
+    const names=[...languages].filter(name=>!ignoredLanguages.has(name)).sort((a,b)=>a.localeCompare(b));
     languageList.innerHTML=names.map(name=>`<span class="language">${name}</span>`).join('');
   }
   async function loadGithubLanguages(){
