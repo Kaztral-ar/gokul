@@ -5,13 +5,13 @@
   function split(e){const s=document.createElement('span');s.className='tap-split';s.style.left=e.clientX+'px';s.style.top=e.clientY+'px';s.innerHTML='<i></i><i></i>';document.body.appendChild(s);s.addEventListener('animationend',()=>s.remove(),{once:true})}
   document.addEventListener('pointerdown',e=>{sound();split(e)},{passive:true});
 
-  const control=document.createElement('div');control.className='motion-line';control.innerHTML='<span class="motion-track"><span class="motion-fill"></span><span class="motion-orb"></span></span>';document.querySelector('.intro')?.appendChild(control);
-  const track=control.querySelector('.motion-track'),fill=control.querySelector('.motion-fill'),orb=control.querySelector('.motion-orb');
+  const control=document.createElement('div');control.className='motion-line';control.innerHTML='<span class="motion-track"><span class="motion-fill"></span></span>';document.querySelector('.intro')?.appendChild(control);
+  const fill=control.querySelector('.motion-fill');
   let target=.5,current=.5;
   function setMotion(v){target=Math.max(0,Math.min(1,v))}
   window.addEventListener('pointermove',e=>setMotion(e.clientX/window.innerWidth),{passive:true});
   window.addEventListener('deviceorientation',e=>{if(typeof e.gamma==='number')setMotion((e.gamma+45)/90)},{passive:true});
-  function animate(){current+=(target-current)*.12;orb.style.left=(current*100)+'%';fill.style.width=(current*100)+'%';requestAnimationFrame(animate)}
+  function animate(){current+=(target-current)*.12;fill.style.left=(current*100)+'%';requestAnimationFrame(animate)}
   animate();
   const list=document.getElementById('languageList');
   if(list){const saved=JSON.parse(localStorage.getItem('kaztral-language-x')||'{}');list.querySelectorAll('.language').forEach((item,i)=>{const x=Number(saved[i]||0);item.dataset.x=x;item.style.transform=`translateX(${x}px)`});let drag=null;
