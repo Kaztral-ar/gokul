@@ -54,7 +54,7 @@
   }
   loadGithubLanguages();
 
-  // Work tree: Bots and Apps open initially like the reference; Tools starts collapsed.
+  // Work tree: every category starts collapsed and toggles its projects on tap.
   const workCategories=[...document.querySelectorAll('.work-category')];
   workCategories.forEach(category=>{
     const folder=category.querySelector('.work-folder');
@@ -64,17 +64,15 @@
     const button=document.createElement('button');
     button.type='button';
     button.className=folder.className+' work-toggle';
-    const initiallyOpen=['Bots','Apps'].includes(folder.textContent.trim());
-    button.setAttribute('aria-expanded',String(initiallyOpen));
-    button.setAttribute('aria-label',`${initiallyOpen?'Close':'Open'} ${folder.textContent.trim()}`);
+    button.setAttribute('aria-expanded','false');
+    button.setAttribute('aria-label',`Open ${folder.textContent.trim()}`);
     button.innerHTML=folder.innerHTML;
     folder.replaceWith(button);
 
     if(items){
-      items.hidden=!initiallyOpen;
-      items.setAttribute('aria-hidden',String(!initiallyOpen));
+      items.hidden=true;
+      items.setAttribute('aria-hidden','true');
     }
-    if(initiallyOpen)category.classList.add('is-open');
 
     button.addEventListener('click',e=>{
       e.preventDefault();
