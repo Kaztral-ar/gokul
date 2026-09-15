@@ -277,6 +277,7 @@ h1::after {
 
 .tool-group {
   min-width: 0;
+  gap: 10px;
 }
 
 .tool-label {
