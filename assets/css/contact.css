@@ -57,14 +57,9 @@
   color: #fff;
 }
 
-.contact-card:active {
-  transform: none;
-}
-
+.contact-card:active { transform: none; }
 .contact-card::before,
-.contact-card::after {
-  display: none;
-}
+.contact-card::after { display: none; }
 
 .contact-logo {
   width: 20px;
@@ -86,9 +81,7 @@
 
 .github-logo,
 .discord-logo,
-.telegram-logo {
-  background: transparent;
-}
+.telegram-logo { background: transparent; }
 
 .contact-copy {
   min-width: 0;
@@ -106,13 +99,7 @@
   content: none;
 }
 
-@media (max-width: 900px) {
-  .contact-cards {
-    grid-template-columns: 1fr;
-    gap: 8px;
-  }
-}
-
+/* Keep social links horizontal on mobile too. */
 @media (max-width: 700px) {
   .contact {
     padding-top: 42px;
@@ -128,23 +115,29 @@
     line-height: 1.55;
   }
 
+  .contact-cards {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px;
+  }
+
   .contact-card {
-    min-height: 50px;
-    padding: 9px 12px;
+    min-height: 46px;
+    padding: 8px 5px;
+    gap: 5px;
   }
 
   .contact-logo {
-    width: 19px;
-    height: 19px;
-    flex-basis: 19px;
+    width: 18px;
+    height: 18px;
+    flex-basis: 18px;
   }
 
   .contact-logo svg {
-    width: 18px;
-    height: 18px;
+    width: 17px;
+    height: 17px;
   }
 
   .contact-name {
-    font-size: 11px;
+    font-size: 10px;
   }
 }
