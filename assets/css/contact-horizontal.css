@@ -1,0 +1,10 @@
+/* Horizontal contact card override */
+@media (max-width: 900px) {
+  .contact-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+}
+@media (max-width: 700px) {
+  .contact-card { min-height: 48px; padding: 8px 5px; gap: 5px; }
+  .contact-logo { width: 17px; height: 17px; flex-basis: 17px; }
+  .contact-logo svg { width: 16px; height: 16px; }
+  .contact-name { font-size: 10px; }
+}
