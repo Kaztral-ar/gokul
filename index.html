@@ -232,6 +232,22 @@
         justify-self: start;
       }
     }
+
+    /* Keep the mobile transition from Intro to Code compact. */
+    @media (max-width:700px) {
+      .intro {
+        padding-bottom: 18px;
+      }
+
+      .motion-line {
+        height: 24px;
+        margin-top: 12px;
+      }
+
+      .languages {
+        padding-top: 12px;
+      }
+    }
   </style>
 </head>
 
@@ -255,13 +271,7 @@
     <main id="intro" class="intro">
       <div class="eyebrow">GOKUL (KAZTRAL) • DEVELOPER</div>
       <h1>Hi, I'm Gokul.</h1>
-      <p>
-        I'm Gokul, a
-        <span class="role-developer">developer</span>
-        and
-        <span class="intro-highlight">BDS</span>
-        student who builds tools, bots, and web projects. I'm interested in creating simple software that solves real problems and is worth using.
-      </p>
+      <p>I'm Gokul, a <span class="role-developer">developer</span> and <span class="intro-highlight">BDS</span> student who builds tools, bots, and web projects. I'm interested in creating simple software that solves real problems and is worth using.</p>
     </main>
 
     <div class="section-divider" aria-hidden="true"></div>
@@ -269,7 +279,11 @@
     <section id="languages" class="languages">
       <h2 class="section-title">Code</h2>
       <div class="language-list" id="languageList" aria-live="polite"></div>
-    
+    </section>
+
+    <section id="tools" class="tools-section">
+      <h2 class="section-title">Tools</h2>
+
       <div class="tool-groups">
         <div class="tool-group">
           <span class="tool-label">AI &amp; Coding</span>
