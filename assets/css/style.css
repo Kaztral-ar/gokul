@@ -1128,11 +1128,21 @@ footer {
   content: none !important;
 }
 
-/* Hide only the Tools heading and reduce the empty space after Code. */
+/* Hide only the Tools heading and remove the large mobile gap after Code. */
 .tools-section > .section-title {
   display: none !important;
 }
 
 .tools-section {
-  padding-top: clamp(28px,4vw,42px) !important;
+  padding-top: 0 !important;
+}
+
+@media (max-width: 700px) {
+  .languages {
+    padding-bottom: 0 !important;
+  }
+
+  .tools-section {
+    padding-top: 0 !important;
+  }
 }
