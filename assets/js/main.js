@@ -36,7 +36,7 @@
   }
   loadGithubLanguages();
 
-  // Work tree: clean file-explorer layout, collapsed by default, one category open at a time.
+  // Work tree: clean file-explorer layout, collapsed by default, multiple categories can stay open.
   const workCategories=[...document.querySelectorAll('.work-category')];
   function updateWorkTreeLine(){
     const tree=document.querySelector('.work-tree');
@@ -77,7 +77,6 @@
     button.addEventListener('click',e=>{
       e.preventDefault();e.stopPropagation();
       const open=!category.classList.contains('is-open');
-      if(open)workCategories.forEach(other=>{if(other!==category)setWorkCategory(other,false)});
       setWorkCategory(category,open);
       requestAnimationFrame(updateWorkTreeLine);
     });
