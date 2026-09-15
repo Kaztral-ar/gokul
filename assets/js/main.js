@@ -148,6 +148,9 @@
   window.addEventListener('resize',updateWorkTreeLine,{passive:true});
 
   const footer=document.querySelector('footer');
+  const contact=document.querySelector('.contact');
+  if(contact && footer) footer.parentNode.insertBefore(contact,footer);
+
   function updateFooterClock(){
     if(!footer)return;
     footer.style.font='400 10px/1.2 Inter,system-ui,sans-serif';
