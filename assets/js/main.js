@@ -105,11 +105,14 @@
   requestAnimationFrame(updateWorkTreeLine);
   window.addEventListener('resize',updateWorkTreeLine,{passive:true});
 
-  // Minimal footer clock: local time in 24-hour format, shown as text only.
+  // Minimal footer clock: same typography and line box as the original footer text.
   const footer=document.querySelector('footer');
   function updateFooterClock(){
     if(!footer)return;
     const now=new Date();
+    footer.style.font='400 10px/1.2 Inter,system-ui,sans-serif';
+    footer.style.letterSpacing='normal';
+    footer.style.whiteSpace='nowrap';
     footer.textContent=new Intl.DateTimeFormat('en-GB',{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false}).format(now);
   }
   updateFooterClock();
