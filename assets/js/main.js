@@ -36,30 +36,45 @@
   }
   loadGithubLanguages();
 
-  // Work folders: collapsed initially and reliably toggle their own projects.
+  // Work tree: one semantic folder toggle per category; collapsed by default and only one opens at a time.
   const workCategories=[...document.querySelectorAll('.work-category')];
   function updateWorkTreeLine(){
     const tree=document.querySelector('.work-tree');
     if(!tree)return;
     const folders=[...tree.querySelectorAll('.work-category .work-toggle')];
     if(!folders.length)return;
-    const last=folders[folders.length-1];
+    const first=folders[0].getBoundingClientRect();
+    const last=folders[folders.length-1].getBoundingClientRect();
     const treeRect=tree.getBoundingClientRect();
-    const folderRect=last.getBoundingClientRect();
-    tree.style.setProperty('--work-main-line-height',Math.max(0,folderRect.top+folderRect.height/2-treeRect.top)+'px');
+    const height=Math.max(0,last.top+last.height/2-(first.top+first.height/2));
+    tree.style.setProperty('--work-main-line-top',Math.max(0,first.top+first.height/2-treeRect.top)+'px');
+    tree.style.setProperty('--work-main-line-height',height+'px');
   }
-
+  function setWorkCategory(category,open){
+    const button=category.querySelector('.work-toggle');
+    const items=category.querySelector('.work-items');
+    if(!button)return;
+    category.classList.toggle('is-open',open);
+    button.setAttribute('aria-expanded',String(open));
+    button.setAttribute('aria-label',`${open?'Close':'Open'} ${button.dataset.label||button.textContent.trim()}`);
+    if(items){
+      items.hidden=!open;
+      items.setAttribute('aria-hidden',String(!open));
+    }
+  }
   workCategories.forEach(category=>{
     const folder=category.querySelector('.work-folder');
     const items=category.querySelector('.work-items');
     if(!folder)return;
 
+    const label=folder.textContent.trim();
     const button=document.createElement('button');
     button.type='button';
     button.className=folder.className+' work-toggle';
+    button.dataset.label=label;
     button.setAttribute('aria-expanded','false');
-    button.setAttribute('aria-label',`Open ${folder.textContent.trim()}`);
-    button.innerHTML=folder.innerHTML;
+    button.setAttribute('aria-label',`Open ${label}`);
+    button.innerHTML=folder.innerHTML+'<span class="work-chevron" aria-hidden="true">⌄</span>';
     folder.replaceWith(button);
 
     if(items){
@@ -71,48 +86,58 @@
       e.preventDefault();
       e.stopPropagation();
       const open=!category.classList.contains('is-open');
-      category.classList.toggle('is-open',open);
-      button.setAttribute('aria-expanded',String(open));
-      button.setAttribute('aria-label',`${open?'Close':'Open'} ${button.textContent.trim()}`);
-      if(items){
-        items.hidden=!open;
-        items.setAttribute('aria-hidden',String(!open));
+      if(open){
+        workCategories.forEach(other=>{if(other!==category)setWorkCategory(other,false)});
       }
+      setWorkCategory(category,open);
       requestAnimationFrame(updateWorkTreeLine);
     });
   });
 
   const style=document.createElement('style');
   style.textContent=`
-    .work-toggle{border:0;padding:0;margin:0;background:none;font:inherit;text-align:left;cursor:pointer;color:inherit;appearance:none;-webkit-appearance:none}
+    .work-toggle{padding:0;margin:0;background:none;font:inherit;text-align:left;cursor:pointer;color:inherit;appearance:none;-webkit-appearance:none;display:flex;align-items:center;width:100%;text-transform:inherit;letter-spacing:inherit}
     .work-toggle:focus-visible{outline:1px solid currentColor;outline-offset:3px;border-radius:3px}
     .work-items[hidden]{display:none!important}
     .work-category.is-open .work-items{display:block}
-    .work-tree:before{display:none!important}
-    .work-category{padding-left:0;margin-bottom:18px}
-    .work-category:before{display:none}
-    .work-tree{font-family:'Inter',system-ui,sans-serif;margin-top:0}
+
+    .work-tree{position:relative;font-family:'Inter',system-ui,sans-serif;margin-top:0;padding:0 0 0 18px}
+    .work-tree:before{content:'';position:absolute;left:18px;top:var(--work-main-line-top,18px);width:1px;height:var(--work-main-line-height,0px);background:#dfe4ec;display:block!important}
+    .work-category{position:relative;padding-left:34px;margin-bottom:14px}
+    .work-category:last-child{margin-bottom:0}
+    .work-category:before{content:'';position:absolute;left:0;top:18px;width:34px;height:1px;background:#dfe4ec;display:block}
     .work-folder{display:inline-flex;align-items:center;gap:7px;min-height:36px;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
-    .work-folder svg{width:18px;height:18px;flex:0 0 18px}
-    .work-items{margin:0;padding:0;border:0!important;position:static!important}
-    .work-item{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:7px 10px;min-height:36px;padding:8px 11px;margin:0 0 7px;border:1px solid #e2e2e2;border-radius:8px;background:#fff;text-decoration:none;color:inherit;transition:transform .14s,border-color .14s,box-shadow .14s}
-    .work-item:last-child{margin-bottom:0}
-    .work-item:before,.work-item:last-child:after{display:none!important}
-    .work-item:hover{border-color:#cfd5df;box-shadow:0 6px 14px rgba(25,35,55,.05);transform:translateY(-2px)}
-    .work-main{display:flex;align-items:center;gap:8px;min-width:0}
-    .work-name{display:block;font-size:11px;line-height:1.2;font-weight:500;letter-spacing:normal;color:#252936;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .work-desc{display:block;margin:0;color:#8a92a1;font-size:10px;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .work-tag{align-self:center;margin:0;padding:8px 11px;border-radius:8px;background:#edf3ff;color:#2563eb;font:500 9px/1 'IBM Plex Mono',monospace;letter-spacing:.04em;white-space:nowrap}
+    .work-folder svg{width:18px;height:18px;flex:0 0 18px;stroke:currentColor}
+    .work-folder.apps{color:#c56b20}.work-folder.tools{color:#5b31d4}
+    .work-chevron{display:inline-grid;place-items:center;width:13px;height:13px;margin-left:1px;color:#8a92a1;font:500 13px/1 Inter,system-ui,sans-serif;transform:rotate(0deg);transition:transform .16s ease}
+    .work-category.is-open .work-chevron{transform:rotate(180deg)}
+
+    .work-items{position:relative;margin:4px 0 0 18px;padding:0 0 0 18px;border-left:0!important}
+    .work-items:before{content:'';position:absolute;left:0;top:0;bottom:18px;width:1px;background:#dfe4ec}
+    .work-item{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:7px 10px;min-height:34px;padding:7px 0 7px 13px;margin:0;text-decoration:none;color:inherit;transition:color .14s,transform .14s}
+    .work-item:before{content:'';position:absolute;left:0;top:50%;width:13px;height:1px;background:#dfe4ec;transform:translateY(-50%)}
+    .work-item:last-child{padding-bottom:7px}
+    .work-item:hover{transform:translateX(2px)}
+    .work-item:hover .work-name{color:#2563eb}
+    .work-main{display:block;min-width:0}
+    .work-name{display:block;font-size:11px;line-height:1.25;font-weight:500;color:#252936;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:color .14s}
+    .work-desc{display:block;margin-top:2px;color:#8a92a1;font-size:10px;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .work-tag{align-self:center;margin:0;padding:5px 8px;border-radius:5px;background:#edf3ff;color:#2563eb;font:500 8px/1 'IBM Plex Mono',monospace;letter-spacing:.04em;white-space:nowrap}
     .work-tag.telegram{background:#e7f8ef;color:#188453}.work-tag.mobile{background:#fff0f0;color:#c43d4c}.work-tag.linux{background:#f0ebff;color:#6445cf}
+
     @media(max-width:700px){
-      .work-category{margin-bottom:16px}
-      .work-folder{min-height:36px;font-size:11px}
-      .work-folder svg{width:18px;height:18px;flex-basis:18px}
-      .work-item{grid-template-columns:minmax(0,1fr) auto;gap:6px;padding:8px 11px}
-      .work-main{display:block}
-      .work-name{font-size:11px}
-      .work-desc{margin-top:3px;font-size:10px}
-      .work-tag{justify-self:end;padding:8px 9px;font-size:8.5px}
+      .work-tree{padding-left:8px}
+      .work-tree:before{left:8px}
+      .work-category{padding-left:29px;margin-bottom:12px}
+      .work-category:before{width:29px}
+      .work-folder{min-height:34px;font-size:11px;gap:6px}
+      .work-folder svg{width:17px;height:17px;flex-basis:17px}
+      .work-items{margin-left:13px;padding-left:16px}
+      .work-item{grid-template-columns:minmax(0,1fr) auto;gap:6px;padding:7px 0 7px 12px}
+      .work-item:before{width:12px}
+      .work-name{font-size:10.5px}
+      .work-desc{font-size:9.5px}
+      .work-tag{padding:5px 7px;font-size:7.5px}
     }
   `;
   document.head.appendChild(style);
