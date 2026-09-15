@@ -106,47 +106,21 @@ footer { padding: 22px 0 40px; color: var(--muted); font-size: 10px; }
   .project-copy { padding-top: 18px; }
   .project-name { font-size: 20px; margin-bottom: 8px; }
   .project-desc { font-size: 13px; line-height: 1.45; }
-  .project-tag { right: 82px; top: 17px; padding: 7px 10px; font-size: 9px; }
-  .project-tag::before { width: 7px; height: 7px; margin-right: 7px; }
-  .arrow { width: 38px; height: 38px; flex-basis: 38px; font-size: 21px; }
 }
 @media (max-width: 700px) {
-  .hero-art { width: 250px; height: 250px; top: -70px; right: -130px; }
-  .dots { right: 0; top: 175px; transform: scale(.6); }
-  .intro { padding-top: 48px; }
-  .projects-section { padding-top: 42px; }
-  .motion-line { height: 40px; margin-top: 16px; }
-  .motion-track { height: 2px; }
-  .motion-fill { width: 24px; height: 2px; }
-  .language-list { gap: 7px; }
-  .language { min-height: 36px; padding: 8px 11px; }
-  .project-tree { grid-template-columns: 36px minmax(0,1fr); column-gap: 10px; row-gap: 16px; margin-left: 0; }
-  .project-tree::before { left: 17px; }
-  .project-number { font-size: 9px; }
-  .project-number::after { left: 13px; width: 8px; height: 8px; border-width: 1.5px; }
-  .project { min-height: 122px; padding: 13px 10px; gap: 10px; border-radius: 13px; }
-  .icon { width: 42px; height: 42px; flex-basis: 42px; font-size: 16px; border-radius: 11px; }
-  .icon svg { width: 25px; height: 25px; }
-  .project-copy { padding-top: 17px; }
-  .project-name { font-size: 16px; margin-bottom: 6px; }
-  .project-desc { font-size: 11px; line-height: 1.4; }
-  .project-tag { right: 63px; top: 13px; padding: 6px 8px; border-radius: 10px; font-size: 7px; }
-  .project-tag::before { width: 6px; height: 6px; margin-right: 5px; }
-  .arrow { width: 30px; height: 30px; flex-basis: 30px; font-size: 17px; }
-  .contact-cards { gap: 5px; }
-  .contact-card { min-height: 48px; padding: 6px 5px; gap: 5px; }
-  .contact-logo { width: 24px; height: 24px; flex-basis: 24px; }
-  .contact-logo svg { width: 16px; height: 16px; }
-  .contact-name { font-size: 8px; }
-  .contact-arrow { width: 17px; height: 17px; flex-basis: 17px; font-size: 9px; }
-}
-@media (max-width: 420px) {
-  .site-nav a { padding: 7px; font-size: 8px; }
-  .project { min-height: 116px; padding: 10px; }
-  .project-name { font-size: 14px; }
-  .project-desc { font-size: 10px; }
-  .project-tag { right: 58px; font-size: 6.5px; }
-  .arrow { width: 27px; height: 27px; flex-basis: 27px; font-size: 15px; }
+  .project-tree { grid-template-columns: 1fr; row-gap: 10px; }
+  .project-tree::before,.project-number::after { display: none; }
+  .project-number { padding: 0; margin-bottom: 2px; }
+  .project { min-height: 0; padding: 16px 14px; gap: 10px; border-radius: 14px; }
+  .icon { width: 46px; height: 46px; flex-basis: 46px; border-radius: 11px; }
+  .icon svg { width: 27px; height: 27px; }
+  .project-copy { padding-top: 4px; }
+  .project-name { font-size: 17px; margin-bottom: 6px; }
+  .project-desc { font-size: 11px; }
+  .project-tag { right: 14px; top: 14px; padding: 6px 9px; font-size: 8px; }
+  .project-tag::before { width: 6px; height: 6px; margin-right: 6px; }
+  .arrow { width: 34px; height: 34px; flex-basis: 34px; font-size: 19px; }
+  .contact-cards { grid-template-columns: 1fr; }
 }
 @media (min-width: 1400px) { :root { --page: min(76vw,980px); } }
 @media (prefers-reduced-motion: reduce) { .tap-split { animation-duration: .01ms; } }
@@ -186,27 +160,22 @@ footer { padding: 22px 0 40px; color: var(--muted); font-size: 10px; }
   .tools-section { padding-top: 12px !important; }
 }
 
-/* Work heading: stack/layers icon, no box. */
+/* Work heading — restore the original dotted-box theme. */
 .projects-section > .section-title {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  border: 0 !important;
-  border-radius: 0 !important;
-  padding: 0 !important;
+  display: inline-block;
+  border: 1.5px dashed #d8dce3 !important;
+  border-radius: 8px !important;
+  padding: 7px 11px !important;
   background: transparent !important;
-  color: #171b2b;
-  font-size: 20px;
-  letter-spacing: -.035em;
-  line-height: 1.2;
+  color: #697284 !important;
+  font-size: 11px !important;
+  font-weight: 600;
+  letter-spacing: .08em;
+  line-height: normal;
 }
 .projects-section > .section-title::before {
-  content: '';
-  display: inline-block;
-  width: 25px;
-  height: 25px;
-  flex: 0 0 25px;
-  background: no-repeat center / contain url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23171b2b' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m3 7 9-4 9 4-9 4-9-4Z'/%3E%3Cpath d='m3 12 9 4 9-4'/%3E%3Cpath d='m3 17 9 4 9-4'/%3E%3C/svg%3E");
+  content: none !important;
+  display: none !important;
 }
 
 /* Project logos: simple file/document icons for every project. */
@@ -220,7 +189,5 @@ footer { padding: 22px 0 40px; color: var(--muted); font-size: 10px; }
   background: no-repeat center / contain url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23687287' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 3.5h8l4 4v13H6z'/%3E%3Cpath d='M14 3.5v4h4M9 12h6M9 16h6'/%3E%3C/svg%3E");
 }
 @media (max-width:700px) {
-  .projects-section > .section-title { gap: 7px; font-size: 18px; }
-  .projects-section > .section-title::before { width: 23px; height: 23px; flex-basis: 23px; }
   .work-item .work-name::before { width: 15px; height: 15px; margin-right: 6px; vertical-align: -3px; }
 }
