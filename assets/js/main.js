@@ -22,60 +22,39 @@
   }
 
   function split(e){
-    const s = document.createElement('span');
-    s.className = 'tap-split';
-    s.style.left = e.clientX + 'px';
-    s.style.top = e.clientY + 'px';
-    s.innerHTML = '<i></i><i></i>';
+    const s=document.createElement('span');
+    s.className='tap-split';
+    s.style.left=e.clientX+'px';
+    s.style.top=e.clientY+'px';
+    s.innerHTML='<i></i><i></i>';
     document.body.appendChild(s);
     s.addEventListener('animationend',()=>s.remove(),{once:true});
   }
 
-  document.addEventListener('pointerdown',e=>{
-    sound();
-    split(e);
-  },{passive:true});
+  document.addEventListener('pointerdown',e=>{sound();split(e);},{passive:true});
 
-  const control = document.createElement('div');
-  control.className = 'motion-line';
-  control.innerHTML = '<span class="motion-track"><span class="motion-fill"></span></span>';
+  const control=document.createElement('div');
+  control.className='motion-line';
+  control.innerHTML='<span class="motion-track"><span class="motion-fill"></span></span>';
   document.querySelector('.intro')?.appendChild(control);
-
-  const fill = control.querySelector('.motion-fill');
-  let target = .5;
-  let current = .5;
-
-  function setMotion(v){
-    target = Math.max(0,Math.min(1,v));
-  }
-
-  window.addEventListener('pointermove',e=>setMotion(e.clientX / window.innerWidth),{passive:true});
-  window.addEventListener('deviceorientation',e=>{
-    if(typeof e.gamma === 'number')setMotion((e.gamma + 45) / 90);
-  },{passive:true});
-
-  function animate(){
-    current += (target - current) * .12;
-    fill.style.left = (current * 100) + '%';
-    requestAnimationFrame(animate);
-  }
+  const fill=control.querySelector('.motion-fill');
+  let target=.5,current=.5;
+  const setMotion=v=>{target=Math.max(0,Math.min(1,v));};
+  window.addEventListener('pointermove',e=>setMotion(e.clientX/window.innerWidth),{passive:true});
+  window.addEventListener('deviceorientation',e=>{if(typeof e.gamma==='number')setMotion((e.gamma+45)/90);},{passive:true});
+  function animate(){current+=(target-current)*.12;fill.style.left=(current*100)+'%';requestAnimationFrame(animate);}
   animate();
 
-  const languageList = document.getElementById('languageList');
-  const fallbackLanguages = ['Python','JavaScript','HTML','CSS','Shell'];
-  const githubUser = 'Kaztral-ar';
-  const ignoredLanguages = new Set([
-    'Procfile','Dockerfile','Makefile','CMake','Nix','Smarty','Git Attributes',
-    'Git Config','Git Revision List','Git Shell','Ignore List','Diff','JSON with Comments'
-  ]);
-  const languageAliases = {JavaScript:'JavaScript',TypeScript:'TypeScript',HTML:'HTML',CSS:'CSS',Shell:'Shell'};
-
+  const languageList=document.getElementById('languageList');
+  const fallbackLanguages=['Python','JavaScript','HTML','CSS','Shell'];
+  const githubUser='Kaztral-ar';
+  const ignoredLanguages=new Set(['Procfile','Dockerfile','Makefile','CMake','Nix','Smarty','Git Attributes','Git Config','Git Revision List','Git Shell','Ignore List','Diff','JSON with Comments']);
+  const languageAliases={JavaScript:'JavaScript',TypeScript:'TypeScript',HTML:'HTML',CSS:'CSS',Shell:'Shell'};
   function renderLanguages(languages){
     if(!languageList)return;
     const names=[...languages].filter(name=>!ignoredLanguages.has(name)).sort((a,b)=>a.localeCompare(b));
     languageList.innerHTML=names.map(name=>`<span class="language">${name}</span>`).join('');
   }
-
   async function loadGithubLanguages(){
     if(!languageList)return;
     renderLanguages(fallbackLanguages);
@@ -99,16 +78,13 @@
       const languages=new Set();
       languageSets.flat().forEach(language=>languages.add(languageAliases[language]||language));
       if(languages.size)renderLanguages(languages);
-    }catch(error){
-      console.warn('Could not sync GitHub languages:',error);
-    }
+    }catch(error){console.warn('Could not sync GitHub languages:',error);}
   }
   loadGithubLanguages();
 
-  // Work: convert each existing folder row into its own real button and toggle only its existing items.
+  // Work: replace each existing folder row with a real button and toggle only its existing project list.
   const workTree=document.querySelector('.work-tree');
   const workCategories=[...document.querySelectorAll('.work-category')];
-
   function updateWorkTreeLine(){
     if(!workTree)return;
     const folders=[...workTree.querySelectorAll(':scope > .work-category > .work-toggle')];
@@ -121,7 +97,6 @@
     workTree.style.setProperty('--work-main-line-top',Math.max(0,top)+'px');
     workTree.style.setProperty('--work-main-line-height',height+'px');
   }
-
   function setWorkCategory(category,open){
     const button=category.querySelector(':scope > .work-toggle');
     const items=category.querySelector(':scope > .work-items');
@@ -129,17 +104,12 @@
     category.classList.toggle('is-open',open);
     button.setAttribute('aria-expanded',String(open));
     button.setAttribute('aria-label',`${open?'Close':'Open'} ${button.dataset.label||button.textContent.trim()}`);
-    if(items){
-      items.hidden=!open;
-      items.setAttribute('aria-hidden',String(!open));
-    }
+    if(items){items.hidden=!open;items.setAttribute('aria-hidden',String(!open));}
   }
-
   workCategories.forEach(category=>{
     const folder=category.querySelector(':scope > .work-folder');
     const items=category.querySelector(':scope > .work-items');
     if(!folder)return;
-
     const label=folder.querySelector('span')?.textContent.trim()||folder.textContent.trim();
     const button=document.createElement('button');
     button.type='button';
@@ -147,33 +117,19 @@
     button.dataset.label=label;
     button.innerHTML=folder.innerHTML;
     folder.replaceWith(button);
-
-    if(items){
-      items.hidden=true;
-      items.setAttribute('aria-hidden','true');
-    }
-
+    if(items){items.hidden=true;items.setAttribute('aria-hidden','true');}
     button.setAttribute('aria-expanded','false');
     button.setAttribute('aria-label',`Open ${label}`);
-
-    button.addEventListener('click',e=>{
+    const toggle=e=>{
+      if(e.type==='keydown'&&e.key!=='Enter'&&e.key!==' ')return;
       e.preventDefault();
       e.stopPropagation();
-      const open=button.getAttribute('aria-expanded')!=='true';
-      setWorkCategory(category,open);
+      setWorkCategory(category,button.getAttribute('aria-expanded')!=='true');
       requestAnimationFrame(updateWorkTreeLine);
-    });
-
-    button.addEventListener('keydown',e=>{
-      if(e.key!=='Enter' && e.key!==' ')return;
-      e.preventDefault();
-      e.stopPropagation();
-      const open=button.getAttribute('aria-expanded')!=='true';
-      setWorkCategory(category,open);
-      requestAnimationFrame(updateWorkTreeLine);
-    });
+    };
+    button.addEventListener('click',toggle);
+    button.addEventListener('keydown',toggle);
   });
-
   requestAnimationFrame(updateWorkTreeLine);
   window.addEventListener('resize',updateWorkTreeLine,{passive:true});
 
@@ -200,7 +156,6 @@
   sections.forEach(s=>io.observe(s));
   links.forEach(a=>a.addEventListener('click',()=>setActive(a.dataset.section)));
   setActive('intro');
-
   let timer;
   function hide(){nav.classList.remove('is-visible');clearTimeout(timer);}
   function show(){hide();timer=setTimeout(()=>nav.classList.add('is-visible'),450);}
