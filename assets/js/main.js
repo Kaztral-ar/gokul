@@ -71,26 +71,11 @@
   const fallbackLanguages = ['Python','JavaScript','HTML','CSS','Shell'];
   const githubUser = 'Kaztral-ar';
   const ignoredLanguages = new Set([
-    'Procfile',
-    'Dockerfile',
-    'Makefile',
-    'CMake',
-    'Nix',
-    'Smarty',
-    'Git Attributes',
-    'Git Config',
-    'Git Revision List',
-    'Git Shell',
-    'Ignore List',
-    'Diff',
-    'JSON with Comments'
+    'Procfile','Dockerfile','Makefile','CMake','Nix','Smarty','Git Attributes',
+    'Git Config','Git Revision List','Git Shell','Ignore List','Diff','JSON with Comments'
   ]);
   const languageAliases = {
-    JavaScript: 'JavaScript',
-    TypeScript: 'TypeScript',
-    HTML: 'HTML',
-    CSS: 'CSS',
-    Shell: 'Shell'
+    JavaScript:'JavaScript',TypeScript:'TypeScript',HTML:'HTML',CSS:'CSS',Shell:'Shell'
   };
 
   function renderLanguages(languages){
@@ -98,57 +83,34 @@
     const names = [...languages]
       .filter(name=>!ignoredLanguages.has(name))
       .sort((a,b)=>a.localeCompare(b));
-
-    languageList.innerHTML = names
-      .map(name=>`<span class="language">${name}</span>`)
-      .join('');
+    languageList.innerHTML = names.map(name=>`<span class="language">${name}</span>`).join('');
   }
 
   async function loadGithubLanguages(){
     if(!languageList)return;
     renderLanguages(fallbackLanguages);
-
     try{
-      const repos = [];
-
-      for(let page = 1; page <= 3; page++){
-        const response = await fetch(
+      const repos=[];
+      for(let page=1;page<=3;page++){
+        const response=await fetch(
           `https://api.github.com/users/${githubUser}/repos?per_page=100&page=${page}&type=owner&sort=updated`,
           {headers:{Accept:'application/vnd.github+json'}}
         );
-
-        if(!response.ok){
-          throw new Error(`GitHub repos request failed: ${response.status}`);
-        }
-
-        const batch = await response.json();
+        if(!response.ok)throw new Error(`GitHub repos request failed: ${response.status}`);
+        const batch=await response.json();
         repos.push(...batch);
-
-        if(batch.length < 100)break;
+        if(batch.length<100)break;
       }
-
-      const owned = repos.filter(repo=>!repo.fork);
-      const languageSets = await Promise.all(
-        owned.map(async repo=>{
-          try{
-            const response = await fetch(
-              repo.languages_url,
-              {headers:{Accept:'application/vnd.github+json'}}
-            );
-
-            if(!response.ok)return [];
-            return Object.keys(await response.json());
-          }catch{
-            return [];
-          }
-        })
-      );
-
-      const languages = new Set();
-      languageSets.flat().forEach(language=>{
-        languages.add(languageAliases[language] || language);
-      });
-
+      const owned=repos.filter(repo=>!repo.fork);
+      const languageSets=await Promise.all(owned.map(async repo=>{
+        try{
+          const response=await fetch(repo.languages_url,{headers:{Accept:'application/vnd.github+json'}});
+          if(!response.ok)return [];
+          return Object.keys(await response.json());
+        }catch{return []}
+      }));
+      const languages=new Set();
+      languageSets.flat().forEach(language=>languages.add(languageAliases[language]||language));
       if(languages.size)renderLanguages(languages);
     }catch(error){
       console.warn('Could not sync GitHub languages:',error);
@@ -157,150 +119,104 @@
 
   loadGithubLanguages();
 
-  // Work tree: clean file-explorer layout, collapsed by default, multiple categories can stay open.
-  const workCategories = [...document.querySelectorAll('.work-category')];
+  // Work: use the existing category/project HTML and toggle it in place.
+  const workCategories=[...document.querySelectorAll('.work-category')];
 
   function updateWorkTreeLine(){
-    const tree = document.querySelector('.work-tree');
+    const tree=document.querySelector('.work-tree');
     if(!tree)return;
-
-    const folders = [...tree.querySelectorAll('.work-category .work-toggle')];
+    const folders=[...tree.querySelectorAll(':scope > .work-category > .work-folder')];
     if(!folders.length)return;
-
-    const first = folders[0].getBoundingClientRect();
-    const last = folders[folders.length - 1].getBoundingClientRect();
-    const treeRect = tree.getBoundingClientRect();
-    const top = first.top + first.height / 2 - treeRect.top;
-    const height = Math.max(
-      0,
-      last.top + last.height / 2 - (first.top + first.height / 2)
-    );
-
-    tree.style.setProperty(
-      '--work-main-line-top',
-      Math.max(0,top) + 'px'
-    );
-    tree.style.setProperty(
-      '--work-main-line-height',
-      height + 'px'
-    );
+    const first=folders[0].getBoundingClientRect();
+    const last=folders[folders.length-1].getBoundingClientRect();
+    const treeRect=tree.getBoundingClientRect();
+    const top=first.top+first.height/2-treeRect.top;
+    const height=Math.max(0,last.top+last.height/2-(first.top+first.height/2));
+    tree.style.setProperty('--work-main-line-top',Math.max(0,top)+'px');
+    tree.style.setProperty('--work-main-line-height',height+'px');
   }
 
   function setWorkCategory(category,open){
-    const button = category.querySelector('.work-toggle');
-    const items = category.querySelector('.work-items');
-    if(!button)return;
-
+    const folder=category.querySelector(':scope > .work-folder');
+    const items=category.querySelector(':scope > .work-items');
+    if(!folder)return;
     category.classList.toggle('is-open',open);
-    button.setAttribute('aria-expanded',String(open));
-    button.setAttribute(
-      'aria-label',
-      `${open ? 'Close' : 'Open'} ${button.dataset.label || button.textContent.trim()}`
-    );
-
+    folder.setAttribute('aria-expanded',String(open));
+    folder.setAttribute('aria-label',`${open?'Close':'Open'} ${folder.dataset.label||folder.textContent.trim()}`);
     if(items){
-      items.hidden = !open;
+      items.hidden=!open;
       items.setAttribute('aria-hidden',String(!open));
     }
   }
 
   workCategories.forEach(category=>{
-    const folder = category.querySelector('.work-folder');
-    const items = category.querySelector('.work-items');
+    const folder=category.querySelector(':scope > .work-folder');
+    const items=category.querySelector(':scope > .work-items');
     if(!folder)return;
 
-    const label = folder.querySelector('span')?.textContent.trim() || folder.textContent.trim();
-    const button = document.createElement('button');
+    const label=folder.querySelector('span')?.textContent.trim()||folder.textContent.trim();
+    folder.dataset.label=label;
+    folder.setAttribute('role','button');
+    folder.setAttribute('tabindex','0');
 
-    button.type = 'button';
-    button.className = folder.className + ' work-toggle';
-    button.dataset.label = label;
-    button.setAttribute('aria-expanded','false');
-    button.setAttribute('aria-label',`Open ${label}`);
-    button.innerHTML = folder.innerHTML;
+    // Explicitly initialize every category as collapsed.
+    setWorkCategory(category,false);
 
-    folder.replaceWith(button);
-
-    if(items){
-      items.hidden = true;
-      items.setAttribute('aria-hidden','true');
-    }
-
-    button.addEventListener('click',e=>{
+    const toggle=e=>{
+      if(e.type==='keydown' && e.key!=='Enter' && e.key!==' ')return;
       e.preventDefault();
       e.stopPropagation();
-
-      const open = !category.classList.contains('is-open');
+      const open=folder.getAttribute('aria-expanded')!=='true';
       setWorkCategory(category,open);
       requestAnimationFrame(updateWorkTreeLine);
-    });
+    };
+
+    folder.addEventListener('click',toggle);
+    folder.addEventListener('keydown',toggle);
+
+    if(items){
+      items.hidden=true;
+      items.setAttribute('aria-hidden','true');
+    }
   });
 
   requestAnimationFrame(updateWorkTreeLine);
   window.addEventListener('resize',updateWorkTreeLine,{passive:true});
 
-  const footer = document.querySelector('footer');
+  const footer=document.querySelector('footer');
 
   function updateFooterClock(){
     if(!footer)return;
-    const now = new Date();
-    footer.style.font = '400 10px/1.2 Inter,system-ui,sans-serif';
-    footer.style.letterSpacing = 'normal';
-    footer.style.whiteSpace = 'nowrap';
-    footer.textContent = new Intl.DateTimeFormat(
-      'en-GB',
-      {
-        hour:'2-digit',
-        minute:'2-digit',
-        second:'2-digit',
-        hour12:false
-      }
-    ).format(now);
+    const now=new Date();
+    footer.style.font='400 10px/1.2 Inter,system-ui,sans-serif';
+    footer.style.letterSpacing='normal';
+    footer.style.whiteSpace='nowrap';
+    footer.textContent=new Intl.DateTimeFormat('en-GB',{
+      hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false
+    }).format(now);
   }
 
   updateFooterClock();
   setInterval(updateFooterClock,1000);
 
-  const nav = document.getElementById('siteNav');
+  const nav=document.getElementById('siteNav');
   if(!nav)return;
+  const links=[...nav.querySelectorAll('a')];
+  const sections=links.map(a=>document.getElementById(a.dataset.section)).filter(Boolean);
+  const setActive=id=>links.forEach(a=>a.classList.toggle('active',a.dataset.section===id));
 
-  const links = [...nav.querySelectorAll('a')];
-  const sections = links
-    .map(a=>document.getElementById(a.dataset.section))
-    .filter(Boolean);
-  const setActive = id => links.forEach(a=>{
-    a.classList.toggle('active',a.dataset.section === id);
-  });
-
-  const io = new IntersectionObserver(
-    es=>{
-      const v = es
-        .filter(e=>e.isIntersecting)
-        .sort((a,b)=>b.intersectionRatio - a.intersectionRatio)[0];
-      if(v)setActive(v.target.id);
-    },
-    {
-      rootMargin:'-35% 0px -55% 0px',
-      threshold:[.05,.2,.5]
-    }
-  );
+  const io=new IntersectionObserver(es=>{
+    const v=es.filter(e=>e.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];
+    if(v)setActive(v.target.id);
+  },{rootMargin:'-35% 0px -55% 0px',threshold:[.05,.2,.5]});
 
   sections.forEach(s=>io.observe(s));
   links.forEach(a=>a.addEventListener('click',()=>setActive(a.dataset.section)));
   setActive('intro');
 
   let timer;
-
-  function hide(){
-    nav.classList.remove('is-visible');
-    clearTimeout(timer);
-  }
-
-  function show(){
-    hide();
-    timer = setTimeout(()=>nav.classList.add('is-visible'),450);
-  }
-
+  function hide(){nav.classList.remove('is-visible');clearTimeout(timer);}
+  function show(){hide();timer=setTimeout(()=>nav.classList.add('is-visible'),450);}
   window.addEventListener('scroll',show,{passive:true});
   nav.addEventListener('pointerdown',()=>{
     nav.classList.add('is-visible');
