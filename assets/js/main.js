@@ -36,7 +36,7 @@
   }
   loadGithubLanguages();
 
-  // Work tree: one semantic folder toggle per category; collapsed by default and only one opens at a time.
+  // Work tree: clean file-explorer layout, collapsed by default, one category open at a time.
   const workCategories=[...document.querySelectorAll('.work-category')];
   function updateWorkTreeLine(){
     const tree=document.querySelector('.work-tree');
@@ -46,8 +46,9 @@
     const first=folders[0].getBoundingClientRect();
     const last=folders[folders.length-1].getBoundingClientRect();
     const treeRect=tree.getBoundingClientRect();
+    const top=first.top+first.height/2-treeRect.top;
     const height=Math.max(0,last.top+last.height/2-(first.top+first.height/2));
-    tree.style.setProperty('--work-main-line-top',Math.max(0,first.top+first.height/2-treeRect.top)+'px');
+    tree.style.setProperty('--work-main-line-top',Math.max(0,top)+'px');
     tree.style.setProperty('--work-main-line-height',height+'px');
   }
   function setWorkCategory(category,open){
@@ -57,17 +58,13 @@
     category.classList.toggle('is-open',open);
     button.setAttribute('aria-expanded',String(open));
     button.setAttribute('aria-label',`${open?'Close':'Open'} ${button.dataset.label||button.textContent.trim()}`);
-    if(items){
-      items.hidden=!open;
-      items.setAttribute('aria-hidden',String(!open));
-    }
+    if(items){items.hidden=!open;items.setAttribute('aria-hidden',String(!open))}
   }
   workCategories.forEach(category=>{
     const folder=category.querySelector('.work-folder');
     const items=category.querySelector('.work-items');
     if(!folder)return;
-
-    const label=folder.textContent.trim();
+    const label=folder.querySelector('span')?.textContent.trim()||folder.textContent.trim();
     const button=document.createElement('button');
     button.type='button';
     button.className=folder.className+' work-toggle';
@@ -76,19 +73,11 @@
     button.setAttribute('aria-label',`Open ${label}`);
     button.innerHTML=folder.innerHTML+'<span class="work-chevron" aria-hidden="true">⌄</span>';
     folder.replaceWith(button);
-
-    if(items){
-      items.hidden=true;
-      items.setAttribute('aria-hidden','true');
-    }
-
+    if(items){items.hidden=true;items.setAttribute('aria-hidden','true')}
     button.addEventListener('click',e=>{
-      e.preventDefault();
-      e.stopPropagation();
+      e.preventDefault();e.stopPropagation();
       const open=!category.classList.contains('is-open');
-      if(open){
-        workCategories.forEach(other=>{if(other!==category)setWorkCategory(other,false)});
-      }
+      if(open)workCategories.forEach(other=>{if(other!==category)setWorkCategory(other,false)});
       setWorkCategory(category,open);
       requestAnimationFrame(updateWorkTreeLine);
     });
@@ -96,52 +85,55 @@
 
   const style=document.createElement('style');
   style.textContent=`
-    .work-toggle{padding:0;margin:0;background:none;font:inherit;text-align:left;cursor:pointer;color:inherit;appearance:none;-webkit-appearance:none;display:flex;align-items:center;width:100%;text-transform:inherit;letter-spacing:inherit}
-    .work-toggle:focus-visible{outline:1px solid currentColor;outline-offset:3px;border-radius:3px}
+    /* Work — plain Git/file-tree, never cards or boxes */
+    .projects-section::before{display:none!important}
+    .work-toggle{padding:0;margin:0;border:0!important;outline:0;background:none;font:inherit;text-align:left;cursor:pointer;color:inherit;appearance:none;-webkit-appearance:none;display:flex;align-items:center;width:100%;text-transform:inherit;letter-spacing:inherit}
+    .work-toggle:focus-visible{outline:1px solid currentColor!important;outline-offset:3px;border-radius:2px}
     .work-items[hidden]{display:none!important}
     .work-category.is-open .work-items{display:block}
-
-    .work-tree{position:relative;font-family:'Inter',system-ui,sans-serif;margin-top:0;padding:0 0 0 18px}
-    .work-tree:before{content:'';position:absolute;left:18px;top:var(--work-main-line-top,18px);width:1px;height:var(--work-main-line-height,0px);background:#dfe4ec;display:block!important}
-    .work-category{position:relative;padding-left:34px;margin-bottom:14px}
+    .work-tree{position:relative;margin-top:0;padding:0 0 0 18px;font-family:'IBM Plex Mono','Inter',system-ui,sans-serif}
+    .work-tree:before{content:'';position:absolute;left:18px;top:var(--work-main-line-top,18px);height:var(--work-main-line-height,0px);width:1px;background:#d9dee7;pointer-events:none}
+    .work-category{position:relative;padding-left:34px;margin:0 0 8px}
     .work-category:last-child{margin-bottom:0}
-    .work-category:before{content:'';position:absolute;left:0;top:18px;width:34px;height:1px;background:#dfe4ec;display:block}
-    .work-folder{display:inline-flex;align-items:center;gap:7px;min-height:36px;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
-    .work-folder svg{width:18px;height:18px;flex:0 0 18px;stroke:currentColor}
+    .work-category:before{content:'';position:absolute;left:0;top:18px;width:34px;height:1px;background:#d9dee7}
+    .work-folder{display:flex;align-items:center;gap:7px;min-height:36px;font-size:12px;line-height:1.2;font-weight:500;letter-spacing:0;text-transform:none}
+    .work-folder svg{width:17px;height:17px;flex:0 0 17px;stroke:currentColor;stroke-width:1.7}
     .work-folder.apps{color:#c56b20}.work-folder.tools{color:#5b31d4}
-    .work-chevron{display:inline-grid;place-items:center;width:13px;height:13px;margin-left:1px;color:#8a92a1;font:500 13px/1 Inter,system-ui,sans-serif;transform:rotate(0deg);transition:transform .16s ease}
+    .work-chevron{display:inline-flex;align-items:center;justify-content:center;width:12px;height:12px;margin-left:2px;color:#9299a6;font:500 12px/1 Inter,system-ui,sans-serif;transform:rotate(0);transition:transform .16s ease}
     .work-category.is-open .work-chevron{transform:rotate(180deg)}
 
-    .work-items{position:relative;margin:4px 0 0 18px;padding:0 0 0 18px;border-left:0!important}
-    .work-items:before{content:'';position:absolute;left:0;top:0;bottom:18px;width:1px;background:#dfe4ec}
-    .work-item{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:7px 10px;min-height:34px;padding:7px 0 7px 13px;margin:0;text-decoration:none;color:inherit;transition:color .14s,transform .14s}
-    .work-item:before{content:'';position:absolute;left:0;top:50%;width:13px;height:1px;background:#dfe4ec;transform:translateY(-50%)}
-    .work-item:last-child{padding-bottom:7px}
+    .work-items{position:relative;margin:2px 0 2px 18px;padding:0 0 0 18px;border:0!important}
+    .work-items:before{content:'';position:absolute;left:0;top:0;bottom:17px;width:1px;background:#d9dee7}
+    .work-item{position:relative;display:flex;align-items:flex-start;gap:7px;min-height:32px;padding:5px 0 5px 13px;margin:0;text-decoration:none;color:inherit;background:none!important;border:0!important;border-radius:0!important;box-shadow:none!important;transition:color .14s,transform .14s}
+    .work-item:before{content:'';position:absolute;left:0;top:15px;width:13px;height:1px;background:#d9dee7}
+    .work-item:after{content:' ';display:block;width:13px;height:14px;flex:0 0 13px;order:-1}
     .work-item:hover{transform:translateX(2px)}
     .work-item:hover .work-name{color:#2563eb}
-    .work-main{display:block;min-width:0}
-    .work-name{display:block;font-size:11px;line-height:1.25;font-weight:500;color:#252936;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:color .14s}
-    .work-desc{display:block;margin-top:2px;color:#8a92a1;font-size:10px;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .work-tag{align-self:center;margin:0;padding:5px 8px;border-radius:5px;background:#edf3ff;color:#2563eb;font:500 8px/1 'IBM Plex Mono',monospace;letter-spacing:.04em;white-space:nowrap}
-    .work-tag.telegram{background:#e7f8ef;color:#188453}.work-tag.mobile{background:#fff0f0;color:#c43d4c}.work-tag.linux{background:#f0ebff;color:#6445cf}
+    .work-main{display:block;min-width:0;flex:1}
+    .work-main:before{content:' ';display:inline-block;width:0}
+    .work-name{display:block;font-size:11px;line-height:1.3;font-weight:500;color:#252936;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:color .14s}
+    .work-name:before{content:' ';display:inline-block;width:13px;height:14px;margin-right:5px;vertical-align:-2px;border:1px solid #aeb5c1;border-radius:1px;background:linear-gradient(135deg,transparent 0 68%,#fff 68% 100%);clip-path:polygon(0 0,68% 0,100% 32%,100% 100%,0 100%)}
+    .work-desc{display:block;margin:2px 0 0 18px;color:#8a92a1;font-size:9.5px;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .work-tag{display:inline-block;flex:0 0 auto;align-self:flex-start;margin:2px 0 0 auto;padding:0;background:none!important;border:0!important;border-radius:0!important;color:#9aa1ad!important;font:400 8px/1.3 'IBM Plex Mono',monospace;letter-spacing:.03em;white-space:nowrap}
+    .work-tag.telegram,.work-tag.mobile,.work-tag.linux{background:none!important;color:#9aa1ad!important}
 
     @media(max-width:700px){
       .work-tree{padding-left:8px}
       .work-tree:before{left:8px}
-      .work-category{padding-left:29px;margin-bottom:12px}
+      .work-category{padding-left:29px;margin-bottom:7px}
       .work-category:before{width:29px}
       .work-folder{min-height:34px;font-size:11px;gap:6px}
-      .work-folder svg{width:17px;height:17px;flex-basis:17px}
+      .work-folder svg{width:16px;height:16px;flex-basis:16px}
       .work-items{margin-left:13px;padding-left:16px}
-      .work-item{grid-template-columns:minmax(0,1fr) auto;gap:6px;padding:7px 0 7px 12px}
+      .work-item{gap:6px;padding:5px 0 5px 12px}
       .work-item:before{width:12px}
       .work-name{font-size:10.5px}
-      .work-desc{font-size:9.5px}
-      .work-tag{padding:5px 7px;font-size:7.5px}
+      .work-name:before{width:12px;height:13px;margin-right:5px}
+      .work-desc{margin-left:17px;font-size:9px;white-space:normal}
+      .work-tag{font-size:7.5px}
     }
   `;
   document.head.appendChild(style);
-
   requestAnimationFrame(updateWorkTreeLine);
   window.addEventListener('resize',updateWorkTreeLine,{passive:true});
 
