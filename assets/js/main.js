@@ -82,12 +82,13 @@
   }
   loadGithubLanguages();
 
-  // Work: replace each existing folder row with a real button and toggle only its existing project list.
+  // Work: use the existing folder rows and existing project links. No DOM replacement or project data changes.
   const workTree=document.querySelector('.work-tree');
-  const workCategories=[...document.querySelectorAll('.work-category')];
+  const workCategories=[...document.querySelectorAll('.work-tree > .work-category')];
+
   function updateWorkTreeLine(){
     if(!workTree)return;
-    const folders=[...workTree.querySelectorAll(':scope > .work-category > .work-toggle')];
+    const folders=[...workCategories].map(category=>category.querySelector('.work-folder')).filter(Boolean);
     if(!folders.length)return;
     const first=folders[0].getBoundingClientRect();
     const last=folders[folders.length-1].getBoundingClientRect();
@@ -97,39 +98,52 @@
     workTree.style.setProperty('--work-main-line-top',Math.max(0,top)+'px');
     workTree.style.setProperty('--work-main-line-height',height+'px');
   }
+
   function setWorkCategory(category,open){
-    const button=category.querySelector(':scope > .work-toggle');
-    const items=category.querySelector(':scope > .work-items');
-    if(!button)return;
-    category.classList.toggle('is-open',open);
-    button.setAttribute('aria-expanded',String(open));
-    button.setAttribute('aria-label',`${open?'Close':'Open'} ${button.dataset.label||button.textContent.trim()}`);
-    if(items){items.hidden=!open;items.setAttribute('aria-hidden',String(!open));}
-  }
-  workCategories.forEach(category=>{
-    const folder=category.querySelector(':scope > .work-folder');
-    const items=category.querySelector(':scope > .work-items');
+    const folder=category.querySelector('.work-folder');
+    const items=category.querySelector('.work-items');
     if(!folder)return;
-    const label=folder.querySelector('span')?.textContent.trim()||folder.textContent.trim();
-    const button=document.createElement('button');
-    button.type='button';
-    button.className=folder.className+' work-toggle';
-    button.dataset.label=label;
-    button.innerHTML=folder.innerHTML;
-    folder.replaceWith(button);
-    if(items){items.hidden=true;items.setAttribute('aria-hidden','true');}
-    button.setAttribute('aria-expanded','false');
-    button.setAttribute('aria-label',`Open ${label}`);
-    const toggle=e=>{
-      if(e.type==='keydown'&&e.key!=='Enter'&&e.key!==' ')return;
-      e.preventDefault();
-      e.stopPropagation();
-      setWorkCategory(category,button.getAttribute('aria-expanded')!=='true');
-      requestAnimationFrame(updateWorkTreeLine);
-    };
-    button.addEventListener('click',toggle);
-    button.addEventListener('keydown',toggle);
+    category.classList.toggle('is-open',open);
+    folder.setAttribute('role','button');
+    folder.setAttribute('tabindex','0');
+    folder.setAttribute('aria-expanded',String(open));
+    folder.setAttribute('aria-label',`${open?'Close':'Open'} ${folder.dataset.workLabel||folder.textContent.trim()}`);
+    if(items){
+      items.hidden=!open;
+      items.setAttribute('aria-hidden',String(!open));
+    }
+  }
+
+  workCategories.forEach(category=>{
+    const folder=category.querySelector('.work-folder');
+    if(!folder)return;
+    folder.dataset.workLabel=folder.querySelector('span')?.textContent.trim()||folder.textContent.trim();
+    setWorkCategory(category,false);
   });
+
+  workTree?.addEventListener('click',event=>{
+    const folder=event.target.closest('.work-folder');
+    if(!folder||!workTree.contains(folder))return;
+    const category=folder.closest('.work-category');
+    if(!category)return;
+    event.preventDefault();
+    event.stopPropagation();
+    setWorkCategory(category,folder.getAttribute('aria-expanded')!=='true');
+    requestAnimationFrame(updateWorkTreeLine);
+  });
+
+  workTree?.addEventListener('keydown',event=>{
+    const folder=event.target.closest('.work-folder');
+    if(!folder||!workTree.contains(folder))return;
+    if(event.key!=='Enter'&&event.key!==' ')return;
+    const category=folder.closest('.work-category');
+    if(!category)return;
+    event.preventDefault();
+    event.stopPropagation();
+    setWorkCategory(category,folder.getAttribute('aria-expanded')!=='true');
+    requestAnimationFrame(updateWorkTreeLine);
+  });
+
   requestAnimationFrame(updateWorkTreeLine);
   window.addEventListener('resize',updateWorkTreeLine,{passive:true});
 
