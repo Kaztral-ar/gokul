@@ -37,6 +37,75 @@
         padding-top: 12px;
       }
     }
+
+    /* Live crypto ticker */
+    .crypto-ticker {
+      width: 100%;
+      overflow: hidden;
+      margin: 34px 0 0;
+      padding: 10px 0;
+      border-top: 1px solid rgba(0,0,0,.08);
+      border-bottom: 1px solid rgba(0,0,0,.08);
+      mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
+      -webkit-mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
+    }
+
+    .crypto-track {
+      display: flex;
+      width: max-content;
+      animation: crypto-scroll 28s linear infinite;
+      will-change: transform;
+    }
+
+    .crypto-set {
+      display: flex;
+      flex-shrink: 0;
+      align-items: center;
+    }
+
+    .crypto-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 0 22px;
+      white-space: nowrap;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12px;
+      letter-spacing: .02em;
+    }
+
+    .crypto-symbol {
+      font-weight: 700;
+    }
+
+    .crypto-price {
+      font-weight: 600;
+    }
+
+    .crypto-change {
+      font-size: 11px;
+      opacity: .75;
+    }
+
+    .crypto-change.up { color: #16803c; }
+    .crypto-change.down { color: #c0392b; }
+
+    .crypto-status {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      opacity: .5;
+      text-align: center;
+      margin-top: 7px;
+    }
+
+    @keyframes crypto-scroll {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .crypto-track { animation: none; }
+    }
   </style>
 </head>
 
@@ -225,6 +294,14 @@
       </div>
     </section>
 
+    <div class="crypto-ticker" aria-label="Live cryptocurrency prices">
+      <div class="crypto-track" id="cryptoTrack">
+        <div class="crypto-set" id="cryptoSetA"></div>
+        <div class="crypto-set" id="cryptoSetB" aria-hidden="true"></div>
+      </div>
+    </div>
+    <div class="crypto-status" id="cryptoStatus">Loading crypto prices…</div>
+
     <footer>© Gokul — Kaztral</footer>
   </div>
 
@@ -242,6 +319,60 @@
         "https://t.me/K4tral"
       ]
     }
+  </script>
+
+  <script>
+    (() => {
+      const coins = [
+        ['BTC', 'bitcoin', '₿'],
+        ['ETH', 'ethereum', '◆'],
+        ['DOGE', 'dogecoin', 'Ð'],
+        ['USDT', 'tether', '₮'],
+        ['SOL', 'solana', '◎'],
+        ['BNB', 'binancecoin', '◈'],
+        ['ADA', 'cardano', '₳'],
+        ['XRP', 'ripple', '●']
+      ];
+
+      const setA = document.getElementById('cryptoSetA');
+      const setB = document.getElementById('cryptoSetB');
+      const status = document.getElementById('cryptoStatus');
+
+      const formatPrice = value => {
+        if (value >= 1000) return '$' + value.toLocaleString('en-US', { maximumFractionDigits: 0 });
+        if (value >= 1) return '$' + value.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        return '$' + value.toLocaleString('en-US', { minimumFractionDigits: 4, maximumFractionDigits: 6 });
+      };
+
+      function render(data) {
+        const html = coins.map(([symbol, id, icon]) => {
+          const coin = data[id];
+          if (!coin) return '';
+          const change = Number(coin.usd_24h_change || 0);
+          const cls = change >= 0 ? 'up' : 'down';
+          const sign = change >= 0 ? '+' : '';
+          return `<span class="crypto-item"><span class="crypto-symbol">${icon} ${symbol}</span><span class="crypto-price">${formatPrice(coin.usd)}</span><span class="crypto-change ${cls}">${sign}${change.toFixed(2)}%</span></span>`;
+        }).join('');
+        setA.innerHTML = html;
+        setB.innerHTML = html;
+        status.textContent = 'Live prices · updates every 60s';
+      }
+
+      async function updateCrypto() {
+        try {
+          const ids = coins.map(([, id]) => id).join(',');
+          const url = `https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd&include_24hr_change=true`;
+          const response = await fetch(url, { cache: 'no-store' });
+          if (!response.ok) throw new Error('Crypto API unavailable');
+          render(await response.json());
+        } catch (error) {
+          status.textContent = 'Crypto prices unavailable';
+        }
+      }
+
+      updateCrypto();
+      setInterval(updateCrypto, 60000);
+    })();
   </script>
 
   <script src="assets/js/main.js" defer></script>
