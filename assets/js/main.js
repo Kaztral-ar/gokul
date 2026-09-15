@@ -49,14 +49,9 @@
     target = Math.max(0,Math.min(1,v));
   }
 
-  window.addEventListener('pointermove',e=>{
-    setMotion(e.clientX / window.innerWidth);
-  },{passive:true});
-
+  window.addEventListener('pointermove',e=>setMotion(e.clientX / window.innerWidth),{passive:true});
   window.addEventListener('deviceorientation',e=>{
-    if(typeof e.gamma === 'number'){
-      setMotion((e.gamma + 45) / 90);
-    }
+    if(typeof e.gamma === 'number')setMotion((e.gamma + 45) / 90);
   },{passive:true});
 
   function animate(){
@@ -64,7 +59,6 @@
     fill.style.left = (current * 100) + '%';
     requestAnimationFrame(animate);
   }
-
   animate();
 
   const languageList = document.getElementById('languageList');
@@ -74,16 +68,12 @@
     'Procfile','Dockerfile','Makefile','CMake','Nix','Smarty','Git Attributes',
     'Git Config','Git Revision List','Git Shell','Ignore List','Diff','JSON with Comments'
   ]);
-  const languageAliases = {
-    JavaScript:'JavaScript',TypeScript:'TypeScript',HTML:'HTML',CSS:'CSS',Shell:'Shell'
-  };
+  const languageAliases = {JavaScript:'JavaScript',TypeScript:'TypeScript',HTML:'HTML',CSS:'CSS',Shell:'Shell'};
 
   function renderLanguages(languages){
     if(!languageList)return;
-    const names = [...languages]
-      .filter(name=>!ignoredLanguages.has(name))
-      .sort((a,b)=>a.localeCompare(b));
-    languageList.innerHTML = names.map(name=>`<span class="language">${name}</span>`).join('');
+    const names=[...languages].filter(name=>!ignoredLanguages.has(name)).sort((a,b)=>a.localeCompare(b));
+    languageList.innerHTML=names.map(name=>`<span class="language">${name}</span>`).join('');
   }
 
   async function loadGithubLanguages(){
@@ -92,10 +82,7 @@
     try{
       const repos=[];
       for(let page=1;page<=3;page++){
-        const response=await fetch(
-          `https://api.github.com/users/${githubUser}/repos?per_page=100&page=${page}&type=owner&sort=updated`,
-          {headers:{Accept:'application/vnd.github+json'}}
-        );
+        const response=await fetch(`https://api.github.com/users/${githubUser}/repos?per_page=100&page=${page}&type=owner&sort=updated`,{headers:{Accept:'application/vnd.github+json'}});
         if(!response.ok)throw new Error(`GitHub repos request failed: ${response.status}`);
         const batch=await response.json();
         repos.push(...batch);
@@ -116,33 +103,32 @@
       console.warn('Could not sync GitHub languages:',error);
     }
   }
-
   loadGithubLanguages();
 
-  // Work: use the existing category/project HTML and toggle it in place.
+  // Work: convert each existing folder row into its own real button and toggle only its existing items.
+  const workTree=document.querySelector('.work-tree');
   const workCategories=[...document.querySelectorAll('.work-category')];
 
   function updateWorkTreeLine(){
-    const tree=document.querySelector('.work-tree');
-    if(!tree)return;
-    const folders=[...tree.querySelectorAll(':scope > .work-category > .work-folder')];
+    if(!workTree)return;
+    const folders=[...workTree.querySelectorAll(':scope > .work-category > .work-toggle')];
     if(!folders.length)return;
     const first=folders[0].getBoundingClientRect();
     const last=folders[folders.length-1].getBoundingClientRect();
-    const treeRect=tree.getBoundingClientRect();
+    const treeRect=workTree.getBoundingClientRect();
     const top=first.top+first.height/2-treeRect.top;
     const height=Math.max(0,last.top+last.height/2-(first.top+first.height/2));
-    tree.style.setProperty('--work-main-line-top',Math.max(0,top)+'px');
-    tree.style.setProperty('--work-main-line-height',height+'px');
+    workTree.style.setProperty('--work-main-line-top',Math.max(0,top)+'px');
+    workTree.style.setProperty('--work-main-line-height',height+'px');
   }
 
   function setWorkCategory(category,open){
-    const folder=category.querySelector(':scope > .work-folder');
+    const button=category.querySelector(':scope > .work-toggle');
     const items=category.querySelector(':scope > .work-items');
-    if(!folder)return;
+    if(!button)return;
     category.classList.toggle('is-open',open);
-    folder.setAttribute('aria-expanded',String(open));
-    folder.setAttribute('aria-label',`${open?'Close':'Open'} ${folder.dataset.label||folder.textContent.trim()}`);
+    button.setAttribute('aria-expanded',String(open));
+    button.setAttribute('aria-label',`${open?'Close':'Open'} ${button.dataset.label||button.textContent.trim()}`);
     if(items){
       items.hidden=!open;
       items.setAttribute('aria-hidden',String(!open));
@@ -155,47 +141,50 @@
     if(!folder)return;
 
     const label=folder.querySelector('span')?.textContent.trim()||folder.textContent.trim();
-    folder.dataset.label=label;
-    folder.setAttribute('role','button');
-    folder.setAttribute('tabindex','0');
-
-    // Explicitly initialize every category as collapsed.
-    setWorkCategory(category,false);
-
-    const toggle=e=>{
-      if(e.type==='keydown' && e.key!=='Enter' && e.key!==' ')return;
-      e.preventDefault();
-      e.stopPropagation();
-      const open=folder.getAttribute('aria-expanded')!=='true';
-      setWorkCategory(category,open);
-      requestAnimationFrame(updateWorkTreeLine);
-    };
-
-    folder.addEventListener('click',toggle);
-    folder.addEventListener('keydown',toggle);
+    const button=document.createElement('button');
+    button.type='button';
+    button.className=folder.className+' work-toggle';
+    button.dataset.label=label;
+    button.innerHTML=folder.innerHTML;
+    folder.replaceWith(button);
 
     if(items){
       items.hidden=true;
       items.setAttribute('aria-hidden','true');
     }
+
+    button.setAttribute('aria-expanded','false');
+    button.setAttribute('aria-label',`Open ${label}`);
+
+    button.addEventListener('click',e=>{
+      e.preventDefault();
+      e.stopPropagation();
+      const open=button.getAttribute('aria-expanded')!=='true';
+      setWorkCategory(category,open);
+      requestAnimationFrame(updateWorkTreeLine);
+    });
+
+    button.addEventListener('keydown',e=>{
+      if(e.key!=='Enter' && e.key!==' ')return;
+      e.preventDefault();
+      e.stopPropagation();
+      const open=button.getAttribute('aria-expanded')!=='true';
+      setWorkCategory(category,open);
+      requestAnimationFrame(updateWorkTreeLine);
+    });
   });
 
   requestAnimationFrame(updateWorkTreeLine);
   window.addEventListener('resize',updateWorkTreeLine,{passive:true});
 
   const footer=document.querySelector('footer');
-
   function updateFooterClock(){
     if(!footer)return;
-    const now=new Date();
     footer.style.font='400 10px/1.2 Inter,system-ui,sans-serif';
     footer.style.letterSpacing='normal';
     footer.style.whiteSpace='nowrap';
-    footer.textContent=new Intl.DateTimeFormat('en-GB',{
-      hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false
-    }).format(now);
+    footer.textContent=new Intl.DateTimeFormat('en-GB',{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false}).format(new Date());
   }
-
   updateFooterClock();
   setInterval(updateFooterClock,1000);
 
@@ -204,12 +193,10 @@
   const links=[...nav.querySelectorAll('a')];
   const sections=links.map(a=>document.getElementById(a.dataset.section)).filter(Boolean);
   const setActive=id=>links.forEach(a=>a.classList.toggle('active',a.dataset.section===id));
-
   const io=new IntersectionObserver(es=>{
     const v=es.filter(e=>e.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];
     if(v)setActive(v.target.id);
   },{rootMargin:'-35% 0px -55% 0px',threshold:[.05,.2,.5]});
-
   sections.forEach(s=>io.observe(s));
   links.forEach(a=>a.addEventListener('click',()=>setActive(a.dataset.section)));
   setActive('intro');
@@ -218,8 +205,5 @@
   function hide(){nav.classList.remove('is-visible');clearTimeout(timer);}
   function show(){hide();timer=setTimeout(()=>nav.classList.add('is-visible'),450);}
   window.addEventListener('scroll',show,{passive:true});
-  nav.addEventListener('pointerdown',()=>{
-    nav.classList.add('is-visible');
-    clearTimeout(timer);
-  },{passive:true});
+  nav.addEventListener('pointerdown',()=>{nav.classList.add('is-visible');clearTimeout(timer);},{passive:true});
 })();
