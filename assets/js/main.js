@@ -161,6 +161,46 @@
   updateFooterClock();
   setInterval(updateFooterClock,1000);
 
+  // One unified crypto holdings bar, placed directly above the live crypto update.
+  const cryptoTicker=document.querySelector('.crypto-ticker');
+  if(cryptoTicker){
+    const holdings=document.createElement('section');
+    holdings.className='crypto-holdings';
+    holdings.setAttribute('aria-label','Crypto holdings');
+    holdings.innerHTML=`
+      <div class="crypto-holdings-head">
+        <span>Crypto holdings</span>
+        <span>100%</span>
+      </div>
+      <div class="crypto-holdings-bar" role="img" aria-label="Crypto holdings distribution">
+        <span class="holding-segment btc" style="--share:12.5%" title="BTC"></span>
+        <span class="holding-segment eth" style="--share:12.5%" title="ETH"></span>
+        <span class="holding-segment doge" style="--share:12.5%" title="DOGE"></span>
+        <span class="holding-segment usdt" style="--share:12.5%" title="USDT"></span>
+        <span class="holding-segment sol" style="--share:12.5%" title="SOL"></span>
+        <span class="holding-segment bnb" style="--share:12.5%" title="BNB"></span>
+        <span class="holding-segment ada" style="--share:12.5%" title="ADA"></span>
+        <span class="holding-segment xrp" style="--share:12.5%" title="XRP"></span>
+      </div>
+      <div class="crypto-holdings-labels">
+        <span>₿ BTC</span><span>◆ ETH</span><span>Ð DOGE</span><span>₮ USDT</span><span>◎ SOL</span><span>◈ BNB</span><span>₳ ADA</span><span>● XRP</span>
+      </div>`;
+
+    const style=document.createElement('style');
+    style.textContent=`
+      .crypto-holdings{margin:30px 0 0;font-family:'IBM Plex Mono',monospace;color:#111}
+      .crypto-holdings-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-size:10px;letter-spacing:.03em;opacity:.62;text-transform:uppercase}
+      .crypto-holdings-bar{display:flex;width:100%;height:12px;overflow:hidden;border:1px solid rgba(0,0,0,.12);border-radius:3px;background:#f5f5f5}
+      .holding-segment{display:block;width:var(--share);height:100%;min-width:2px;border-right:1px solid rgba(255,255,255,.9);background:#111}
+      .holding-segment:last-child{border-right:0}
+      .crypto-holdings-labels{display:flex;justify-content:space-between;gap:8px;margin-top:8px;overflow:hidden;white-space:nowrap;font-size:9px;opacity:.58}
+      .crypto-holdings-labels span{flex:0 0 auto}
+      @media(max-width:700px){.crypto-holdings{margin-top:24px}.crypto-holdings-bar{height:10px}.crypto-holdings-labels{font-size:7px;gap:5px}.crypto-holdings-head{font-size:9px}}
+    `;
+    document.head.appendChild(style);
+    cryptoTicker.parentNode.insertBefore(holdings,cryptoTicker);
+  }
+
   const nav=document.getElementById('siteNav');
   if(!nav)return;
   const links=[...nav.querySelectorAll('a')];
