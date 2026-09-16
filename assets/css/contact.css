@@ -162,3 +162,32 @@
 @media (min-width: 1400px) {
   :root { --page: min(55vw, 680px); }
 }
+
+/* Animated artwork strip inspired by the supplied reference. */
+body::before {
+  content: '';
+  display: block;
+  width: 100%;
+  height: clamp(96px, 13vw, 156px);
+  background: #fff url('../top-banner.svg') center bottom / cover no-repeat;
+  border-bottom: 1px solid rgba(0,0,0,.04);
+  animation: top-banner-drift 18s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes top-banner-drift {
+  0% { background-position: 18% bottom; }
+  100% { background-position: 82% bottom; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body::before { animation: none; }
+}
+
+@media (max-width: 700px) {
+  body::before {
+    height: 104px;
+    background-size: auto 104px;
+    background-position: 18% bottom;
+  }
+}
