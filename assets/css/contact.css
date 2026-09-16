@@ -11,15 +11,23 @@
 .contact-card { display: flex; align-items: center; justify-content: center; gap: 9px; min-width: 0; min-height: 54px; padding: 10px 14px; border: 1px solid #222; border-radius: 3px; background: #fff; color: #111; text-decoration: none; box-shadow: none; transition: background .16s ease, color .16s ease, border-color .16s ease; }
 .contact-card:hover { background: #111; border-color: #111; color: #fff; }
 .contact-card:active { transform: none; }
-.contact-card::before,.contact-card::after { display: none; }
+.contact-card::before, .contact-card::after { display: none; }
 .contact-logo { width: 20px; height: 20px; flex: 0 0 20px; border-radius: 0; display: grid; place-items: center; color: currentColor; background: transparent; box-shadow: none; }
 .contact-logo svg { width: 19px; height: 19px; display: block; }
-.github-logo,.discord-logo,.telegram-logo { background: transparent; }
+.github-logo, .discord-logo, .telegram-logo { background: transparent; }
 .contact-copy { min-width: 0; display: block; }
 .contact-name { color: currentColor; font: 500 12px/1.2 Inter, sans-serif; letter-spacing: 0; }
 .contact-copy::after { display: none; content: none; }
+
 .crypto-holdings-labels > span { align-items: center; justify-content: center; text-align: center; }
-#cryptoStatus { display: none !important; }
+
+/* Make the live crypto market ticker reliably visible. */
+.crypto-ticker { display: block !important; visibility: visible !important; opacity: 1 !important; position: relative; z-index: 2; margin-top: 34px; }
+.crypto-ticker::before { content: 'LIVE'; display: block; width: max-content; margin: 0 auto 8px; padding: 3px 7px; border: 1px solid #dfe3e8; border-radius: 999px; color: #4f7f68; background: #fff; font: 600 8px/1 'IBM Plex Mono', monospace; letter-spacing: .1em; }
+.crypto-track { display: flex !important; visibility: visible !important; animation: crypto-scroll 28s linear infinite !important; }
+.crypto-status, #cryptoStatus { display: block !important; visibility: visible !important; opacity: .55 !important; }
+
+@media (prefers-reduced-motion: reduce) { .crypto-track { animation: none !important; } }
 
 @media (max-width: 700px) {
   .contact { padding-top: 42px; }
@@ -32,36 +40,11 @@
   .contact-name { font-size: 10px; }
 }
 
-/* Keep the portfolio centered with generous laptop side space. */
 @media (min-width: 901px) { :root { --page: min(70vw, 680px); } }
 @media (min-width: 1400px) { :root { --page: min(55vw, 680px); } }
 
-/* Soft animated live-wallpaper header. */
-body::before {
-  content: '';
-  display: block;
-  width: 100%;
-  height: clamp(108px, 15vw, 170px);
-  background: #fff url('../top-banner.svg') center bottom / cover no-repeat;
-  border-bottom: 1px solid rgba(239,170,165,.16);
-  animation: top-wallpaper 20s ease-in-out infinite alternate;
-  transform-origin: center bottom;
-  will-change: background-position, background-size;
-  pointer-events: none;
-}
-
-@keyframes top-wallpaper {
-  0% { background-position: 8% 100%; background-size: 106% 106%; }
-  50% { background-position: 50% 96%; background-size: 110% 110%; }
-  100% { background-position: 92% 100%; background-size: 106% 106%; }
-}
-
+/* Animated artwork strip inspired by the supplied reference. */
+body::before { content: ''; display: block; width: 100%; height: clamp(96px, 13vw, 156px); background: #fff url('../top-banner.svg') center bottom / cover no-repeat; border-bottom: 1px solid rgba(0,0,0,.04); animation: top-banner-drift 18s ease-in-out infinite alternate; pointer-events: none; }
+@keyframes top-banner-drift { 0% { background-position: 18% bottom; } 100% { background-position: 82% bottom; } }
 @media (prefers-reduced-motion: reduce) { body::before { animation: none; } }
-
-@media (max-width: 700px) {
-  body::before {
-    height: 108px;
-    background-size: auto 108px;
-    animation-duration: 16s;
-  }
-}
+@media (max-width: 700px) { body::before { height: 104px; background-size: auto 104px; background-position: 18% bottom; } }
