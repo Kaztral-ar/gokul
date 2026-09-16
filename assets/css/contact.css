@@ -21,11 +21,11 @@
 
 .crypto-holdings-labels > span { align-items: center; justify-content: center; text-align: center; }
 
-/* Make the live crypto market ticker reliably visible. */
+/* Keep the crypto market ticker visible without a live-status indicator. */
 .crypto-ticker { display: block !important; visibility: visible !important; opacity: 1 !important; position: relative; z-index: 2; margin-top: 34px; }
-.crypto-ticker::before { content: 'LIVE'; display: block; width: max-content; margin: 0 auto 8px; padding: 3px 7px; border: 1px solid #dfe3e8; border-radius: 999px; color: #4f7f68; background: #fff; font: 600 8px/1 'IBM Plex Mono', monospace; letter-spacing: .1em; }
+.crypto-ticker::before { display: none !important; content: none !important; }
 .crypto-track { display: flex !important; visibility: visible !important; animation: crypto-scroll 28s linear infinite !important; }
-.crypto-status, #cryptoStatus { display: block !important; visibility: visible !important; opacity: .55 !important; }
+.crypto-status, #cryptoStatus { display: none !important; visibility: hidden !important; }
 
 @media (prefers-reduced-motion: reduce) { .crypto-track { animation: none !important; } }
 
