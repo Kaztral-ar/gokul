@@ -153,3 +153,12 @@
     font-size: 10px;
   }
 }
+
+/* Keep the portfolio as a centered, device-like column on larger screens. */
+@media (min-width: 901px) {
+  :root { --page: min(78vw, 760px); }
+}
+
+@media (min-width: 1400px) {
+  :root { --page: min(62vw, 760px); }
+}
