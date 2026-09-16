@@ -99,6 +99,13 @@
   content: none;
 }
 
+/* Center crypto holding labels and quantities. */
+.crypto-holdings-labels > span {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
 /* Keep social links horizontal on mobile too. */
 @media (max-width: 700px) {
   .contact {
