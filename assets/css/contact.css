@@ -26,6 +26,7 @@
 .crypto-ticker::before { display: none !important; content: none !important; }
 .crypto-track { display: flex !important; visibility: visible !important; animation: crypto-scroll 28s linear infinite !important; }
 .crypto-status, #cryptoStatus { display: none !important; visibility: hidden !important; }
+.crypto-change.down { display: none !important; }
 
 @media (prefers-reduced-motion: reduce) { .crypto-track { animation: none !important; } }
 
