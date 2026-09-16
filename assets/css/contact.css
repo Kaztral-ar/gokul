@@ -154,11 +154,11 @@
   }
 }
 
-/* Keep the portfolio as a centered, device-like column on larger screens. */
+/* Keep the portfolio as a centered, device-like column with wider side space on laptops. */
 @media (min-width: 901px) {
-  :root { --page: min(78vw, 760px); }
+  :root { --page: min(70vw, 680px); }
 }
 
 @media (min-width: 1400px) {
-  :root { --page: min(62vw, 760px); }
+  :root { --page: min(55vw, 680px); }
 }
