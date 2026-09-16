@@ -4,190 +4,64 @@
   background: #fff;
 }
 
-.contact .section-title {
-  margin: 0 0 28px;
-  font-size: 0;
-  line-height: 1.15;
-}
-
-.contact .section-title::before {
-  content: 'Have something in mind?';
-  display: block;
-  color: #111;
-  font: 700 clamp(25px, 4vw, 38px)/1.15 Inter, sans-serif;
-  letter-spacing: -.035em;
-}
-
-.contact .section-title::after {
-  content: 'If you’re building something useful and care about the details, I’d love to hear about it.';
-  display: block;
-  max-width: 680px;
-  margin-top: 14px;
-  color: #666b73;
-  font: 400 clamp(14px, 2vw, 18px)/1.65 Inter, sans-serif;
-  letter-spacing: -.01em;
-}
-
-.contact-cards {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px;
-}
-
-.contact-card {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 9px;
-  min-width: 0;
-  min-height: 54px;
-  padding: 10px 14px;
-  border: 1px solid #222;
-  border-radius: 3px;
-  background: #fff;
-  color: #111;
-  text-decoration: none;
-  box-shadow: none;
-  transition: background .16s ease, color .16s ease, border-color .16s ease;
-}
-
-.contact-card:hover {
-  background: #111;
-  border-color: #111;
-  color: #fff;
-}
-
+.contact .section-title { margin: 0 0 28px; font-size: 0; line-height: 1.15; }
+.contact .section-title::before { content: 'Have something in mind?'; display: block; color: #111; font: 700 clamp(25px, 4vw, 38px)/1.15 Inter, sans-serif; letter-spacing: -.035em; }
+.contact .section-title::after { content: 'If you’re building something useful and care about the details, I’d love to hear about it.'; display: block; max-width: 680px; margin-top: 14px; color: #666b73; font: 400 clamp(14px, 2vw, 18px)/1.65 Inter, sans-serif; letter-spacing: -.01em; }
+.contact-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.contact-card { display: flex; align-items: center; justify-content: center; gap: 9px; min-width: 0; min-height: 54px; padding: 10px 14px; border: 1px solid #222; border-radius: 3px; background: #fff; color: #111; text-decoration: none; box-shadow: none; transition: background .16s ease, color .16s ease, border-color .16s ease; }
+.contact-card:hover { background: #111; border-color: #111; color: #fff; }
 .contact-card:active { transform: none; }
-.contact-card::before,
-.contact-card::after { display: none; }
+.contact-card::before,.contact-card::after { display: none; }
+.contact-logo { width: 20px; height: 20px; flex: 0 0 20px; border-radius: 0; display: grid; place-items: center; color: currentColor; background: transparent; box-shadow: none; }
+.contact-logo svg { width: 19px; height: 19px; display: block; }
+.github-logo,.discord-logo,.telegram-logo { background: transparent; }
+.contact-copy { min-width: 0; display: block; }
+.contact-name { color: currentColor; font: 500 12px/1.2 Inter, sans-serif; letter-spacing: 0; }
+.contact-copy::after { display: none; content: none; }
+.crypto-holdings-labels > span { align-items: center; justify-content: center; text-align: center; }
+#cryptoStatus { display: none !important; }
 
-.contact-logo {
-  width: 20px;
-  height: 20px;
-  flex: 0 0 20px;
-  border-radius: 0;
-  display: grid;
-  place-items: center;
-  color: currentColor;
-  background: transparent;
-  box-shadow: none;
-}
-
-.contact-logo svg {
-  width: 19px;
-  height: 19px;
-  display: block;
-}
-
-.github-logo,
-.discord-logo,
-.telegram-logo { background: transparent; }
-
-.contact-copy {
-  min-width: 0;
-  display: block;
-}
-
-.contact-name {
-  color: currentColor;
-  font: 500 12px/1.2 Inter, sans-serif;
-  letter-spacing: 0;
-}
-
-.contact-copy::after {
-  display: none;
-  content: none;
-}
-
-/* Center crypto holding labels and quantities. */
-.crypto-holdings-labels > span {
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
-
-/* Hide the crypto ticker status line. */
-#cryptoStatus {
-  display: none !important;
-}
-
-/* Keep social links horizontal on mobile too. */
 @media (max-width: 700px) {
-  .contact {
-    padding-top: 42px;
-  }
-
-  .contact .section-title {
-    margin-bottom: 22px;
-  }
-
-  .contact .section-title::after {
-    max-width: 100%;
-    margin-top: 11px;
-    line-height: 1.55;
-  }
-
-  .contact-cards {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 6px;
-  }
-
-  .contact-card {
-    min-height: 46px;
-    padding: 8px 5px;
-    gap: 5px;
-  }
-
-  .contact-logo {
-    width: 18px;
-    height: 18px;
-    flex-basis: 18px;
-  }
-
-  .contact-logo svg {
-    width: 17px;
-    height: 17px;
-  }
-
-  .contact-name {
-    font-size: 10px;
-  }
+  .contact { padding-top: 42px; }
+  .contact .section-title { margin-bottom: 22px; }
+  .contact .section-title::after { max-width: 100%; margin-top: 11px; line-height: 1.55; }
+  .contact-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+  .contact-card { min-height: 46px; padding: 8px 5px; gap: 5px; }
+  .contact-logo { width: 18px; height: 18px; flex-basis: 18px; }
+  .contact-logo svg { width: 17px; height: 17px; }
+  .contact-name { font-size: 10px; }
 }
 
-/* Keep the portfolio as a centered, device-like column with wider side space on laptops. */
-@media (min-width: 901px) {
-  :root { --page: min(70vw, 680px); }
-}
+/* Keep the portfolio centered with generous laptop side space. */
+@media (min-width: 901px) { :root { --page: min(70vw, 680px); } }
+@media (min-width: 1400px) { :root { --page: min(55vw, 680px); } }
 
-@media (min-width: 1400px) {
-  :root { --page: min(55vw, 680px); }
-}
-
-/* Animated artwork strip inspired by the supplied reference. */
+/* Soft animated live-wallpaper header. */
 body::before {
   content: '';
   display: block;
   width: 100%;
-  height: clamp(96px, 13vw, 156px);
+  height: clamp(108px, 15vw, 170px);
   background: #fff url('../top-banner.svg') center bottom / cover no-repeat;
-  border-bottom: 1px solid rgba(0,0,0,.04);
-  animation: top-banner-drift 18s ease-in-out infinite alternate;
+  border-bottom: 1px solid rgba(239,170,165,.16);
+  animation: top-wallpaper 20s ease-in-out infinite alternate;
+  transform-origin: center bottom;
+  will-change: background-position, background-size;
   pointer-events: none;
 }
 
-@keyframes top-banner-drift {
-  0% { background-position: 18% bottom; }
-  100% { background-position: 82% bottom; }
+@keyframes top-wallpaper {
+  0% { background-position: 8% 100%; background-size: 106% 106%; }
+  50% { background-position: 50% 96%; background-size: 110% 110%; }
+  100% { background-position: 92% 100%; background-size: 106% 106%; }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  body::before { animation: none; }
-}
+@media (prefers-reduced-motion: reduce) { body::before { animation: none; } }
 
 @media (max-width: 700px) {
   body::before {
-    height: 104px;
-    background-size: auto 104px;
-    background-position: 18% bottom;
+    height: 108px;
+    background-size: auto 108px;
+    animation-duration: 16s;
   }
 }
