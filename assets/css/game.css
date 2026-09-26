@@ -67,36 +67,52 @@
   height: 82px;
   padding: 9px;
   overflow: hidden;
+  position: relative;
   border-radius: 5px;
-  background: linear-gradient(135deg, #222, #666);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
 }
 
 .steam-cover span {
+  position: relative;
+  z-index: 1;
   color: #fff;
   font: 700 22px/0.9 Inter, sans-serif;
   letter-spacing: -0.06em;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+.steam-cover::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.58),
+    rgba(0, 0, 0, 0.04) 70%
+  );
 }
 
 .steam-game.gta .steam-cover {
-  background: linear-gradient(135deg, #252525, #aa704d);
+  background-image: url("https://riligo.co.il/media/catalog/product/cache/1/image/1500x/e49b52e7cb111d332b383ed62676cb28/o/t/other-422799_2_-min.jpg");
 }
 
 .steam-game.coc .steam-cover {
-  background: linear-gradient(135deg, #57351e, #bd8238);
+  background-image: url("https://i1.sndcdn.com/artworks-JgX3nByXADCahSFs-cIkhyQ-t1080x1080.jpg");
 }
 
 .steam-game.valo .steam-cover {
-  background: linear-gradient(135deg, #24202e, #814459);
+  background-image: url("https://s3.eu-west-3.amazonaws.com/dexertoes-assets-production-7d0f29e6/uploads/2020/04/16172911/tier-list-agentes-valorant.jpg?w=620");
 }
 
 .steam-game.pubg .steam-cover {
-  background: linear-gradient(135deg, #202a25, #756a48);
+  background-image: url("https://store-images.s-microsoft.com/image/apps.22131.64374245401097180.1f6449c0-3d28-414b-b818-dea88d640877.c04e013e-5ba6-48f8-a42c-32a224f4beb0?format=jpg&h=1080");
 }
 
 .steam-game.bgmi .steam-cover {
-  background: linear-gradient(135deg, #18251e, #4d7656);
+  background-image: url("https://akm-img-a-in.tosshub.com/sites/itgaming/resources/202412/unnamed271224011520.png?size=1200%3A675");
 }
 
 .steam-details {
