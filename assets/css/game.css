@@ -3,138 +3,199 @@
   margin: 54px auto 0;
 }
 
-.game-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 14px;
-}
-
-.game-card {
-  overflow: hidden;
-  border: 1px solid rgba(0, 0, 0, 0.11);
-  border-radius: 16px;
-  background: #fff;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
-}
-
-.game-art {
-  position: relative;
+.games-heading {
   display: flex;
   align-items: flex-end;
-  min-height: 170px;
-  padding: 18px;
-  overflow: hidden;
-  background: linear-gradient(135deg, #222, #777);
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
 }
 
-.game-art::after {
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(circle at 75% 20%, rgba(255, 255, 255, 0.22), transparent 28%),
-    linear-gradient(120deg, transparent 30%, rgba(255, 255, 255, 0.08), transparent 70%);
-  content: "";
-}
-
-.game-number {
-  position: absolute;
-  top: 14px;
-  left: 16px;
-  z-index: 1;
-  color: rgba(255, 255, 255, 0.65);
-  font: 600 9px/1 'IBM Plex Mono', monospace;
-  letter-spacing: 0.12em;
-}
-
-.game-logo {
-  position: relative;
-  z-index: 1;
-  color: #fff;
-  font: 700 clamp(30px, 5vw, 48px)/0.9 Inter, sans-serif;
-  letter-spacing: -0.07em;
-  text-shadow: 0 4px 18px rgba(0, 0, 0, 0.3);
-}
-
-.game-info {
-  padding: 17px 18px 18px;
-}
-
-.game-type {
+.games-kicker {
+  display: block;
+  margin-bottom: 5px;
   color: #858585;
   font: 600 8px/1.2 'IBM Plex Mono', monospace;
-  letter-spacing: 0.13em;
+  letter-spacing: 0.14em;
 }
 
-.game-info h3 {
-  margin: 6px 0 5px;
-  font: 700 18px/1.1 Inter, sans-serif;
-  letter-spacing: -0.035em;
-}
-
-.game-info p {
-  min-height: 38px;
+.games-heading .section-title {
   margin: 0;
-  color: #707070;
-  font: 400 11px/1.5 Inter, sans-serif;
 }
 
-.game-play {
-  width: 100%;
-  margin-top: 14px;
-  padding: 10px 14px;
-  border: 1px solid #171717;
-  border-radius: 8px;
-  background: #171717;
-  color: #fff;
-  cursor: pointer;
+.games-count {
+  padding-bottom: 4px;
+  color: #8a8a8a;
   font: 600 9px/1 'IBM Plex Mono', monospace;
+}
+
+.steam-library {
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 12px;
+  background: #f3f3f3;
+}
+
+.steam-game {
+  display: grid;
+  grid-template-columns: 112px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 18px;
+  min-height: 112px;
+  padding: 10px 14px 10px 10px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  background: #fafafa;
+  transition: background 0.15s ease;
+}
+
+.steam-game:last-child {
+  border-bottom: 0;
+}
+
+.steam-game:hover {
+  background: #fff;
+}
+
+.steam-cover {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  height: 82px;
+  padding: 9px;
+  overflow: hidden;
+  border-radius: 5px;
+  background: linear-gradient(135deg, #222, #666);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+}
+
+.steam-cover span {
+  color: #fff;
+  font: 700 22px/0.9 Inter, sans-serif;
+  letter-spacing: -0.06em;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
+}
+
+.steam-game.gta .steam-cover {
+  background: linear-gradient(135deg, #252525, #aa704d);
+}
+
+.steam-game.coc .steam-cover {
+  background: linear-gradient(135deg, #57351e, #bd8238);
+}
+
+.steam-game.valo .steam-cover {
+  background: linear-gradient(135deg, #24202e, #814459);
+}
+
+.steam-game.pubg .steam-cover {
+  background: linear-gradient(135deg, #202a25, #756a48);
+}
+
+.steam-game.bgmi .steam-cover {
+  background: linear-gradient(135deg, #18251e, #4d7656);
+}
+
+.steam-details {
+  min-width: 0;
+}
+
+.steam-title-row {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-width: 0;
+}
+
+.steam-title-row h3 {
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font: 650 14px/1.2 Inter, sans-serif;
+  letter-spacing: -0.025em;
+}
+
+.steam-status {
+  flex: 0 0 auto;
+  padding: 4px 6px;
+  border-radius: 3px;
+  background: #e7e7e7;
+  color: #707070;
+  font: 600 7px/1 'IBM Plex Mono', monospace;
   letter-spacing: 0.08em;
 }
 
-.game-play:hover {
-  opacity: 0.82;
+.steam-details p {
+  margin: 6px 0 10px;
+  color: #777;
+  font: 400 10px/1.35 Inter, sans-serif;
+}
+
+.steam-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.steam-meta span {
+  color: #929292;
+  font: 500 8px/1 'IBM Plex Mono', monospace;
+}
+
+.steam-meta span:not(:last-child)::after {
+  content: ' ·';
+  margin-left: 6px;
+}
+
+.steam-play {
+  min-width: 62px;
+  padding: 8px 11px;
+  border: 1px solid #171717;
+  border-radius: 5px;
+  background: #171717;
+  color: #fff;
+  cursor: pointer;
+  font: 600 8px/1 'IBM Plex Mono', monospace;
+  letter-spacing: 0.08em;
+}
+
+.steam-play:hover {
+  opacity: 0.8;
 }
 
 .game-message {
-  min-height: 18px;
-  margin: 14px 0 0;
+  min-height: 16px;
+  margin: 10px 0 0;
   color: #777;
-  text-align: center;
-  font: 500 10px/1.4 'IBM Plex Mono', monospace;
+  text-align: right;
+  font: 500 9px/1.4 'IBM Plex Mono', monospace;
 }
 
-.game-card.gta .game-art {
-  background: linear-gradient(135deg, #242424, #ad7650);
-}
-
-.game-card.coc .game-art {
-  background: linear-gradient(135deg, #593319, #c78b36);
-}
-
-.game-card.valo .game-art {
-  background: linear-gradient(135deg, #201d2c, #8b415d);
-}
-
-.game-card.pubg .game-art {
-  background: linear-gradient(135deg, #222b27, #7c704b);
-}
-
-.game-card.bgmi .game-art {
-  background: linear-gradient(135deg, #18251f, #4d7657);
-}
-
-@media (max-width: 650px) {
-  .game-grid {
-    grid-template-columns: 1fr;
+@media (max-width: 620px) {
+  .steam-game {
+    grid-template-columns: 82px minmax(0, 1fr);
+    gap: 12px;
+    padding: 9px;
   }
 
-  .game-art {
-    min-height: 150px;
+  .steam-cover {
+    height: 68px;
+  }
+
+  .steam-cover span {
+    font-size: 17px;
+  }
+
+  .steam-play {
+    grid-column: 2;
+    justify-self: start;
+    margin-top: -5px;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .game-play {
+  .steam-game {
     transition: none;
   }
 }
