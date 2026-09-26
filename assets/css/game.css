@@ -32,8 +32,9 @@
 .steam-library {
   overflow: hidden;
   border: 1px solid rgba(0, 0, 0, 0.12);
-  border-radius: 12px;
-  background: #f3f3f3;
+  border-radius: 14px;
+  background: #f1f1f1;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.07);
 }
 
 .steam-track {
@@ -48,16 +49,17 @@
   display: grid;
   grid-template-columns: 112px minmax(0, 1fr) auto;
   align-items: center;
-  gap: 18px;
-  min-height: 112px;
+  gap: 16px;
+  min-height: 116px;
   padding: 10px 14px 10px 10px;
-  border-right: 1px solid rgba(0, 0, 0, 0.08);
-  background: #fafafa;
-  transition: background 0.15s ease;
+  border-right: 1px solid rgba(0, 0, 0, 0.07);
+  background: rgba(250, 250, 250, 0.96);
+  transition: background 0.15s ease, transform 0.15s ease;
 }
 
 .steam-game:hover {
   background: #fff;
+  transform: translateY(-2px);
 }
 
 .steam-cover {
@@ -68,7 +70,7 @@
   padding: 9px;
   overflow: hidden;
   position: relative;
-  border-radius: 5px;
+  border-radius: 8px;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -113,6 +115,10 @@
 
 .steam-game.bgmi .steam-cover {
   background-image: url("https://akm-img-a-in.tosshub.com/sites/itgaming/resources/202412/unnamed271224011520.png?size=1200%3A675");
+}
+
+.steam-game.pes .steam-cover {
+  background-image: url("https://upload.wikimedia.org/wikipedia/en/6/68/EFootball_PES_2021_Season_Update_cover.jpg");
 }
 
 .steam-details {
