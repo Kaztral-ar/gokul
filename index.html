@@ -309,23 +309,197 @@
   </div>
 
   <script type="application/ld+json">
-{
-    "@context":"https://schema.org",
-    "@type":"Person",
-    "name":"Gokul",
-    "alternateName":"Kaztral",
-    "jobTitle":"Developer and Bot Developer",
-    "description":"Developer and bot developer building simple tools, bots, web projects and open-source software.",
-    "sameAs":[
-    "https://github.com/Kaztral-ar",
-    "https://discord.gg/DF2uVUSzX",
-    "https://t.me/K4tral"
-    ]
-  }
+    {
+      "@context":"https://schema.org",
+      "@type":"Person",
+      "name":"Gokul",
+      "alternateName":"Kaztral",
+      "jobTitle":"Developer and Bot Developer",
+      "description":"Developer and bot developer building simple tools, bots, web projects and open-source software.",
+      "sameAs":[
+        "https://github.com/Kaztral-ar",
+        "https://discord.gg/DF2uVUSzX",
+        "https://t.me/K4tral"
+      ]
+    }
   </script>
 
   <script>
-    (() => {\n      const coins = [\n              ['BTC', 'bitcoin', '₿'],\n              ['ETH', 'ethereum', '◆'],\n              ['DOGE', 'dogecoin', 'Ð'],\n              ['USDT', 'tether', '₮'],\n              ['SOL', 'solana', '◎'],\n              ['BNB', 'binancecoin', '◈'],\n              ['ADA', 'cardano', '₳'],\n              ['XRP', 'ripple', '●']\n            ];\n      \n            const setA = document.getElementById('cryptoSetA');\n            const setB = document.getElementById('cryptoSetB');\n            const status = document.getElementById('cryptoStatus');\n      \n            const formatPrice = value => {\n              if (value >= 1000) {\n                return '\n              if (value >= 1) {\n                return '\n              return '\n            };\n      \n            function render(data) {\n              const html = coins\n                .map(([symbol, id, icon]) => {\n                  const coin = data[id];\n      \n                  if (!coin) {\n                    return '';\n                  }\n      \n                  const change = Number(\n                    coin.usd_24h_change || 0\n                  );\n      \n                  const cls = change >= 0\n                    ? 'up'\n                    : 'down';\n      \n                  const sign = change >= 0\n                    ? '+'\n                    : '';\n      \n                  return `<span class="crypto-item">\n                    <span class="crypto-symbol">${icon} ${symbol}</span>\n                    <span class="crypto-price">${formatPrice(coin.usd)}</span>\n                    <span class="crypto-change ${cls}">${sign}${change.toFixed(2)}%</span>\n                  </span>`;\n                })\n                .join('');\n              setA.innerHTML = html;\n              setB.innerHTML = html;\n              status.textContent = 'Live prices · updates every 60s';\n            }\n      \n            async function updateCrypto() {\n              try {\n                const ids = coins\n                  .map(([, id]) => id)\n                  .join(',');\n                const url =\n                  `https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd&include_24hr_change=true`;\n                const response = await fetch(url, {\n                  cache: 'no-store'\n                });\n                if (!response.ok) {\n                  throw new Error('Crypto API unavailable');\n                }\n                render(await response.json());\n              } catch (error) {\n                status.textContent = 'Crypto prices unavailable';\n              }\n            }\n      \n            updateCrypto();\n            setInterval(updateCrypto, 60000); + value.toLocaleString('en-US', {\n                  maximumFractionDigits: 0\n                });\n              }\n              if (value >= 1) return '$' + value.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });\n              return '$' + value.toLocaleString('en-US', { minimumFractionDigits: 4, maximumFractionDigits: 6 });\n            };\n      \n            function render(data) {\n              const html = coins.map(([symbol, id, icon]) => {\n                const coin = data[id];\n                if (!coin) return '';\n                const change = Number(coin.usd_24h_change || 0);\n                const cls = change >= 0 ? 'up' : 'down';\n                const sign = change >= 0 ? '+' : '';\n                return `<span class="crypto-item"><span class="crypto-symbol">${icon} ${symbol}</span><span class="crypto-price">${formatPrice(coin.usd)}</span><span class="crypto-change ${cls}">${sign}${change.toFixed(2)}%</span></span>`;\n              }).join('');\n              setA.innerHTML = html;\n              setB.innerHTML = html;\n              status.textContent = 'Live prices · updates every 60s';\n            }\n      \n            async function updateCrypto() {\n              try {\n                const ids = coins.map(([, id]) => id).join(',');\n                const url = `https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd&include_24hr_change=true`;\n                const response = await fetch(url, { cache: 'no-store' });\n                if (!response.ok) throw new Error('Crypto API unavailable');\n                render(await response.json());\n              } catch (error) {\n                status.textContent = 'Crypto prices unavailable';\n              }\n            }\n      \n            updateCrypto();\n            setInterval(updateCrypto, 60000); + value.toLocaleString('en-US', {\n                  minimumFractionDigits: 2,\n                  maximumFractionDigits: 2\n                });\n              }\n              return '$' + value.toLocaleString('en-US', { minimumFractionDigits: 4, maximumFractionDigits: 6 });\n            };\n      \n            function render(data) {\n              const html = coins.map(([symbol, id, icon]) => {\n                const coin = data[id];\n                if (!coin) return '';\n                const change = Number(coin.usd_24h_change || 0);\n                const cls = change >= 0 ? 'up' : 'down';\n                const sign = change >= 0 ? '+' : '';\n                return `<span class="crypto-item"><span class="crypto-symbol">${icon} ${symbol}</span><span class="crypto-price">${formatPrice(coin.usd)}</span><span class="crypto-change ${cls}">${sign}${change.toFixed(2)}%</span></span>`;\n              }).join('');\n              setA.innerHTML = html;\n              setB.innerHTML = html;\n              status.textContent = 'Live prices · updates every 60s';\n            }\n      \n            async function updateCrypto() {\n              try {\n                const ids = coins.map(([, id]) => id).join(',');\n                const url = `https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd&include_24hr_change=true`;\n                const response = await fetch(url, { cache: 'no-store' });\n                if (!response.ok) throw new Error('Crypto API unavailable');\n                render(await response.json());\n              } catch (error) {\n                status.textContent = 'Crypto prices unavailable';\n              }\n            }\n      \n            updateCrypto();\n            setInterval(updateCrypto, 60000); + value.toLocaleString('en-US', {\n                  maximumFractionDigits: 0\n                });\n              }\n              if (value >= 1) return '$' + value.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });\n              return '$' + value.toLocaleString('en-US', { minimumFractionDigits: 4, maximumFractionDigits: 6 });\n            };\n      \n            function render(data) {\n              const html = coins.map(([symbol, id, icon]) => {\n                const coin = data[id];\n                if (!coin) return '';\n                const change = Number(coin.usd_24h_change || 0);\n                const cls = change >= 0 ? 'up' : 'down';\n                const sign = change >= 0 ? '+' : '';\n                return `<span class="crypto-item"><span class="crypto-symbol">${icon} ${symbol}</span><span class="crypto-price">${formatPrice(coin.usd)}</span><span class="crypto-change ${cls}">${sign}${change.toFixed(2)}%</span></span>`;\n              }).join('');\n              setA.innerHTML = html;\n              setB.innerHTML = html;\n              status.textContent = 'Live prices · updates every 60s';\n            }\n      \n            async function updateCrypto() {\n              try {\n                const ids = coins.map(([, id]) => id).join(',');\n                const url = `https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd&include_24hr_change=true`;\n                const response = await fetch(url, { cache: 'no-store' });\n                if (!response.ok) throw new Error('Crypto API unavailable');\n                render(await response.json());\n              } catch (error) {\n                status.textContent = 'Crypto prices unavailable';\n              }\n            }\n      \n            updateCrypto();\n            setInterval(updateCrypto, 60000); + value.toLocaleString('en-US', {\n                minimumFractionDigits: 4,\n                maximumFractionDigits: 6\n              });\n            };\n      \n            function render(data) {\n              const html = coins.map(([symbol, id, icon]) => {\n                const coin = data[id];\n                if (!coin) return '';\n                const change = Number(coin.usd_24h_change || 0);\n                const cls = change >= 0 ? 'up' : 'down';\n                const sign = change >= 0 ? '+' : '';\n                return `<span class="crypto-item"><span class="crypto-symbol">${icon} ${symbol}</span><span class="crypto-price">${formatPrice(coin.usd)}</span><span class="crypto-change ${cls}">${sign}${change.toFixed(2)}%</span></span>`;\n              }).join('');\n              setA.innerHTML = html;\n              setB.innerHTML = html;\n              status.textContent = 'Live prices · updates every 60s';\n            }\n      \n            async function updateCrypto() {\n              try {\n                const ids = coins.map(([, id]) => id).join(',');\n                const url = `https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd&include_24hr_change=true`;\n                const response = await fetch(url, { cache: 'no-store' });\n                if (!response.ok) throw new Error('Crypto API unavailable');\n                render(await response.json());\n              } catch (error) {\n                status.textContent = 'Crypto prices unavailable';\n              }\n            }\n      \n            updateCrypto();\n            setInterval(updateCrypto, 60000); + value.toLocaleString('en-US', {\n                  maximumFractionDigits: 0\n                });\n              }\n              if (value >= 1) return '$' + value.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });\n              return '$' + value.toLocaleString('en-US', { minimumFractionDigits: 4, maximumFractionDigits: 6 });\n            };\n      \n            function render(data) {\n              const html = coins.map(([symbol, id, icon]) => {\n                const coin = data[id];\n                if (!coin) return '';\n                const change = Number(coin.usd_24h_change || 0);\n                const cls = change >= 0 ? 'up' : 'down';\n                const sign = change >= 0 ? '+' : '';\n                return `<span class="crypto-item"><span class="crypto-symbol">${icon} ${symbol}</span><span class="crypto-price">${formatPrice(coin.usd)}</span><span class="crypto-change ${cls}">${sign}${change.toFixed(2)}%</span></span>`;\n              }).join('');\n              setA.innerHTML = html;\n              setB.innerHTML = html;\n              status.textContent = 'Live prices · updates every 60s';\n            }\n      \n            async function updateCrypto() {\n              try {\n                const ids = coins.map(([, id]) => id).join(',');\n                const url = `https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd&include_24hr_change=true`;\n                const response = await fetch(url, { cache: 'no-store' });\n                if (!response.ok) throw new Error('Crypto API unavailable');\n                render(await response.json());\n              } catch (error) {\n                status.textContent = 'Crypto prices unavailable';\n              }\n            }\n      \n            updateCrypto();\n            setInterval(updateCrypto, 60000); + value.toLocaleString('en-US', {\n                  minimumFractionDigits: 2,\n                  maximumFractionDigits: 2\n                });\n              }\n              return '$' + value.toLocaleString('en-US', { minimumFractionDigits: 4, maximumFractionDigits: 6 });\n            };\n      \n            function render(data) {\n              const html = coins.map(([symbol, id, icon]) => {\n                const coin = data[id];\n                if (!coin) return '';\n                const change = Number(coin.usd_24h_change || 0);\n                const cls = change >= 0 ? 'up' : 'down';\n                const sign = change >= 0 ? '+' : '';\n                return `<span class="crypto-item"><span class="crypto-symbol">${icon} ${symbol}</span><span class="crypto-price">${formatPrice(coin.usd)}</span><span class="crypto-change ${cls}">${sign}${change.toFixed(2)}%</span></span>`;\n              }).join('');\n              setA.innerHTML = html;\n              setB.innerHTML = html;\n              status.textContent = 'Live prices · updates every 60s';\n            }\n      \n            async function updateCrypto() {\n              try {\n                const ids = coins.map(([, id]) => id).join(',');\n                const url = `https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd&include_24hr_change=true`;\n                const response = await fetch(url, { cache: 'no-store' });\n                if (!response.ok) throw new Error('Crypto API unavailable');\n                render(await response.json());\n              } catch (error) {\n                status.textContent = 'Crypto prices unavailable';\n              }\n            }\n      \n            updateCrypto();\n            setInterval(updateCrypto, 60000); + value.toLocaleString('en-US', {\n                  maximumFractionDigits: 0\n                });\n              }\n              if (value >= 1) return '$' + value.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });\n              return '$' + value.toLocaleString('en-US', { minimumFractionDigits: 4, maximumFractionDigits: 6 });\n            };\n      \n            function render(data) {\n              const html = coins.map(([symbol, id, icon]) => {\n                const coin = data[id];\n                if (!coin) return '';\n                const change = Number(coin.usd_24h_change || 0);\n                const cls = change >= 0 ? 'up' : 'down';\n                const sign = change >= 0 ? '+' : '';\n                return `<span class="crypto-item"><span class="crypto-symbol">${icon} ${symbol}</span><span class="crypto-price">${formatPrice(coin.usd)}</span><span class="crypto-change ${cls}">${sign}${change.toFixed(2)}%</span></span>`;\n              }).join('');\n              setA.innerHTML = html;\n              setB.innerHTML = html;\n              status.textContent = 'Live prices · updates every 60s';\n            }\n      \n            async function updateCrypto() {\n              try {\n                const ids = coins.map(([, id]) => id).join(',');\n                const url = `https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd&include_24hr_change=true`;\n                const response = await fetch(url, { cache: 'no-store' });\n                if (!response.ok) throw new Error('Crypto API unavailable');\n                render(await response.json());\n              } catch (error) {\n                status.textContent = 'Crypto prices unavailable';\n              }\n            }\n      \n            updateCrypto();\n            setInterval(updateCrypto, 60000);
+    (() => {
+      const coins = [
+        ['BTC', 'bitcoin', '₿'],
+        ['ETH', 'ethereum', '◆'],
+        ['DOGE', 'dogecoin', 'Ð'],
+        ['USDT', 'tether', '₮'],
+        ['SOL', 'solana', '◎'],
+        ['BNB', 'binancecoin', '◈'],
+        ['ADA', 'cardano', '₳'],
+        ['XRP', 'ripple', '●']
+      ];
+
+      const setA = document.getElementById('cryptoSetA');
+      const setB = document.getElementById('cryptoSetB');
+      const status = document.getElementById('cryptoStatus');
+
+      const formatPrice = value => {
+        if (value >= 1000) {
+          return ' return '$' + value.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        return '$' + value.toLocaleString('en-US', {
+          minimumFractionDigits: 4,
+          maximumFractionDigits: 6
+        });
+      };
+
+      function render(data) {
+        const html = coins.map(([symbol, id, icon]) => {
+          const coin = data[id];
+          if (!coin) return '';
+          const change = Number(coin.usd_24h_change || 0);
+          const cls = change >= 0 ? 'up' : 'down';
+          const sign = change >= 0 ? '+' : '';
+          return `<span class="crypto-item"><span class="crypto-symbol">${icon} ${symbol}</span><span class="crypto-price">${formatPrice(coin.usd)}</span><span class="crypto-change ${cls}">${sign}${change.toFixed(2)}%</span></span>`;
+        }).join('');
+        setA.innerHTML = html;
+        setB.innerHTML = html;
+        status.textContent = 'Live prices · updates every 60s';
+      }
+
+      async function updateCrypto() {
+        try {
+          const ids = coins.map(([, id]) => id).join(',');
+          const url = `https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd&include_24hr_change=true`;
+          const response = await fetch(url, { cache: 'no-store' });
+          if (!response.ok) throw new Error('Crypto API unavailable');
+          render(await response.json());
+        } catch (error) {
+          status.textContent = 'Crypto prices unavailable';
+        }
+      }
+
+      updateCrypto();
+      setInterval(updateCrypto, 60000);
+    })();
+  </script>
+
+  <script src="assets/js/main.js" defer></script>
+</body>
+</html>
+ + value.toLocaleString('en-US', {
+            maximumFractionDigits: 0
+          });
+        }
+
+        return ' + value.toLocaleString('en-US', { minimumFractionDigits: 4, maximumFractionDigits: 6 });
+      };
+
+      function render(data) {
+        const html = coins.map(([symbol, id, icon]) => {
+          const coin = data[id];
+          if (!coin) return '';
+          const change = Number(coin.usd_24h_change || 0);
+          const cls = change >= 0 ? 'up' : 'down';
+          const sign = change >= 0 ? '+' : '';
+          return `<span class="crypto-item"><span class="crypto-symbol">${icon} ${symbol}</span><span class="crypto-price">${formatPrice(coin.usd)}</span><span class="crypto-change ${cls}">${sign}${change.toFixed(2)}%</span></span>`;
+        }).join('');
+        setA.innerHTML = html;
+        setB.innerHTML = html;
+        status.textContent = 'Live prices · updates every 60s';
+      }
+
+      async function updateCrypto() {
+        try {
+          const ids = coins.map(([, id]) => id).join(',');
+          const url = `https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd&include_24hr_change=true`;
+          const response = await fetch(url, { cache: 'no-store' });
+          if (!response.ok) throw new Error('Crypto API unavailable');
+          render(await response.json());
+        } catch (error) {
+          status.textContent = 'Crypto prices unavailable';
+        }
+      }
+
+      updateCrypto();
+      setInterval(updateCrypto, 60000);
+    })();
+  </script>
+
+  <script src="assets/js/main.js" defer></script>
+</body>
+</html>
+ + value.toLocaleString('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+          });
+        }
+
+        return ' + value.toLocaleString('en-US', { minimumFractionDigits: 4, maximumFractionDigits: 6 });
+      };
+
+      function render(data) {
+        const html = coins.map(([symbol, id, icon]) => {
+          const coin = data[id];
+          if (!coin) return '';
+          const change = Number(coin.usd_24h_change || 0);
+          const cls = change >= 0 ? 'up' : 'down';
+          const sign = change >= 0 ? '+' : '';
+          return `<span class="crypto-item"><span class="crypto-symbol">${icon} ${symbol}</span><span class="crypto-price">${formatPrice(coin.usd)}</span><span class="crypto-change ${cls}">${sign}${change.toFixed(2)}%</span></span>`;
+        }).join('');
+        setA.innerHTML = html;
+        setB.innerHTML = html;
+        status.textContent = 'Live prices · updates every 60s';
+      }
+
+      async function updateCrypto() {
+        try {
+          const ids = coins.map(([, id]) => id).join(',');
+          const url = `https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd&include_24hr_change=true`;
+          const response = await fetch(url, { cache: 'no-store' });
+          if (!response.ok) throw new Error('Crypto API unavailable');
+          render(await response.json());
+        } catch (error) {
+          status.textContent = 'Crypto prices unavailable';
+        }
+      }
+
+      updateCrypto();
+      setInterval(updateCrypto, 60000);
+    })();
+  </script>
+
+  <script src="assets/js/main.js" defer></script>
+</body>
+</html>
+ + value.toLocaleString('en-US', { minimumFractionDigits: 4, maximumFractionDigits: 6 });
+      };
+
+      function render(data) {
+        const html = coins.map(([symbol, id, icon]) => {
+          const coin = data[id];
+          if (!coin) return '';
+          const change = Number(coin.usd_24h_change || 0);
+          const cls = change >= 0 ? 'up' : 'down';
+          const sign = change >= 0 ? '+' : '';
+          return `<span class="crypto-item"><span class="crypto-symbol">${icon} ${symbol}</span><span class="crypto-price">${formatPrice(coin.usd)}</span><span class="crypto-change ${cls}">${sign}${change.toFixed(2)}%</span></span>`;
+        }).join('');
+        setA.innerHTML = html;
+        setB.innerHTML = html;
+        status.textContent = 'Live prices · updates every 60s';
+      }
+
+      async function updateCrypto() {
+        try {
+          const ids = coins.map(([, id]) => id).join(',');
+          const url = `https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd&include_24hr_change=true`;
+          const response = await fetch(url, { cache: 'no-store' });
+          if (!response.ok) throw new Error('Crypto API unavailable');
+          render(await response.json());
+        } catch (error) {
+          status.textContent = 'Crypto prices unavailable';
+        }
+      }
+
+      updateCrypto();
+      setInterval(updateCrypto, 60000);
     })();
   </script>
 
