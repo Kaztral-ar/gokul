@@ -21,6 +21,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
   <link rel="stylesheet" href="assets/css/crypto.css">
+  <link rel="stylesheet" href="assets/css/game.css">
 
 </head>
 
@@ -30,6 +31,7 @@
     <a href="#languages" data-section="languages">Code</a>
     <a href="#tools" data-section="tools">Tools</a>
     <a href="#projects" data-section="projects">Projects</a>
+    <a href="#games" data-section="games">Games</a>
     <a href="#contact" data-section="contact">Contact</a>
   </nav>
 
@@ -170,6 +172,52 @@
       </div>
     </section>
 
+    <section id="games" class="game-section">
+      <h2 class="section-title">Games</h2>
+
+      <div class="game-card">
+        <div class="game-head">
+          <div>
+            <span class="game-kicker">Playable demo</span>
+            <h3 class="game-title">Number Rush</h3>
+            <p class="game-copy">
+              Tap the numbers from 1 to 25 in the correct order.
+              How fast can you finish?
+            </p>
+          </div>
+
+          <div class="game-score">
+            SCORE
+            <strong id="gameScore">0</strong>
+          </div>
+        </div>
+
+        <div
+          class="game-board"
+          id="gameBoard"
+          aria-label="Number Rush game board"
+        ></div>
+
+        <div class="game-controls">
+          <button
+            class="game-button"
+            id="gameStart"
+            type="button"
+          >
+            RESTART
+          </button>
+        </div>
+
+        <p
+          class="game-status"
+          id="gameStatus"
+          aria-live="polite"
+        >
+          Find 1 to start.
+        </p>
+      </div>
+    </section>
+
     <section id="contact" class="contact">
       <h2 class="section-title">Contact</h2>
 
@@ -238,6 +286,7 @@
 
 
   <script src="assets/js/crypto.js" defer></script>
+  <script src="assets/js/game.js" defer></script>
   <script src="assets/js/main.js" defer></script>
 </body>
 </html>
