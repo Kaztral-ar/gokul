@@ -36,20 +36,24 @@
   background: #f3f3f3;
 }
 
+.steam-track {
+  display: flex;
+  width: max-content;
+  animation: steam-scroll 28s linear infinite;
+  will-change: transform;
+}
+
 .steam-game {
+  flex: 0 0 420px;
   display: grid;
   grid-template-columns: 112px minmax(0, 1fr) auto;
   align-items: center;
   gap: 18px;
   min-height: 112px;
   padding: 10px 14px 10px 10px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  border-right: 1px solid rgba(0, 0, 0, 0.08);
   background: #fafafa;
   transition: background 0.15s ease;
-}
-
-.steam-game:last-child {
-  border-bottom: 0;
 }
 
 .steam-game:hover {
@@ -172,7 +176,21 @@
   font: 500 9px/1.4 'IBM Plex Mono', monospace;
 }
 
+@keyframes steam-scroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
 @media (max-width: 620px) {
+  .steam-game {
+    flex-basis: 330px;
+  }
+
   .steam-game {
     grid-template-columns: 82px minmax(0, 1fr);
     gap: 12px;
@@ -195,6 +213,10 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .steam-track {
+    animation: none;
+  }
+
   .steam-game {
     transition: none;
   }
