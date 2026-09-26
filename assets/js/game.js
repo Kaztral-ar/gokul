@@ -1,25 +1,45 @@
 (() => {
-  const buttons =
-    document.querySelectorAll('.game-play');
+  const track =
+    document.querySelector('.steam-track');
 
   const message =
     document.getElementById('gameMessage');
 
-  if (!buttons.length || !message) {
+  if (!track || !message) {
     return;
   }
 
-  buttons.forEach((button) => {
-    button.addEventListener(
-      'click',
-      () => {
-        const game =
-          button.dataset.game;
+  const cards =
+    Array.from(track.children);
 
-        message.textContent =
-          game +
-          ' — demo launcher coming soon.';
-      }
+  cards.forEach((card) => {
+    const clone =
+      card.cloneNode(true);
+
+    clone.setAttribute(
+      'aria-hidden',
+      'true'
     );
+
+    track.appendChild(clone);
   });
+
+  track.addEventListener(
+    'click',
+    (event) => {
+      const button =
+        event.target.closest('.steam-play');
+
+      if (!button) {
+        return;
+      }
+
+      const game =
+        button.dataset.game;
+
+      message.textContent =
+        game +
+        ' — demo launcher coming soon.';
+    }
+  );
 })();
