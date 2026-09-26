@@ -175,47 +175,84 @@
     <section id="games" class="game-section">
       <h2 class="section-title">Games</h2>
 
-      <div class="game-card">
-        <div class="game-head">
-          <div>
-            <span class="game-kicker">Playable demo</span>
-            <h3 class="game-title">Number Rush</h3>
-            <p class="game-copy">
-              Tap the numbers from 1 to 25 in the correct order.
-              How fast can you finish?
-            </p>
+      <div class="game-grid">
+        <article class="game-card gta">
+          <div class="game-art">
+            <span class="game-number">01</span>
+            <span class="game-logo">GTA V</span>
           </div>
-
-          <div class="game-score">
-            SCORE
-            <strong id="gameScore">0</strong>
+          <div class="game-info">
+            <span class="game-type">OPEN WORLD</span>
+            <h3>Grand Theft Auto V</h3>
+            <p>Open-world action, driving, missions and exploration.</p>
+            <button class="game-play" type="button" data-game="GTA V">
+              PLAY
+            </button>
           </div>
-        </div>
+        </article>
 
-        <div
-          class="game-board"
-          id="gameBoard"
-          aria-label="Number Rush game board"
-        ></div>
+        <article class="game-card coc">
+          <div class="game-art">
+            <span class="game-number">02</span>
+            <span class="game-logo">COC</span>
+          </div>
+          <div class="game-info">
+            <span class="game-type">STRATEGY</span>
+            <h3>Clash of Clans</h3>
+            <p>Build your village, train troops and battle other clans.</p>
+            <button class="game-play" type="button" data-game="Clash of Clans">
+              PLAY
+            </button>
+          </div>
+        </article>
 
-        <div class="game-controls">
-          <button
-            class="game-button"
-            id="gameStart"
-            type="button"
-          >
-            RESTART
-          </button>
-        </div>
+        <article class="game-card valo">
+          <div class="game-art">
+            <span class="game-number">03</span>
+            <span class="game-logo">VAL</span>
+          </div>
+          <div class="game-info">
+            <span class="game-type">TACTICAL FPS</span>
+            <h3>VALORANT</h3>
+            <p>Competitive 5v5 tactical shooting with unique agents.</p>
+            <button class="game-play" type="button" data-game="VALORANT">
+              PLAY
+            </button>
+          </div>
+        </article>
 
-        <p
-          class="game-status"
-          id="gameStatus"
-          aria-live="polite"
-        >
-          Find 1 to start.
-        </p>
+        <article class="game-card pubg">
+          <div class="game-art">
+            <span class="game-number">04</span>
+            <span class="game-logo">PUBG</span>
+          </div>
+          <div class="game-info">
+            <span class="game-type">BATTLE ROYALE</span>
+            <h3>PUBG</h3>
+            <p>Drop in, loot, survive and become the last player standing.</p>
+            <button class="game-play" type="button" data-game="PUBG">
+              PLAY
+            </button>
+          </div>
+        </article>
+
+        <article class="game-card bgmi">
+          <div class="game-art">
+            <span class="game-number">05</span>
+            <span class="game-logo">BGMI</span>
+          </div>
+          <div class="game-info">
+            <span class="game-type">BATTLE ROYALE</span>
+            <h3>BGMI</h3>
+            <p>Competitive mobile battles, squads and survival gameplay.</p>
+            <button class="game-play" type="button" data-game="BGMI">
+              PLAY
+            </button>
+          </div>
+        </article>
       </div>
+
+      <p class="game-message" id="gameMessage" aria-live="polite"></p>
     </section>
 
     <section id="contact" class="contact">
