@@ -50,3 +50,7 @@ mark{background:transparent;color:#222;font-weight:500}
   .game-cover{height:92px}
   .game-info h2{font-size:19px}
 }
+
+.game-status-text{white-space:nowrap}
+.game-status{transition:background .2s,transform .2s}
+.game-card.is-online .game-status{background:#00e060}
