@@ -36,29 +36,62 @@
     const DISCORD_ID = "1034690701780328508";
     const status = document.querySelector('[data-discord-game="VALORANT"]');
     const statusText = status?.querySelector('.game-status-text');
+    const card = status?.closest('.game-card');
 
-    async function updateValorantStatus() {
-      if (!status || !statusText) return;
-      try {
-        const response = await fetch('https://api.lanyard.rest/v1/users/' + DISCORD_ID, { cache: 'no-store' });
-        if (!response.ok) throw new Error('Presence unavailable');
-        const data = await response.json();
-        const activities = data?.data?.activities || [];
-        const playingValorant = activities.some(activity =>
-          activity?.name?.toLowerCase() === 'valorant' ||
-          activity?.state?.toLowerCase()?.includes('valorant')
-        );
-        statusText.textContent = playingValorant ? 'PLAYING' : 'OFFLINE';
-        status.closest('.game-card')?.classList.toggle('is-online', playingValorant);
-      } catch {
-        statusText.textContent = 'OFFLINE';
-        status.closest('.game-card')?.classList.remove('is-online');
-      }
+    function setValorantPlaying(playing) {
+      if (!statusText || !card) return;
+      statusText.textContent = playing ? "PLAYING" : "OFFLINE";
+      card.classList.toggle("is-online", playing);
     }
 
-    updateValorantStatus();
-    setInterval(updateValorantStatus, 15000);
+    function checkActivities(presence) {
+      const activities = presence?.activities || [];
+      const playingValorant = activities.some(activity => {
+        const name = String(activity?.name || "").toLowerCase().trim();
+        return name === "valorant" || name.includes("valorant");
+      });
+      setValorantPlaying(playingValorant);
+    }
+
+    function connectPresence() {
+      const ws = new WebSocket("wss://api.lanyard.rest/socket");
+
+      ws.addEventListener("message", event => {
+        const packet = JSON.parse(event.data);
+
+        if (packet.op === 1) {
+          const interval = packet.d?.heartbeat_interval || 30000;
+          setInterval(() => {
+            if (ws.readyState === WebSocket.OPEN) {
+              ws.send(JSON.stringify({ op: 3 }));
+            }
+          }, interval);
+
+          ws.send(JSON.stringify({
+            op: 2,
+            d: { subscribe_to_id: DISCORD_ID }
+          }));
+        }
+
+        if (packet.t === "INIT_STATE") {
+          checkActivities(packet.d);
+        }
+
+        if (packet.t === "PRESENCE_UPDATE") {
+          checkActivities(packet.d);
+        }
+      });
+
+      ws.addEventListener("close", () => {
+        setValorantPlaying(false);
+        setTimeout(connectPresence, 5000);
+      });
+
+      ws.addEventListener("error", () => ws.close());
+    }
+
+    connectPresence();
   </script>
-  </main>
+ </main>
 </body>
 </html>
