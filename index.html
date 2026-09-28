@@ -12,7 +12,15 @@
 </head>
 <body>
   <main class="page">
-    <header class="name">Gokul AR</header>
+<section class="hero-image" aria-label="Hero image">
+      <button class="hero-flip" type="button" aria-label="Show next hero image">
+        <span class="hero-flip-inner">
+          <img class="hero-face" src="https://i.pinimg.com/736x/12/58/82/1258820763cf7b10f64ee610ec7993a6.jpg" alt="Anime hero artwork">
+          <img class="hero-face hero-back" src="https://cdn-2.quibey.com/pfp/3c56c983-db97-4709-9c9a-e41edd5102af-lively-neon-samurai-vibrant-anime-pfp-cool-1.png" alt="Anime hero artwork">
+        </span>
+      </button>
+    </section>
+        <header class="name">Gokul AR</header>
     <article class="bio">
       <p>I'm a <mark>BDS student</mark>, <mark>developer</mark>, and <mark>gamer</mark>.</p>
       <p>I’m a <span class="marker-highlight">BDS student</span>, figuring out dentistry while building my own thing in tech. A lot of what I do revolves around building <em>web experiences</em>, bots, and creative builds.</p>
@@ -35,5 +43,5 @@
       <a href="https://github.com/Kaztral-ar?tab=repositories" target="_blank" rel="noopener">Work</a>
     </nav>
   </main>
-</body>
+<script>const hero=document.querySelector(".hero-flip");hero?.addEventListener("click",()=>hero.classList.toggle("flipped"));</script>\n</body>
 </html>
