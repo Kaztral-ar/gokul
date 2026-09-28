@@ -17,11 +17,3 @@ mark{background:transparent;color:#222;font-weight:500}
 .game-status{position:absolute;z-index:3;top:7px;right:7px;background:rgba(255,255,255,.88);border:1px solid rgba(0,0,0,.12);padding:3px 5px;color:#555;font-size:7px;font-weight:600;letter-spacing:.1em;backdrop-filter:blur(5px)}.game-status-text{white-space:nowrap}.game-card.is-online .game-status{background:#b7eee4;color:#222;border-color:#9bd8cf}
 .game-info{padding:10px 11px 11px}.game-type{font-size:7px;font-weight:600;letter-spacing:.16em;color:#aaa}.game-info h2{margin:4px 0 5px;color:#222;font-family:"DM Sans",system-ui,sans-serif;font-size:15px;font-weight:600;line-height:1.1;letter-spacing:-.025em}.game-info p{margin:0;color:#777;font-size:9px;line-height:1.4}.game-footer{display:flex;justify-content:space-between;border-top:1px solid #e5e5e0;padding:6px 8px;color:#aaa;font-size:7px;font-weight:600;letter-spacing:.1em}.game-footer span:last-child{color:#777}
 @media(max-width:600px){.games{margin-top:48px}.game-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.game-cover{height:88px}.game-info{padding:9px}.game-info h2{font-size:15px}.game-info p{font-size:8px}.game-footer{padding:6px 7px;font-size:6px}}
-.hero-image{display:flex;justify-content:flex-start;margin:0 0 42px}
-.hero-flip{width:120px;height:120px;padding:0;border:0;background:transparent;cursor:pointer;perspective:1000px}
-.hero-flip-inner{display:block;width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform .65s cubic-bezier(.2,.7,.2,1)}
-.hero-flip.flipped .hero-flip-inner{transform:rotateY(180deg)}
-.hero-face{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:28px;display:block;backface-visibility:hidden;box-shadow:0 16px 40px rgba(0,0,0,.12)}
-.hero-back{transform:rotateY(180deg)}
-.hero-flip:focus-visible{outline:2px solid #75d9d0;outline-offset:6px}
-@media(max-width:600px){.hero-image{margin-bottom:38px}.hero-flip{width:100px;height:100px}.hero-face{border-radius:23px}}
