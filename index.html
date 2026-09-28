@@ -34,23 +34,35 @@
     </nav>
   <script>
     const DISCORD_ID = "1034690701780328508";
-    const status = document.querySelector('[data-discord-game="VALORANT"]');
-    const statusText = status?.querySelector('.game-status-text');
-    const card = status?.closest('.game-card');
 
-    function setValorantPlaying(playing) {
-      if (!statusText || !card) return;
-      statusText.textContent = playing ? "PLAYING" : "OFFLINE";
-      card.classList.toggle("is-online", playing);
-    }
+    const gameMap = {
+      "VALORANT": ["valorant"],
+      "Clash of Clans": ["clash of clans"],
+      "BGMI": ["bgmi", "battlegrounds mobile india"],
+      "FC 26": ["fc 26", "ea sports fc 26"],
+      "eFootball": ["efootball", "efootball 2026"],
+      "PUBG": ["pubg", "playerunknown's battlegrounds"]
+    };
 
-    function checkActivities(presence) {
+    function updateGameCards(presence) {
       const activities = presence?.activities || [];
-      const playingValorant = activities.some(activity => {
-        const name = String(activity?.name || "").toLowerCase().trim();
-        return name === "valorant" || name.includes("valorant");
+      const names = activities
+        .map(a => String(a?.name || "").toLowerCase().trim());
+
+      document.querySelectorAll(".game-card").forEach(card => {
+        const status = card.querySelector(".game-status");
+        const statusText = card.querySelector(".game-status-text");
+        if (!status || !statusText) return;
+
+        const title = card.querySelector(".game-info h2")?.textContent.trim();
+        const aliases = gameMap[title] || [];
+        const playing = aliases.some(alias =>
+          names.some(name => name === alias || name.includes(alias))
+        );
+
+        statusText.textContent = playing ? "PLAYING" : "OFFLINE";
+        card.classList.toggle("is-online", playing);
       });
-      setValorantPlaying(playingValorant);
     }
 
     function connectPresence() {
@@ -61,6 +73,7 @@
 
         if (packet.op === 1) {
           const interval = packet.d?.heartbeat_interval || 30000;
+
           setInterval(() => {
             if (ws.readyState === WebSocket.OPEN) {
               ws.send(JSON.stringify({ op: 3 }));
@@ -73,17 +86,13 @@
           }));
         }
 
-        if (packet.t === "INIT_STATE") {
-          checkActivities(packet.d);
-        }
-
-        if (packet.t === "PRESENCE_UPDATE") {
-          checkActivities(packet.d);
+        if (packet.t === "INIT_STATE" || packet.t === "PRESENCE_UPDATE") {
+          updateGameCards(packet.d);
         }
       });
 
       ws.addEventListener("close", () => {
-        setValorantPlaying(false);
+        updateGameCards({ activities: [] });
         setTimeout(connectPresence, 5000);
       });
 
@@ -92,6 +101,6 @@
 
     connectPresence();
   </script>
- </main>
+</main>
 </body>
 </html>
