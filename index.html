@@ -32,6 +32,33 @@
     <nav class="bottom-links" aria-label="Profile links">
       <a class="active" href="#about">⌁ About</a>
     </nav>
+  <script>
+    const DISCORD_ID = "1034690701780328508";
+    const status = document.querySelector('[data-discord-game="VALORANT"]');
+    const statusText = status?.querySelector('.game-status-text');
+
+    async function updateValorantStatus() {
+      if (!status || !statusText) return;
+      try {
+        const response = await fetch('https://api.lanyard.rest/v1/users/' + DISCORD_ID, { cache: 'no-store' });
+        if (!response.ok) throw new Error('Presence unavailable');
+        const data = await response.json();
+        const activities = data?.data?.activities || [];
+        const playingValorant = activities.some(activity =>
+          activity?.name?.toLowerCase() === 'valorant' ||
+          activity?.state?.toLowerCase()?.includes('valorant')
+        );
+        statusText.textContent = playingValorant ? 'PLAYING' : 'OFFLINE';
+        status.closest('.game-card')?.classList.toggle('is-online', playingValorant);
+      } catch {
+        statusText.textContent = 'OFFLINE';
+        status.closest('.game-card')?.classList.remove('is-online');
+      }
+    }
+
+    updateValorantStatus();
+    setInterval(updateValorantStatus, 15000);
+  </script>
   </main>
 </body>
 </html>
