@@ -3,25 +3,67 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Clash of Clans — My Village</title>
+<title>Clash of Clans — Grand Master</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box}body{margin:0;background:#fff;color:#555;font-family:"DM Sans",system-ui,sans-serif}.page{width:min(90vw,760px);margin:auto;padding:45px 0 50px}.back{display:inline-block;color:#888;text-decoration:none;font-size:11px;margin-bottom:35px}.eyebrow{font-size:9px;letter-spacing:.2em;color:#999;font-weight:600}.title{margin:7px 0 10px;color:#171717;font-size:clamp(30px,6vw,48px);letter-spacing:-.05em;font-weight:600}.intro{font-size:16px;line-height:1.7;max-width:620px;margin:0 0 34px}.hero{border:1px solid #e5e5e0;background:#f7f7f3;overflow:hidden}.hero img{width:100%;height:245px;object-fit:cover;display:block}.hero-caption{display:flex;justify-content:space-between;padding:10px 12px;font-size:8px;letter-spacing:.12em;color:#999;font-weight:600}.section{margin-top:38px}.heading{display:flex;align-items:center;gap:10px;margin-bottom:13px;font-size:9px;letter-spacing:.2em;color:#999;font-weight:600}.line{height:1px;background:#ddd;flex:1}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.card{border:1px solid #e5e5e0;background:#fafaf8;padding:15px}.card h2{font-size:16px;color:#222;margin:0 0 6px}.card p{font-size:10px;line-height:1.5;margin:0;color:#777}.tag{display:inline-block;font-size:7px;letter-spacing:.12em;color:#999;margin-bottom:8px}.upgrades{display:flex;flex-direction:column;gap:8px}.upgrade{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #eee;padding:10px 2px;font-size:11px}.upgrade span:last-child{color:#999;font-size:9px}.note{margin-top:36px;padding:14px;border-left:2px solid #b7eee4;background:#fafaf8;font-size:10px;line-height:1.6;color:#777}@media(max-width:600px){.page{width:86vw;padding-top:35px}.hero img{height:180px}.grid{grid-template-columns:1fr}.title{font-size:34px}}
+*{box-sizing:border-box}body{margin:0;background:#fff;color:#555;font-family:"DM Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased}.page{width:min(92vw,900px);margin:auto;padding:42px 0 56px}.back{display:inline-block;color:#888;text-decoration:none;font-size:11px;margin-bottom:28px}.eyebrow,.label{font-size:9px;letter-spacing:.2em;color:#999;font-weight:600}.title{margin:7px 0 4px;color:#171717;font-size:clamp(31px,6vw,52px);letter-spacing:-.05em;font-weight:600}.sub{margin:0 0 28px;font-size:13px;color:#888}.profile{display:grid;grid-template-columns:1.35fr .65fr;gap:12px}.panel{border:1px solid #e5e5e0;background:#fafaf8;padding:18px}.identity{display:flex;align-items:center;gap:14px}.level{width:58px;height:58px;border:1px solid #cfd0ca;border-radius:12px;background:#eef2f3;display:grid;place-items:center;color:#222;font-size:21px;font-weight:600}.identity h2{margin:0;color:#222;font-size:20px}.identity p{margin:3px 0 0;font-size:10px;color:#888}.clan{margin-top:16px;padding-top:14px;border-top:1px solid #e5e5e0;display:flex;justify-content:space-between;gap:12px}.clan strong{display:block;color:#222;font-size:13px}.clan span{font-size:9px;color:#999}.league{display:flex;flex-direction:column;justify-content:center}.league strong{display:block;margin:5px 0;color:#222;font-size:20px}.league small{font-size:9px;color:#999}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px}.stat{border:1px solid #e5e5e0;background:#fafaf8;padding:13px}.stat b{display:block;color:#222;font-size:18px;letter-spacing:-.03em}.stat span{display:block;margin-top:3px;color:#999;font-size:8px;letter-spacing:.08em;text-transform:uppercase}.section{margin-top:40px}.heading{display:flex;align-items:center;gap:10px;margin-bottom:13px;font-size:9px;letter-spacing:.2em;color:#999;font-weight:600}.line{height:1px;background:#ddd;flex:1}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.card{border:1px solid #e5e5e0;background:#fafaf8;padding:15px}.card h2{font-size:15px;color:#222;margin:0 0 5px}.card p{font-size:10px;line-height:1.5;margin:0;color:#777}.hero-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:7px}.hero-card{border:1px solid #e5e5e0;background:#fafaf8;padding:9px;text-align:center}.hero-card b{display:block;color:#222;font-size:16px}.hero-card span{display:block;color:#999;font-size:7px;margin-top:3px;text-transform:uppercase;letter-spacing:.08em}.achievements{display:flex;flex-direction:column;gap:7px}.achievement{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;border:1px solid #e5e5e0;background:#fafaf8;padding:11px 13px}.achievement b{display:block;color:#222;font-size:12px}.achievement span{display:block;color:#888;font-size:9px;margin-top:3px}.done{color:#5aa98f!important;font-size:10px!important;font-weight:600}.progress{width:125px;height:5px;background:#e2e3df;border-radius:8px;overflow:hidden;margin-top:6px}.progress i{display:block;height:100%;background:#8dd6bd}.note{margin-top:36px;padding:14px;border-left:2px solid #b7eee4;background:#fafaf8;font-size:10px;line-height:1.6;color:#777}@media(max-width:650px){.page{width:86vw;padding-top:34px}.profile{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}.hero-grid{grid-template-columns:repeat(3,1fr)}.achievement{grid-template-columns:1fr}.achievement>div:last-child{justify-self:start}.title{font-size:35px}}
 </style>
 </head>
 <body>
 <main class="page">
 <a class="back" href="index.html">← Back to games</a>
 <div class="eyebrow">CLASH OF CLANS / MY PROFILE</div>
-<h1 class="title">My Village</h1>
-<p class="intro">My Clash of Clans base, current army, buildings and the upgrades I’m working toward.</p>
-<section class="hero"><img src="https://i1.sndcdn.com/artworks-JgX3nByXADCahSFs-cIkhyQ-t1080x1080.jpg" alt="Clash of Clans base preview"><div class="hero-caption"><span>MY BASE</span><span>VILLAGE</span></div></section>
-<section class="section"><div class="heading"><span>TROOPS</span><span class="line"></span></div><div class="grid"><div class="card"><span class="tag">ARMY</span><h2>Troops</h2><p>Add your current troop levels, favourite army and training progress here.</p></div><div class="card"><span class="tag">HEROES</span><h2>Heroes</h2><p>Barbarian King · Archer Queen · Grand Warden · Royal Champion</p></div></div></section>
-<section class="section"><div class="heading"><span>BUILDINGS</span><span class="line"></span></div><div class="grid"><div class="card"><span class="tag">DEFENCE</span><h2>Defences</h2><p>Add your important defensive buildings and their levels.</p></div><div class="card"><span class="tag">RESOURCE</span><h2>Resources</h2><p>Add your storages, collectors and production buildings.</p></div></div></section>
-<section class="section"><div class="heading"><span>NEXT UPGRADES</span><span class="line"></span></div><div class="upgrades"><div class="upgrade"><span>Upgrade 01 — Building / Troop</span><span>LEVEL → LEVEL</span></div><div class="upgrade"><span>Upgrade 02 — Building / Troop</span><span>LEVEL → LEVEL</span></div><div class="upgrade"><span>Upgrade 03 — Building / Troop</span><span>LEVEL → LEVEL</span></div></div></section>
-<div class="note">This page is structured so your real base screenshot, troop levels, building levels and next upgrades can be added directly.</div>
+<h1 class="title">Grand Master</h1>
+<p class="sub">Town Hall 16 · XP Level 250 · P.E.K.K.A League 22</p>
+
+<section class="profile">
+  <div class="panel">
+    <div class="identity"><div class="level">250</div><div><h2>Grand Master</h2><p>Player profile · Elder of Kerala</p></div></div>
+    <div class="clan"><div><span>CLAN</span><strong>Kerala</strong></div><div><span>WAR STARS</span><strong>2,291</strong></div><div><span>TROOPS</span><strong>908 / 770</strong></div></div>
+  </div>
+  <div class="panel league"><small>CURRENT LEAGUE</small><strong>P.E.K.K.A 22</strong><small>All-time best · 42nd place</small><small>Legacy best · 5,000 trophies</small></div>
+</section>
+
+<section class="stats">
+  <div class="stat"><b>5,181</b><span>Trophy record</span></div>
+  <div class="stat"><b>10,059</b><span>Multiplayer wins</span></div>
+  <div class="stat"><b>3,102</b><span>Defences won</span></div>
+  <div class="stat"><b>677</b><span>War League stars</span></div>
+</section>
+
+<section class="section"><div class="heading"><span>HEROES</span><span class="line"></span></div>
+<div class="hero-grid">
+  <div class="hero-card"><b>90</b><span>Barbarian King</span></div><div class="hero-card"><b>90</b><span>Archer Queen</span></div><div class="hero-card"><b>75</b><span>Grand Warden</span></div><div class="hero-card"><b>70</b><span>Royal Champion</span></div><div class="hero-card"><b>43</b><span>Minion Prince</span></div><div class="hero-card"><b>15</b><span>Hero</span></div>
+</div></section>
+
+<section class="section"><div class="heading"><span>PROFILE STATS</span><span class="line"></span></div>
+<div class="grid">
+  <div class="card"><h2>Clan & Donations</h2><p>908 troops donated · 770 troops received · Clan Games: 136,360 points.</p></div>
+  <div class="card"><h2>War Record</h2><p>2,291 Clan War stars · 677 War League stars · 3,102 successful defences.</p></div>
+  <div class="card"><h2>Builder Base</h2><p>Builder Hall level 10 · Builder trophy record 4,773.</p></div>
+  <div class="card"><h2>Clan Capital</h2><p>1,359,133 / 2,000,000 Capital Gold contribution achievement progress.</p></div>
+</div></section>
+
+<section class="section"><div class="heading"><span>ACHIEVEMENTS</span><span class="line"></span></div>
+<div class="achievements">
+  <div class="achievement"><div><b>War Hero</b><span>Score 1,000 stars for your clan in Clan War battles · 2,291 total</span></div><strong class="done">✓ COMPLETE</strong></div>
+  <div class="achievement"><div><b>War League Legend</b><span>Score 250 stars for your clan in War League battles · 677 total</span></div><strong class="done">✓ COMPLETE</strong></div>
+  <div class="achievement"><div><b>Games Champion</b><span>Earn 100,000 points in Clan Games · 136,360 total</span></div><strong class="done">✓ COMPLETE</strong></div>
+  <div class="achievement"><div><b>Unbreakable</b><span>Successfully defend against 500 attacks · 3,102 total</span></div><strong class="done">✓ COMPLETE</strong></div>
+  <div class="achievement"><div><b>Sweet Victory!</b><span>Achieve 1,250 trophies in Multiplayer battles · record 5,181</span></div><strong class="done">✓ COMPLETE</strong></div>
+  <div class="achievement"><div><b>Conqueror</b><span>Win 5,000 Multiplayer battles · 10,059 total</span></div><strong class="done">✓ COMPLETE</strong></div>
+  <div class="achievement"><div><b>Not So Easy This Time</b><span>Destroy 2,000 weaponized Town Halls · 1,742 / 2,000</span><div class="progress"><i style="width:87.1%"></i></div></div><strong>87%</strong></div>
+  <div class="achievement"><div><b>Counterspell</b><span>Destroy 4,000 Spell Towers · 1,748 / 4,000</span><div class="progress"><i style="width:43.7%"></i></div></div><strong>44%</strong></div>
+  <div class="achievement"><div><b>Monolith Masher</b><span>Destroy 2,000 Monoliths · 797 / 2,000</span><div class="progress"><i style="width:39.9%"></i></div></div><strong>40%</strong></div>
+  <div class="achievement"><div><b>League Superfan</b><span>Reach League P.E.K.K.A 24</span><div class="progress"><i style="width:0%"></i></div></div><strong>0 / 1</strong></div>
+  <div class="achievement"><div><b>League Fanatic</b><span>Reach League Dragon 29</span><div class="progress"><i style="width:0%"></i></div></div><strong>0 / 1</strong></div>
+  <div class="achievement"><div><b>League Master</b><span>Reach League Electro 32</span><div class="progress"><i style="width:0%"></i></div></div><strong>0 / 1</strong></div>
+  <div class="achievement"><div><b>Champion Builder</b><span>Achieve a total of 3,000 trophies in Builder Battles · record 4,773</span></div><strong class="done">✓ COMPLETE</strong></div>
+</div></section>
+
+<div class="note">Profile values are transcribed from the screenshots you provided. The base screenshot can be added as a dedicated gallery image once the image asset is committed to the repository.</div>
 </main>
 </body>
 </html>
