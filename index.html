@@ -67,7 +67,19 @@
 
         statusText.textContent = playing ? "PLAYING" : "OFFLINE";
         card.classList.toggle("is-online", playing);
+        card.dataset.playing = playing ? "1" : "0";
       });
+
+      const grid = document.querySelector(".game-grid");
+      if (grid) {
+        const cards = [...grid.querySelectorAll(".game-card")];
+        cards.sort((a, b) => Number(b.dataset.playing || 0) - Number(a.dataset.playing || 0));
+        cards.forEach((card, index) => {
+          const number = card.querySelector(".game-footer span:last-child");
+          if (number) number.textContent = String(index + 1).padStart(2, "0");
+          grid.appendChild(card);
+        });
+      }
     }
 
     function connectPresence() {
