@@ -3,62 +3,75 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Grand Master — Clash of Clans</title>
+<title>Clash of Clans — Troops</title>
 <style>
-*{box-sizing:border-box}html{background:#101518}body{margin:0;min-height:100vh;font-family:Arial,sans-serif;color:#fff;background:#102019;overflow-x:hidden}
-:root{--panel:#7886a8;--panel2:#697795;--edge:#3f4a63;--light:#aeb8cc;--gold:#ffd84d;--green:#80d53c}
-.scene{min-height:100vh;padding:18px;background:linear-gradient(rgba(6,17,14,.55),rgba(6,17,14,.78)),url("https://i1.sndcdn.com/artworks-JgX3nByXADCahSFs-cIkhyQ-t1080x1080.jpg") center/cover fixed}
-.modal{width:min(100%,1020px);margin:auto;background:#d7d5d1;border:4px solid #625d59;border-radius:16px;box-shadow:0 14px 50px #000b,0 0 0 2px #aaa;overflow:hidden}
-.top-tabs{height:82px;background:#655f5b;display:grid;grid-template-columns:repeat(4,1fr);padding:0 94px;gap:7px}
-.tab{display:flex;align-items:center;justify-content:center;background:linear-gradient(#85807d,#6e6966);border:2px solid #9e9995;border-bottom:0;border-radius:13px 13px 0 0;color:#fff;text-shadow:2px 2px #363232;font-size:18px;font-weight:800;letter-spacing:.01em}.tab.active{background:#eee;border-color:#fff;color:#3c3b39}
-.close{position:absolute;right:18px;top:16px;width:45px;height:45px;border-radius:11px;background:#ef4d4d;border:3px solid #8f2727;color:#fff;font-size:27px;font-weight:900;text-shadow:1px 2px #6b1717;z-index:4}
-.content{padding:9px 16px 16px;background:#eee}
-.subtabs{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:10px}
-.subtab{height:53px;border:2px solid #aaa69d;border-radius:9px;background:linear-gradient(#d7d5cb,#b9b8ae);color:#fff;text-shadow:2px 2px #555;font-size:18px;font-weight:900;display:flex;align-items:center;justify-content:center;gap:12px;box-shadow:inset 0 2px #eee}
-.subtab.active{background:linear-gradient(#dad8d0,#c6c4ba);color:#fff}
-.profile{background:#7180a2;border:4px solid #9ba8c3;border-radius:8px;box-shadow:inset 0 0 0 2px #4c5975;overflow:hidden}
-.identity{display:grid;grid-template-columns:1.05fr .85fr .85fr;min-height:300px}
-.identity>div{padding:15px 16px;border-right:2px solid #4d5a77}.identity>div:last-child{border:0}
-.name-row{display:flex;gap:10px;align-items:center}.xp{width:57px;height:57px;border-radius:12px;background:#1595d0;border:3px solid #174d68;display:grid;place-items:center;font-size:23px;font-weight:900;text-shadow:2px 2px #18445c}.name{font-size:27px;font-weight:900;text-shadow:2px 2px #35405a}.tag{font-size:14px;margin-top:2px;color:#eee}.buttons{display:flex;gap:10px;margin-top:36px}.sq{width:60px;height:60px;border-radius:9px;border:3px solid #38435a;background:linear-gradient(#ef625d,#b73f3b);display:grid;place-items:center;font-size:27px}.sq.gold{background:linear-gradient(#ffe64d,#cda52b)}.sq.blue{background:linear-gradient(#70a7e9,#5274bd)}.sq.green{background:linear-gradient(#a5ed63,#61ad38)}
-.clan-center{text-align:center}.clan-name{font-size:21px;font-weight:900;text-shadow:2px 2px #35405a}.clan-shield{width:105px;height:105px;margin:12px auto 6px;border-radius:30% 30% 45% 45%;border:7px solid #f0b32d;background:linear-gradient(145deg,#7926cb,#3d1a84);display:grid;place-items:center;font-size:42px;font-weight:900;text-shadow:2px 2px #21152f}.stars{font-size:14px}.stars b{font-size:20px}.league-box{display:flex;flex-direction:column;gap:28px}.league-item{display:flex;gap:12px;align-items:center}.league-icon{width:61px;height:61px;border-radius:15px;background:linear-gradient(145deg,#c7dcff,#667da9);border:3px solid #56637e;display:grid;place-items:center;color:#17213a;font-size:24px;font-weight:900}.league-item small{display:block;font-size:12px;font-weight:700}.league-item strong{display:block;font-size:18px;margin-top:3px}.action-row{border-top:2px solid #596683;padding:11px 15px;display:flex;gap:180px}.green-btn{background:linear-gradient(#b7f66d,#67bd35);border:3px solid #427a27;border-radius:10px;padding:9px 20px;color:#fff;font-weight:900;font-size:17px;text-shadow:2px 2px #47702c;box-shadow:inset 0 2px #eaffc9}
-.donations{background:#697795;border-top:2px solid #4b5874;padding:7px 14px;font-size:12px;font-weight:800;display:flex;gap:90px}
-.details{margin-top:10px;background:#7180a2;border:4px solid #9ba8c3;border-radius:8px;padding:12px;display:grid;grid-template-columns:38% 62%;gap:12px}
-.left-col{display:flex;flex-direction:column;gap:10px}.townhall{height:260px;display:grid;place-items:center;background:radial-gradient(circle,#cdd6e8,#7786a8 68%);border-radius:6px}.townhall img{width:230px;height:230px;object-fit:cover;mix-blend-mode:multiply}.block{background:#687795;border-radius:8px;padding:10px}.block h3{margin:0 0 8px;font-size:19px;text-shadow:2px 2px #39445d}.icons{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}.icon{aspect-ratio:1;border:2px solid #52617f;border-radius:7px;background:linear-gradient(145deg,#98a9ca,#596987);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;font-size:9px;font-weight:900;text-shadow:1px 1px #263047;overflow:hidden}.icon img{width:100%;height:100%;object-fit:contain;display:block;padding:2px}.icon em{position:absolute;bottom:2px;left:3px;background:#28324a;padding:1px 4px;border-radius:4px;font-size:10px;color:#fff;margin:0;text-shadow:1px 1px #111}.icon{position:relative}.hero-icons .icon img{padding:0 2px}.pet-icons .icon img{padding:1px}.right-col .icons{grid-template-columns:repeat(10,1fr)}.right-col .block{margin-bottom:10px}.scroll-hint{text-align:center;color:#56617a;font-size:10px;margin:10px 0 0}
-@media(max-width:760px){.scene{padding:6px}.top-tabs{padding:0 44px;height:62px}.tab{font-size:11px}.close{right:7px;top:8px;width:35px;height:35px;font-size:20px}.content{padding:7px}.subtabs{gap:5px}.subtab{height:42px;font-size:10px;gap:4px}.identity{grid-template-columns:1fr;}.identity>div{border-right:0;border-bottom:2px solid #4d5a77;min-height:150px}.action-row{gap:8px;flex-wrap:wrap}.donations{gap:20px}.details{grid-template-columns:1fr}.right-col .icons{grid-template-columns:repeat(6,1fr)}.townhall{height:220px}.townhall img{width:190px;height:190px}.name{font-size:23px}}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:#6e7d9d}
+body{font-family:"Trebuchet MS",Arial,sans-serif;color:#fff;overflow-x:hidden}
+.page{min-height:100vh;padding:4px;background:linear-gradient(#8491ad 0 46%,#7181a3 46% 100%)}
+.app{width:100%;min-height:calc(100vh - 8px);background:#7181a4;border:1px solid #55627d;box-shadow:inset 0 0 0 2px #a5afc5}
+.topbar{height:58px;display:flex;align-items:center;gap:18px;padding:0 14px;border-bottom:2px solid #596783}
+.trophy{font-size:30px;filter:drop-shadow(2px 3px #38425a)}
+.brand{font-size:29px;font-weight:1000;text-shadow:3px 3px #38425a}
+.info{margin-left:auto;width:39px;height:39px;border-radius:50%;display:grid;place-items:center;border:3px solid #3d4d67;background:linear-gradient(#b7c8dc,#7895b7);font-size:22px;font-weight:1000}
+.main{padding:2px 10px 14px}.heading{font-size:32px;line-height:1;margin:0 0 5px;font-weight:1000;text-shadow:3px 3px #38425a}
+.workspace{display:grid;grid-template-columns:38% 62%;gap:10px}.left,.right{min-width:0}.left{display:flex;flex-direction:column;gap:9px}.right{display:flex;flex-direction:column;gap:10px}
+.card{background:#6d7da0;border:2px solid #9faac2;box-shadow:inset 0 0 0 2px #4f5d79;border-radius:7px;padding:8px}
+.section-title{font-size:27px;line-height:1;margin:0 0 7px;font-weight:1000;text-shadow:3px 3px #38425a}
+.townhall{height:350px;padding:0;display:grid;place-items:center;overflow:hidden;background:radial-gradient(circle at 50% 44%,#dbe2ef 0,#a7b2c7 42%,#7181a3 78%)}
+.townhall img{width:min(350px,100%);height:100%;object-fit:contain;filter:drop-shadow(0 14px 7px rgba(31,41,59,.35))}
+.icon-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:7px}.right .icon-grid{grid-template-columns:repeat(10,1fr)}
+.icon{position:relative;aspect-ratio:1;overflow:hidden;border:2px solid #4f5d79;border-radius:7px;background:linear-gradient(145deg,#9aacca,#586985);box-shadow:inset 0 0 0 1px #b3bed1}
+.icon img{width:100%;height:100%;object-fit:contain;display:block;padding:2px}
+.lvl{position:absolute;left:2px;bottom:2px;background:#24314a;border-radius:5px;padding:0 4px;line-height:17px;font-size:12px;font-weight:1000;text-shadow:1px 1px #111}
+.badge{display:inline-grid;place-items:center;width:48px;height:48px;border-radius:12px;background:linear-gradient(#b9d4f2,#6a87af);border:3px solid #53617d;color:#27344d;font-size:20px;font-weight:1000;margin-right:7px}
+.stat-row{display:flex;align-items:center;gap:8px;margin-bottom:9px}.name{font-size:23px;font-weight:1000;text-shadow:2px 2px #38425a}.tag{font-size:12px}
+.pill-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:7px}.pill{padding:6px 10px;background:linear-gradient(#aef065,#62b139);border:3px solid #477d2b;border-radius:8px;font-size:12px;font-weight:1000;text-shadow:2px 2px #4c7131}
+.clan-row{display:grid;grid-template-columns:1fr 1fr;gap:7px}.subcard{background:#657596;border:1px solid #4e5c79;border-radius:6px;padding:7px}.subcard h3{margin:0 0 5px;font-size:17px;text-shadow:2px 2px #38425a}
+.clan-badge{width:58px;height:58px;border-radius:30% 30% 44% 44%;margin:auto;background:linear-gradient(145deg,#7934c9,#36216f);border:4px solid #f0be3d;display:grid;place-items:center;font-size:26px;font-weight:1000}
+.center{text-align:center}.war{font-size:13px;margin-top:4px}.war b{font-size:19px}
+.league-line{display:flex;align-items:center;gap:7px;margin-bottom:6px}.league-line:last-child{margin:0}.l-icon{width:39px;height:39px;border-radius:9px;background:linear-gradient(#cbdcf7,#6c84aa);border:2px solid #53617c;display:grid;place-items:center;color:#26334b;font-weight:1000}.league-line span{font-size:9px}.league-line strong{display:block;font-size:13px}
+@media(max-width:980px){.workspace{grid-template-columns:1fr}.right .icon-grid{grid-template-columns:repeat(10,1fr)}.townhall{height:330px}}
+@media(max-width:680px){.page{padding:0}.app{border:0;box-shadow:none}.topbar{height:50px;padding:0 9px}.brand{font-size:21px}.trophy{font-size:24px}.info{width:32px;height:32px;font-size:18px}.main{padding:2px 6px 10px}.heading,.section-title{font-size:24px}.townhall{height:245px}.icon-grid,.right .icon-grid{grid-template-columns:repeat(6,1fr)}.pill{font-size:10px;padding:5px 7px}.clan-row{grid-template-columns:1fr}.name{font-size:21px}}
 </style>
 </head>
 <body>
-<div class="scene">
-<div class="modal">
-<button class="close" aria-label="Close">×</button>
-<div class="top-tabs"><div class="tab active">My Profile</div><div class="tab">My Clan</div><div class="tab">Clans</div><div class="tab">Social</div></div>
-<div class="content">
-<div class="subtabs"><div class="subtab active">⚔️ Home Village</div><div class="subtab">🛠️ Builder Base</div><div class="subtab">⚔️ Clan Capital</div></div>
-<section class="profile">
-<div class="identity">
-<div><div class="name-row"><div class="xp">250</div><div><div class="name">Grand Master</div><div class="tag">#2GLJLU2LU</div><div class="tag">Elder</div></div></div><div class="buttons"><div class="sq">⚔</div><div class="sq gold">▣</div><div class="sq blue">⚑</div><div class="sq green">✎</div></div></div>
-<div class="clan-center"><div class="clan-name">Kerala</div><div class="clan-shield">24</div><div class="stars">★ <b>2291</b><br>War Stars Won</div></div>
-<div class="league-box"><div class="league-item"><div class="league-icon">22</div><div><small>Current League:</small><strong>41st Place</strong></div></div><div class="league-item"><div class="league-icon">23</div><div><small>All-time best:</small><strong>42nd Place</strong></div></div><div class="league-item"><div class="league-icon">♜</div><div><small>Legacy all-time best:</small><strong>Legend · 5000</strong></div></div></div>
+<div class="page"><div class="app">
+<header class="topbar"><div class="trophy">🏆</div><div class="brand">TROOPS</div><div class="info">i</div></header>
+<main class="main">
+<h1 class="heading">Heroes</h1>
+<div class="workspace">
+<section class="left">
+<div class="card">
+  <div class="stat-row"><div class="badge">90</div><div><div class="name">Grand Master</div><div class="tag">#2GLJLU2LU · Elder</div></div></div>
+  <div class="pill-row"><span class="pill">⚔ Clan Invites</span><span class="pill">⚔ Clan Wars</span></div>
 </div>
-<div class="action-row"><div class="green-btn">🔍 Clan Invites</div><div class="green-btn">⚔ Clan Wars</div></div>
-<div class="donations"><span>Troops donated: <b>1161</b></span><span>Troops received: <b>770</b></span></div>
+<div class="card clan-row">
+  <div class="subcard center"><h3>Kerala</h3><div class="clan-badge">24</div><div class="war">★ <b>2291</b><br>War Stars Won</div></div>
+  <div class="subcard"><h3>League</h3>
+    <div class="league-line"><div class="l-icon">22</div><div><span>Current League</span><strong>41st Place</strong></div></div>
+    <div class="league-line"><div class="l-icon">23</div><div><span>All-time best</span><strong>42nd Place</strong></div></div>
+    <div class="league-line"><div class="l-icon">♜</div><div><span>Legacy best</span><strong>Legend · 5000</strong></div></div>
+  </div>
+</div>
+<div class="townhall card"><img src="https://i1.sndcdn.com/artworks-JgX3nByXADCahSFs-cIkhyQ-t1080x1080.jpg" alt="Town Hall"></div>
+<div class="card"><h2 class="section-title">Heroes</h2><div class="icon-grid" id="heroes"></div></div>
+<div class="card"><h2 class="section-title">Pets</h2><div class="icon-grid" id="pets"></div></div>
 </section>
-<section class="details">
-<div class="left-col">
-<div class="townhall"><img src="https://i1.sndcdn.com/artworks-JgX3nByXADCahSFs-cIkhyQ-t1080x1080.jpg" alt="Town Hall 16"></div>
-<div class="block"><h3>Heroes</h3><div class="icons hero-icons">
-<div class="icon"><img src="https://assets.clashk.ing/heroes/barbarian_king/icon.webp" alt="Barbarian King" loading="lazy"><em>90</em></div><div class="icon"><img src="https://assets.clashk.ing/heroes/archer_queen/icon.webp" alt="Archer Queen" loading="lazy"><em>90</em></div><div class="icon"><img src="https://assets.clashk.ing/heroes/minion_prince/icon.webp" alt="Minion Prince" loading="lazy"><em>75</em></div><div class="icon"><img src="https://assets.clashk.ing/heroes/grand_warden/icon.webp" alt="Grand Warden" loading="lazy"><em>70</em></div><div class="icon"><img src="https://assets.clashk.ing/heroes/royal_champion/icon.webp" alt="Royal Champion" loading="lazy"><em>43</em></div><div class="icon"><img src="https://assets.clashk.ing/heroes/dragon_duke/icon.webp" alt="Dragon Duke" loading="lazy"><em>15</em></div></div></div></div>
-<div class="block"><h3>Pets</h3><div class="icons pet-icons">
-<div class="icon"><img src="https://assets.clashk.ing/pets/lassi/icon.webp" alt="lassi" loading="lazy"><em>12</em></div><div class="icon"><img src="https://assets.clashk.ing/pets/electro_owl/icon.webp" alt="electro owl" loading="lazy"><em>10</em></div><div class="icon"><img src="https://assets.clashk.ing/pets/mighty_yak/icon.webp" alt="mighty yak" loading="lazy"><em>11</em></div><div class="icon"><img src="https://assets.clashk.ing/pets/unicorn/icon.webp" alt="unicorn" loading="lazy"><em>10</em></div><div class="icon"><img src="https://assets.clashk.ing/pets/frosty/icon.webp" alt="frosty" loading="lazy"><em>6</em></div><div class="icon"><img src="https://assets.clashk.ing/pets/diggy/icon.webp" alt="diggy" loading="lazy"><em>1</em></div></div></div></div>
-</div>
-<div class="right-col">
-<div class="block"><h3>Troops</h3><div class="icons"><div class="icon"><img src="https://assets.clashk.ing/troops/barbarian/icon.webp" alt="barbarian" loading="lazy"><em>12</em></div><div class="icon"><img src="https://assets.clashk.ing/troops/archer/icon.webp" alt="archer" loading="lazy"><em>12</em></div><div class="icon"><img src="https://assets.clashk.ing/troops/giant/icon.webp" alt="giant" loading="lazy"><em>12</em></div><div class="icon"><img src="https://assets.clashk.ing/troops/goblin/icon.webp" alt="goblin" loading="lazy"><em>9</em></div><div class="icon"><img src="https://assets.clashk.ing/troops/wall_breaker/icon.webp" alt="wall breaker" loading="lazy"><em>12</em></div><div class="icon"><img src="https://assets.clashk.ing/troops/balloon/icon.webp" alt="balloon" loading="lazy"><em>11</em></div><div class="icon"><img src="https://assets.clashk.ing/troops/wizard/icon.webp" alt="wizard" loading="lazy"><em>12</em></div><div class="icon"><img src="https://assets.clashk.ing/troops/healer/icon.webp" alt="healer" loading="lazy"><em>9</em></div><div class="icon"><img src="https://assets.clashk.ing/troops/dragon/icon.webp" alt="dragon" loading="lazy"><em>11</em></div><div class="icon"><img src="https://assets.clashk.ing/troops/pekka/icon.webp" alt="pekka" loading="lazy"><em>11</em></div><div class="icon"><img src="https://assets.clashk.ing/troops/baby_dragon/icon.webp" alt="baby dragon" loading="lazy"><em>10</em></div><div class="icon"><img src="https://assets.clashk.ing/troops/miner/icon.webp" alt="miner" loading="lazy"><em>10</em></div><div class="icon"><img src="https://assets.clashk.ing/troops/electro_dragon/icon.webp" alt="electro dragon" loading="lazy"><em>7</em></div><div class="icon"><img src="https://assets.clashk.ing/troops/dragon_rider/icon.webp" alt="dragon rider" loading="lazy"><em>4</em></div><div class="icon"><img src="https://assets.clashk.ing/troops/valkyrie/icon.webp" alt="valkyrie" loading="lazy"><em>11</em></div><div class="icon"><img src="https://assets.clashk.ing/troops/golem/icon.webp" alt="golem" loading="lazy"><em>13</em></div><div class="icon"><img src="https://assets.clashk.ing/troops/witch/icon.webp" alt="witch" loading="lazy"><em>7</em></div><div class="icon"><img src="https://assets.clashk.ing/troops/lava_hound/icon.webp" alt="lava hound" loading="lazy"><em>7</em></div><div class="icon"><img src="https://assets.clashk.ing/troops/bowler/icon.webp" alt="bowler" loading="lazy"><em>8</em></div><div class="icon"><img src="https://assets.clashk.ing/troops/ice_golem/icon.webp" alt="ice golem" loading="lazy"><em>8</em></div><div class="icon"><img src="https://assets.clashk.ing/troops/hog_rider/icon.webp" alt="hog rider" loading="lazy"><em>13</em></div><div class="icon"><img src="https://assets.clashk.ing/troops/headhunter/icon.webp" alt="headhunter" loading="lazy"><em>3</em></div><div class="icon"><img src="https://assets.clashk.ing/troops/yeti/icon.webp" alt="yeti" loading="lazy"><em>5</em></div><div class="icon"><img src="https://assets.clashk.ing/troops/apprentice_warden/icon.webp" alt="apprentice warden" loading="lazy"><em>4</em></div><div class="icon"><img src="https://assets.clashk.ing/troops/root_rider/icon.webp" alt="root rider" loading="lazy"><em>5</em></div><div class="icon"><img src="https://assets.clashk.ing/troops/electro_titan/icon.webp" alt="electro titan" loading="lazy"><em>4</em></div><div class="icon"><img src="https://assets.clashk.ing/troops/furnace/icon.webp" alt="furnace" loading="lazy"><em>3</em></div><div class="icon"><img src="https://assets.clashk.ing/troops/thrower/icon.webp" alt="thrower" loading="lazy"><em>3</em></div><div class="icon"><img src="https://assets.clashk.ing/troops/druid/icon.webp" alt="druid" loading="lazy"><em>4</em></div><div class="icon"><img src="https://assets.clashk.ing/troops/meteor_golem/icon.webp" alt="meteor golem" loading="lazy"><em>3</em></div><div class="icon"><img src="https://assets.clashk.ing/troops/minion/icon.webp" alt="minion" loading="lazy"><em>12</em></div><div class="icon"><img src="https://assets.clashk.ing/troops/baby_dragon/icon.webp" alt="baby dragon" loading="lazy"><em>10</em></div></div></div></div>
-<div class="block"><h3>Spells</h3><div class="icons"><div class="icon"><img src="https://assets.clashk.ing/spells/lightning.webp" alt="lightning" loading="lazy"><em>11</em></div><div class="icon"><img src="https://assets.clashk.ing/spells/healing.webp" alt="healing" loading="lazy"><em>10</em></div><div class="icon"><img src="https://assets.clashk.ing/spells/rage.webp" alt="rage" loading="lazy"><em>6</em></div><div class="icon"><img src="https://assets.clashk.ing/spells/jump.webp" alt="jump" loading="lazy"><em>5</em></div><div class="icon"><img src="https://assets.clashk.ing/spells/freeze.webp" alt="freeze" loading="lazy"><em>7</em></div><div class="icon"><img src="https://assets.clashk.ing/spells/clone.webp" alt="clone" loading="lazy"><em>8</em></div><div class="icon"><img src="https://assets.clashk.ing/spells/invisibility.webp" alt="invisibility" loading="lazy"><em>4</em></div><div class="icon"><img src="https://assets.clashk.ing/spells/recall.webp" alt="recall" loading="lazy"><em>5</em></div><div class="icon"><img src="https://assets.clashk.ing/spells/overgrowth.webp" alt="overgrowth" loading="lazy"><em>2</em></div><div class="icon"><img src="https://assets.clashk.ing/spells/revive.webp" alt="revive" loading="lazy"><em>2</em></div><div class="icon"><img src="https://assets.clashk.ing/spells/poison.webp" alt="poison" loading="lazy"><em>10</em></div><div class="icon"><img src="https://assets.clashk.ing/spells/earthquake.webp" alt="earthquake" loading="lazy"><em>7</em></div><div class="icon"><img src="https://assets.clashk.ing/spells/haste.webp" alt="haste" loading="lazy"><em>5</em></div><div class="icon"><img src="https://assets.clashk.ing/spells/skeleton.webp" alt="skeleton" loading="lazy"><em>8</em></div><div class="icon"><img src="https://assets.clashk.ing/spells/bat.webp" alt="bat" loading="lazy"><em>6</em></div><div class="icon"><img src="https://assets.clashk.ing/spells/barbarian_barrel.webp" alt="barbarian barrel" loading="lazy"><em>4</em></div><div class="icon"><img src="https://assets.clashk.ing/spells/ice_block.webp" alt="ice block" loading="lazy"><em>2</em></div><div class="icon"><img src="https://assets.clashk.ing/spells/totem.webp" alt="totem" loading="lazy"><em>1</em></div><div class="icon"><img src="https://assets.clashk.ing/spells/returning.webp" alt="returning" loading="lazy"><em>1</em></div></div></div></div>
-</div>
+<section class="right">
+<div class="card"><h2 class="section-title">Troops</h2><div class="icon-grid" id="troops"></div></div>
+<div class="card"><h2 class="section-title">Spells</h2><div class="icon-grid" id="spells"></div></div>
 </section>
-<div class="scroll-hint">Home Village profile · Town Hall 16 · swipe/scroll for more</div>
 </div>
-</div>
-</div>
-</body>
-</html>
+</main></div></div>
+<script>
+const data={
+heroes:[["barbarian_king",90],["archer_queen",90],["minion_prince",76],["grand_warden",70],["royal_champion",43],["dragon_duke",15]],
+pets:[["lassi",12],["electro_owl",10],["mighty_yak",11],["unicorn",10],["frosty",6],["diggy",1],["phoenix",2],["spirit_fox",3],["angry_jelly",4],["seedling",1],["poison_lizard",3],["sneezy",1]],
+troops:[["barbarian",12],["archer",12],["giant",12],["goblin",9],["wall_breaker",12],["balloon",11],["wizard",12],["healer",9],["dragon",11],["pekka",11],["baby_dragon",10],["miner",10],["electro_dragon",7],["dragon_rider",4],["valkyrie",11],["golem",13],["witch",7],["lava_hound",7],["bowler",8],["ice_golem",8],["hog_rider",13],["headhunter",3],["yeti",5],["apprentice_warden",4],["root_rider",5],["electro_titan",4],["furnace",3],["thrower",3],["druid",4],["meteor_golem",3],["minion",12],["super_minion",11]],
+spells:[["lightning",11],["healing",10],["rage",6],["jump",5],["freeze",7],["clone",8],["invisibility",4],["recall",5],["overgrowth",2],["revive",2],["poison",10],["earthquake",7],["haste",5],["skeleton",8],["bat",6],["barbarian_barrel",4],["ice_block",2],["totem",1],["returning",1]]
+};
+function src(type,key){return type==="spells"?"https://assets.clashk.ing/spells/"+key+".webp":"https://assets.clashk.ing/"+type+"/"+key+"/icon.webp"}
+function render(type){const root=document.getElementById(type);data[type].forEach(([key,level])=>{const el=document.createElement("div");el.className="icon";el.innerHTML='<img loading="lazy" src="'+src(type,key)+'" alt="'+key.replaceAll("_"," ")+'"><span class="lvl">'+level+"</span>";root.appendChild(el)})}
+["heroes","pets","troops","spells"].forEach(render);
+</script>
+</body></html>
