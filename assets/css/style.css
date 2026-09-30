@@ -16,3 +16,63 @@ mark{background:transparent;color:#222;font-weight:500}
 .game-status{position:absolute;z-index:3;top:7px;right:7px;background:rgba(255,255,255,.88);border:1px solid rgba(0,0,0,.12);padding:3px 5px;color:#555;font-size:7px;font-weight:600;letter-spacing:.1em;backdrop-filter:blur(5px)}.game-status-text{white-space:nowrap}.game-card.is-online .game-status{background:#b7eee4;color:#222;border-color:#9bd8cf}
 .game-info{padding:10px 11px 11px}.game-type{font-size:7px;font-weight:600;letter-spacing:.16em;color:#aaa}.game-info h2{margin:4px 0 5px;color:#222;font-family:"DM Sans",system-ui,sans-serif;font-size:15px;font-weight:600;line-height:1.1;letter-spacing:-.025em}.game-info p{margin:0;color:#777;font-size:9px;line-height:1.4}.game-footer{display:flex;justify-content:space-between;border-top:1px solid #e5e5e0;padding:6px 8px;color:#aaa;font-size:7px;font-weight:600;letter-spacing:.1em}.game-footer span:last-child{color:#777}
 @media(max-width:600px){.games{margin-top:48px}.game-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.game-cover{height:88px}.game-info{padding:9px}.game-info h2{font-size:15px}.game-info p{font-size:8px}.game-footer{padding:6px 7px;font-size:6px}}
+/* Hand-drawn annotation effect */
+.sketch-target{position:relative;display:inline-block;z-index:1;white-space:nowrap}
+.sketch-target mark{position:relative;z-index:2}
+.sketch-bubble{
+  position:absolute;
+  left:50%;
+  bottom:calc(100% + 18px);
+  transform:translateX(-34%) rotate(-3deg);
+  padding:9px 16px 10px;
+  color:#555;
+  font-family:"Comic Sans MS","Segoe Print","Bradley Hand",cursive;
+  font-size:.48em;
+  font-weight:600;
+  line-height:1;
+  letter-spacing:.01em;
+  white-space:nowrap;
+  pointer-events:none;
+  z-index:3;
+}
+.sketch-bubble::before{
+  content:"";
+  position:absolute;
+  inset:-8px -13px;
+  border:2px solid #777;
+  border-radius:48% 52% 46% 54% / 55% 43% 57% 45%;
+  transform:rotate(2deg);
+  opacity:.82;
+}
+.sketch-bubble::after{
+  content:"";
+  position:absolute;
+  inset:-11px -9px;
+  border:1px solid #999;
+  border-radius:54% 46% 52% 48% / 45% 58% 42% 55%;
+  transform:rotate(-4deg);
+  opacity:.42;
+}
+.sketch-arrow{
+  position:absolute;
+  width:120px;
+  height:76px;
+  left:50%;
+  bottom:calc(100% - 30px);
+  transform:translateX(-2%) rotate(-4deg);
+  overflow:visible;
+  z-index:2;
+  pointer-events:none;
+}
+.sketch-arrow path{
+  fill:none;
+  stroke:#777;
+  stroke-width:2.1;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  opacity:.8;
+}
+@media(max-width:600px){
+  .sketch-bubble{font-size:.5em;bottom:calc(100% + 16px)}
+  .sketch-arrow{width:100px;height:64px;bottom:calc(100% - 25px)}
+}
