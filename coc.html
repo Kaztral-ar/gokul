@@ -3,75 +3,156 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Clash of Clans — Troops</title>
+<title>Clash of Clans</title>
 <style>
-*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:#6e7d9d}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;min-height:100%;background:#7b89aa}
 body{font-family:"Trebuchet MS",Arial,sans-serif;color:#fff;overflow-x:hidden}
-.page{min-height:100vh;padding:4px;background:linear-gradient(#8491ad 0 46%,#7181a3 46% 100%)}
-.app{width:100%;min-height:calc(100vh - 8px);background:#7181a4;border:1px solid #55627d;box-shadow:inset 0 0 0 2px #a5afc5}
-.topbar{height:58px;display:flex;align-items:center;gap:18px;padding:0 14px;border-bottom:2px solid #596783}
-.trophy{font-size:30px;filter:drop-shadow(2px 3px #38425a)}
-.brand{font-size:29px;font-weight:1000;text-shadow:3px 3px #38425a}
-.info{margin-left:auto;width:39px;height:39px;border-radius:50%;display:grid;place-items:center;border:3px solid #3d4d67;background:linear-gradient(#b7c8dc,#7895b7);font-size:22px;font-weight:1000}
-.main{padding:2px 10px 14px}.heading{font-size:32px;line-height:1;margin:0 0 5px;font-weight:1000;text-shadow:3px 3px #38425a}
-.workspace{display:grid;grid-template-columns:38% 62%;gap:10px}.left,.right{min-width:0}.left{display:flex;flex-direction:column;gap:9px}.right{display:flex;flex-direction:column;gap:10px}
-.card{background:#6d7da0;border:2px solid #9faac2;box-shadow:inset 0 0 0 2px #4f5d79;border-radius:7px;padding:8px}
-.section-title{font-size:27px;line-height:1;margin:0 0 7px;font-weight:1000;text-shadow:3px 3px #38425a}
-.townhall{height:350px;padding:0;display:grid;place-items:center;overflow:hidden;background:radial-gradient(circle at 50% 44%,#dbe2ef 0,#a7b2c7 42%,#7181a3 78%)}
-.townhall img{width:min(350px,100%);height:100%;object-fit:contain;filter:drop-shadow(0 14px 7px rgba(31,41,59,.35))}
-.icon-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:7px}.right .icon-grid{grid-template-columns:repeat(10,1fr)}
-.icon{position:relative;aspect-ratio:1;overflow:hidden;border:2px solid #4f5d79;border-radius:7px;background:linear-gradient(145deg,#9aacca,#586985);box-shadow:inset 0 0 0 1px #b3bed1}
-.icon img{width:100%;height:100%;object-fit:contain;display:block;padding:2px}
-.lvl{position:absolute;left:2px;bottom:2px;background:#24314a;border-radius:5px;padding:0 4px;line-height:17px;font-size:12px;font-weight:1000;text-shadow:1px 1px #111}
-.badge{display:inline-grid;place-items:center;width:48px;height:48px;border-radius:12px;background:linear-gradient(#b9d4f2,#6a87af);border:3px solid #53617d;color:#27344d;font-size:20px;font-weight:1000;margin-right:7px}
-.stat-row{display:flex;align-items:center;gap:8px;margin-bottom:9px}.name{font-size:23px;font-weight:1000;text-shadow:2px 2px #38425a}.tag{font-size:12px}
-.pill-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:7px}.pill{padding:6px 10px;background:linear-gradient(#aef065,#62b139);border:3px solid #477d2b;border-radius:8px;font-size:12px;font-weight:1000;text-shadow:2px 2px #4c7131}
-.clan-row{display:grid;grid-template-columns:1fr 1fr;gap:7px}.subcard{background:#657596;border:1px solid #4e5c79;border-radius:6px;padding:7px}.subcard h3{margin:0 0 5px;font-size:17px;text-shadow:2px 2px #38425a}
-.clan-badge{width:58px;height:58px;border-radius:30% 30% 44% 44%;margin:auto;background:linear-gradient(145deg,#7934c9,#36216f);border:4px solid #f0be3d;display:grid;place-items:center;font-size:26px;font-weight:1000}
-.center{text-align:center}.war{font-size:13px;margin-top:4px}.war b{font-size:19px}
-.league-line{display:flex;align-items:center;gap:7px;margin-bottom:6px}.league-line:last-child{margin:0}.l-icon{width:39px;height:39px;border-radius:9px;background:linear-gradient(#cbdcf7,#6c84aa);border:2px solid #53617c;display:grid;place-items:center;color:#26334b;font-weight:1000}.league-line span{font-size:9px}.league-line strong{display:block;font-size:13px}
-@media(max-width:980px){.workspace{grid-template-columns:1fr}.right .icon-grid{grid-template-columns:repeat(10,1fr)}.townhall{height:330px}}
-@media(max-width:680px){.page{padding:0}.app{border:0;box-shadow:none}.topbar{height:50px;padding:0 9px}.brand{font-size:21px}.trophy{font-size:24px}.info{width:32px;height:32px;font-size:18px}.main{padding:2px 6px 10px}.heading,.section-title{font-size:24px}.townhall{height:245px}.icon-grid,.right .icon-grid{grid-template-columns:repeat(6,1fr)}.pill{font-size:10px;padding:5px 7px}.clan-row{grid-template-columns:1fr}.name{font-size:21px}}
+.page{min-height:100vh;padding:4px;background:#7786a7}
+.layout{
+ width:100%;max-width:1536px;margin:auto;
+ display:grid;grid-template-columns:39.5% 60.5%;
+ grid-template-rows:auto auto;
+ gap:8px;
+}
+.panel{
+ background:#7281a3;
+ border:3px solid #9eabc5;
+ border-radius:8px;
+ box-shadow:inset 0 0 0 2px #52617e;
+ overflow:hidden;
+}
+.townhall{
+ height:365px;
+ display:flex;align-items:center;justify-content:center;
+ background:radial-gradient(circle at 50% 48%,#d4dceb 0,#a1aec6 44%,#7584a5 76%);
+}
+.townhall img{width:390px;height:350px;object-fit:contain;filter:drop-shadow(0 15px 8px #3d486080)}
+.block{padding:8px 10px}
+.title{
+ margin:0 0 7px;padding-left:2px;
+ font-size:28px;line-height:1;
+ font-weight:1000;letter-spacing:-1px;
+ text-shadow:3px 3px #39445e;
+}
+.grid{display:grid;grid-template-columns:repeat(10,1fr);gap:7px}
+.icon{
+ position:relative;aspect-ratio:1;overflow:hidden;
+ border:2px solid #53617e;border-radius:8px;
+ background:linear-gradient(145deg,#9baaca,#586987);
+ box-shadow:inset 0 0 0 1px #b6c0d3;
+}
+.icon img{width:100%;height:100%;object-fit:contain;display:block;padding:1px}
+.level{
+ position:absolute;left:2px;bottom:2px;
+ min-width:24px;height:20px;padding:0 4px;
+ border-radius:5px;background:#29344c;
+ border:1px solid #182237;
+ color:#fff;font-size:13px;line-height:18px;
+ font-weight:1000;text-align:center;
+ text-shadow:1px 1px #111;
+}
+.bottom-left{display:flex;flex-direction:column;gap:8px}
+.bottom-right{display:flex;flex-direction:column;gap:8px}
+.small-grid{grid-template-columns:repeat(6,1fr)}
+.spell-grid{grid-template-columns:repeat(10,1fr)}
+.hero-pet{padding:8px 10px}
+.hero-pet .title{font-size:27px}
+@media(max-width:1000px){
+ .layout{grid-template-columns:1fr}
+ .townhall{height:330px}
+ .grid{grid-template-columns:repeat(10,1fr)}
+}
+@media(max-width:650px){
+ .page{padding:3px}
+ .layout{gap:5px}
+ .townhall{height:250px}
+ .townhall img{width:260px;height:240px}
+ .title,.hero-pet .title{font-size:22px}
+ .grid,.spell-grid{grid-template-columns:repeat(6,1fr);gap:5px}
+ .small-grid{grid-template-columns:repeat(6,1fr)}
+ .icon{border-radius:6px}
+ .level{font-size:10px;height:17px;line-height:15px;min-width:20px}
+}
 </style>
 </head>
 <body>
-<div class="page"><div class="app">
-<header class="topbar"><div class="trophy">🏆</div><div class="brand">TROOPS</div><div class="info">i</div></header>
-<main class="main">
-<h1 class="heading">Heroes</h1>
-<div class="workspace">
-<section class="left">
-<div class="card">
-  <div class="stat-row"><div class="badge">90</div><div><div class="name">Grand Master</div><div class="tag">#2GLJLU2LU · Elder</div></div></div>
-  <div class="pill-row"><span class="pill">⚔ Clan Invites</span><span class="pill">⚔ Clan Wars</span></div>
+<div class="page">
+<div class="layout">
+
+<div class="panel townhall">
+ <img src="https://assets.clashk.ing/town_halls/16.webp" alt="Town Hall 16"
+      onerror="this.onerror=null;this.src='https://i1.sndcdn.com/artworks-JgX3nByXADCahSFs-cIkhyQ-t1080x1080.jpg'">
 </div>
-<div class="card clan-row">
-  <div class="subcard center"><h3>Kerala</h3><div class="clan-badge">24</div><div class="war">★ <b>2291</b><br>War Stars Won</div></div>
-  <div class="subcard"><h3>League</h3>
-    <div class="league-line"><div class="l-icon">22</div><div><span>Current League</span><strong>41st Place</strong></div></div>
-    <div class="league-line"><div class="l-icon">23</div><div><span>All-time best</span><strong>42nd Place</strong></div></div>
-    <div class="league-line"><div class="l-icon">♜</div><div><span>Legacy best</span><strong>Legend · 5000</strong></div></div>
-  </div>
+
+<div class="panel block">
+ <h2 class="title">Troops</h2>
+ <div class="grid" id="troops"></div>
 </div>
-<div class="townhall card"><img src="https://i1.sndcdn.com/artworks-JgX3nByXADCahSFs-cIkhyQ-t1080x1080.jpg" alt="Town Hall"></div>
-<div class="card"><h2 class="section-title">Heroes</h2><div class="icon-grid" id="heroes"></div></div>
-<div class="card"><h2 class="section-title">Pets</h2><div class="icon-grid" id="pets"></div></div>
-</section>
-<section class="right">
-<div class="card"><h2 class="section-title">Troops</h2><div class="icon-grid" id="troops"></div></div>
-<div class="card"><h2 class="section-title">Spells</h2><div class="icon-grid" id="spells"></div></div>
-</section>
+
+<div class="bottom-left">
+ <div class="panel block hero-pet">
+  <h2 class="title">Heroes</h2>
+  <div class="grid small-grid" id="heroes"></div>
+ </div>
+ <div class="panel block hero-pet">
+  <h2 class="title">Pets</h2>
+  <div class="grid small-grid" id="pets"></div>
+ </div>
 </div>
-</main></div></div>
+
+<div class="bottom-right">
+ <div class="panel block">
+  <h2 class="title">Spells</h2>
+  <div class="grid spell-grid" id="spells"></div>
+ </div>
+</div>
+
+</div>
+</div>
+
 <script>
 const data={
-heroes:[["barbarian_king",90],["archer_queen",90],["minion_prince",76],["grand_warden",70],["royal_champion",43],["dragon_duke",15]],
-pets:[["lassi",12],["electro_owl",10],["mighty_yak",11],["unicorn",10],["frosty",6],["diggy",1],["phoenix",2],["spirit_fox",3],["angry_jelly",4],["seedling",1],["poison_lizard",3],["sneezy",1]],
-troops:[["barbarian",12],["archer",12],["giant",12],["goblin",9],["wall_breaker",12],["balloon",11],["wizard",12],["healer",9],["dragon",11],["pekka",11],["baby_dragon",10],["miner",10],["electro_dragon",7],["dragon_rider",4],["valkyrie",11],["golem",13],["witch",7],["lava_hound",7],["bowler",8],["ice_golem",8],["hog_rider",13],["headhunter",3],["yeti",5],["apprentice_warden",4],["root_rider",5],["electro_titan",4],["furnace",3],["thrower",3],["druid",4],["meteor_golem",3],["minion",12],["super_minion",11]],
-spells:[["lightning",11],["healing",10],["rage",6],["jump",5],["freeze",7],["clone",8],["invisibility",4],["recall",5],["overgrowth",2],["revive",2],["poison",10],["earthquake",7],["haste",5],["skeleton",8],["bat",6],["barbarian_barrel",4],["ice_block",2],["totem",1],["returning",1]]
-};
-function src(type,key){return type==="spells"?"https://assets.clashk.ing/spells/"+key+".webp":"https://assets.clashk.ing/"+type+"/"+key+"/icon.webp"}
-function render(type){const root=document.getElementById(type);data[type].forEach(([key,level])=>{const el=document.createElement("div");el.className="icon";el.innerHTML='<img loading="lazy" src="'+src(type,key)+'" alt="'+key.replaceAll("_"," ")+'"><span class="lvl">'+level+"</span>";root.appendChild(el)})}
-["heroes","pets","troops","spells"].forEach(render);
+troops:[
+["barbarian",12],["archer",12],["giant",12],["goblin",9],["wall_breaker",12],
+["balloon",11],["wizard",12],["healer",9],["dragon",11],["pekka",11],
+["baby_dragon",10],["miner",10],["electro_dragon",7],["ice_golem",6],["dragon_rider",4],
+["valkyrie",11],["hog_rider",13],["golem",13],["witch",7],["lava_hound",7],
+["bowler",8],["ice_golem",8],["headhunter",3],["yeti",5],["apprentice_warden",4],
+["root_rider",5],["electro_titan",4],["furnace",3],["thrower",3],["druid",4],
+["meteor_golem",3],["minion",12],["super_minion",10]
+],
+heroes:[
+["barbarian_king",90],["archer_queen",90],["minion_prince",76],
+["grand_warden",70],["royal_champion",43],["dragon_duke",15]
+],
+pets:[
+["lassi",12],["electro_owl",10],["mighty_yak",11],
+["unicorn",10],["frosty",6],["diggy",1],
+["phoenix",2],["spirit_fox",3],["angry_jelly",4],
+["seedling",1],["poison_lizard",3],["sneezy",1]
+],
+spells:[
+["lightning",11],["healing",10],["rage",6],["jump",5],["freeze",7],
+["clone",8],["invisibility",4],["recall",5],["overgrowth",2],["revive",2],
+["poison",10],["earthquake",7],["haste",5],["skeleton",8],["bat",6],
+["barbarian_barrel",4],["ice_block",2],["totem",1],["returning",1]
+]};
+
+function image(type,key){
+ if(type==="spells")return "https://assets.clashk.ing/spells/"+key+".webp";
+ return "https://assets.clashk.ing/"+type+"/"+key+"/icon.webp";
+}
+function render(type){
+ const root=document.getElementById(type);
+ data[type].forEach(([key,level])=>{
+  const item=document.createElement("div");
+  item.className="icon";
+  item.innerHTML='<img loading="lazy" src="'+image(type,key)+'" alt="'+key.replaceAll("_"," ")+'"><span class="level">'+level+"</span>";
+  root.appendChild(item);
+ });
+}
+Object.keys(data).forEach(render);
 </script>
-</body></html>
+</body>
+</html>
