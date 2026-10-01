@@ -27,7 +27,7 @@ body{font-family:"Trebuchet MS",Arial,sans-serif;color:#fff;overflow-x:hidden}
  display:flex;align-items:center;justify-content:center;
  background:radial-gradient(circle at 50% 48%,#d4dceb 0,#a1aec6 44%,#7584a5 76%);
 }
-.townhall img{width:100%;height:100%;object-fit:cover;display:block;filter:none}
+.townhall img{width:100%;height:100%;object-fit:contain;display:block;filter:none;background:#29344c}
 .block{padding:8px 10px}
 .title{
  margin:0 0 7px;padding-left:2px;
@@ -35,14 +35,14 @@ body{font-family:"Trebuchet MS",Arial,sans-serif;color:#fff;overflow-x:hidden}
  font-weight:1000;letter-spacing:-1px;
  text-shadow:3px 3px #39445e;
 }
-.grid{display:grid;grid-template-columns:repeat(10,1fr);gap:7px}
+.grid{display:grid;grid-template-columns:repeat(8,1fr);gap:7px}
 .icon{
  position:relative;aspect-ratio:1;overflow:hidden;
  border:2px solid #53617e;border-radius:8px;
  background:linear-gradient(145deg,#9baaca,#586987);
  box-shadow:inset 0 0 0 1px #b6c0d3;
 }
-.icon img{width:100%;height:100%;object-fit:contain;display:block;padding:1px}
+.icon img{width:100%;height:100%;object-fit:contain;display:block;padding:0}
 .level{
  position:absolute;left:2px;bottom:2px;
  min-width:24px;height:20px;padding:0 4px;
@@ -55,7 +55,7 @@ body{font-family:"Trebuchet MS",Arial,sans-serif;color:#fff;overflow-x:hidden}
 .bottom-left{display:flex;flex-direction:column;gap:8px}
 .bottom-right{display:flex;flex-direction:column;gap:8px}
 .small-grid{grid-template-columns:repeat(6,1fr)}
-.spell-grid{grid-template-columns:repeat(10,1fr)}
+.spell-grid{grid-template-columns:repeat(8,1fr)}
 .hero-pet{padding:8px 10px}
 .hero-pet .title{font-size:27px}
 @media(max-width:1000px){
@@ -69,7 +69,7 @@ body{font-family:"Trebuchet MS",Arial,sans-serif;color:#fff;overflow-x:hidden}
  .townhall{height:250px}
  .townhall img{width:260px;height:240px}
  .title,.hero-pet .title{font-size:22px}
- .grid,.spell-grid{grid-template-columns:repeat(6,1fr);gap:5px}
+ .grid,.spell-grid{grid-template-columns:repeat(5,1fr);gap:5px}
  .small-grid{grid-template-columns:repeat(6,1fr)}
  .icon{border-radius:6px}
  .level{font-size:10px;height:17px;line-height:15px;min-width:20px}
@@ -117,7 +117,7 @@ troops:[
 ["valkyrie",11],["hog_rider",13],["golem",13],["witch",7],["lava_hound",7],
 ["bowler",8],["ice_golem",8],["headhunter",3],["yeti",5],["apprentice_warden",4],
 ["root_rider",5],["electro_titan",4],["furnace",3],["thrower",3],["druid",4],
-["meteor_golem",3],["minion",12],["super_minion",10]
+["meteor_golem",3]
 ],
 heroes:[
 ["barbarian_king",90],["archer_queen",90],["minion_prince",76],
@@ -127,17 +127,17 @@ pets:[
 ["lassi",12],["electro_owl",10],["mighty_yak",11],
 ["unicorn",10],["frosty",6],["diggy",1],
 ["phoenix",2],["spirit_fox",3],["angry_jelly",4],
-["seedling",1],["poison_lizard",3],["sneezy",1]
+["poison_lizard",3],["sneezy",1],["greedy_raven",1]
 ],
 spells:[
 ["lightning",11],["healing",10],["rage",6],["jump",5],["freeze",7],
 ["clone",8],["invisibility",4],["recall",5],["overgrowth",2],["revive",2],
 ["poison",10],["earthquake",7],["haste",5],["skeleton",8],["bat",6],
-["barbarian_barrel",4],["ice_block",2],["totem",1],["returning",1]
+["ice_block",2],["totem",1]
 ]};
 
 function image(type,key){
- if(type==="spells")return "https://assets.clashk.ing/spells/"+key+".webp";
+ if(type==="spells")return "https://assets.clashk.ing/spells/"+key+"_spell.webp";
  return "https://assets.clashk.ing/"+type+"/"+key+"/icon.webp";
 }
 function render(type){
@@ -151,5 +151,6 @@ function render(type){
 }
 Object.keys(data).forEach(render);
 </script>
+<div style="text-align:center;font-size:10px;opacity:.65;padding:6px">Game images: ClashKing Assets</div>
 </body>
 </html>
