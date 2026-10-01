@@ -15,15 +15,50 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Fetch player data
-        env:
-          COC_API_TOKEN: ${{ secrets.COC_API_TOKEN }}
+      - name: Fetch ClashKing public data
         run: |
-          curl -fsSL \
-            -H "Authorization: Bearer ${COC_API_TOKEN}" \
-            -H "Accept: application/json" \
-            "https://api.clashofclans.com/v1/players/%232GLJLULQU" \
-            -o coc-data.json
+          node <<'NODE'
+          const fs = require("fs");
+
+          const tag = "#2GLJLULQU";
+          const encoded = encodeURIComponent(tag);
+          const base = "https://api.clashk.ing/v2";
+
+          async function get(path) {
+            const res = await fetch(base + path);
+            if (!res.ok) throw new Error(res.status + " " + res.statusText + ": " + path);
+            return res.json();
+          }
+
+          (async () => {
+            const search = await get("/player/search?query=" + encoded + "&limit=10");
+            const rankings = await get("/player/" + encoded + "/rankings");
+            const legend = await get("/player/" + encoded + "/legend-history");
+            const player = (search.items || []).find(x => x.tag === tag) || (search.items || [])[0] || {};
+            const latestLegend = (legend.items || [])[0] || {};
+
+            const data = {
+              tag: tag,
+              name: player.name ?? latestLegend.name ?? null,
+              townHallLevel: player.townHallLevel ?? null,
+              clan: player.clan ?? null,
+              league: player.leagueTier ?? latestLegend.leagueTier ?? null,
+              trophies: rankings.homeVillage?.trophies ?? latestLegend.trophies ?? null,
+              globalRank: rankings.homeVillage?.globalRank ?? null,
+              localRank: rankings.homeVillage?.localRank ?? null,
+              expLevel: latestLegend.expLevel ?? null,
+              attackWins: latestLegend.attackWins ?? null,
+              defenseWins: latestLegend.defenseWins ?? null,
+              updatedAt: new Date().toISOString(),
+              source: "ClashKing"
+            };
+
+            fs.writeFileSync("coc-data.json", JSON.stringify(data, null, 2) + "\n");
+          })().catch(err => {
+            console.error(err);
+            process.exit(1);
+          });
+          NODE
 
       - name: Commit updated data
         run: |
