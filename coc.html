@@ -26,9 +26,17 @@ body{margin:0;padding:24px;background:#0d1420;color:#fff;font-family:Arial,sans-
     <div class="stat"><span>Player</span><b id="name">—</b></div>
     <div class="stat"><span>Town Hall</span><b id="th">—</b></div>
     <div class="stat"><span>Trophies</span><b id="trophies">—</b></div>
-    <div class="stat"><span>Best</span><b id="best">—</b></div>
+    <div class="stat"><span>League</span><b id="league">—</b></div>
+    <div class="stat"><span>Attack Wins</span><b id="attack">—</b></div>
+    <div class="stat"><span>Defense Wins</span><b id="defense">—</b></div>
+  </div>
+  <div class="stats">
+    <div class="stat"><span>Clan</span><b id="clan">—</b></div>
     <div class="stat"><span>XP Level</span><b id="xp">—</b></div>
-    <div class="stat"><span>War Stars</span><b id="war">—</b></div>
+    <div class="stat"><span>Global Rank</span><b id="global">—</b></div>
+    <div class="stat"><span>Local Rank</span><b id="local">—</b></div>
+    <div class="stat"><span>Tag</span><b id="tag">#2GLJLULQU</b></div>
+    <div class="stat"><span>Source</span><b>ClashKing</b></div>
   </div>
   <div class="updated" id="updated">Loading player data…</div>
   <section class="showcase">
@@ -43,9 +51,13 @@ fetch("./coc-data.json")
     document.getElementById("name").textContent=d.name||"—";
     document.getElementById("th").textContent=d.townHallLevel??"—";
     document.getElementById("trophies").textContent=d.trophies??"—";
-    document.getElementById("best").textContent=d.bestTrophies??"—";
     document.getElementById("xp").textContent=d.expLevel??"—";
-    document.getElementById("war").textContent=d.warStars??"—";
+    document.getElementById("league").textContent=d.league?.name||"—";
+    document.getElementById("attack").textContent=d.attackWins??"—";
+    document.getElementById("defense").textContent=d.defenseWins??"—";
+    document.getElementById("clan").textContent=d.clan?.name||"—";
+    document.getElementById("global").textContent=d.globalRank??"—";
+    document.getElementById("local").textContent=d.localRank??"—";
     document.getElementById("updated").textContent=d.updatedAt?"Updated "+new Date(d.updatedAt).toLocaleString():"Player data not updated yet";
   })
   .catch(()=>document.getElementById("updated").textContent="Player data not available yet");
