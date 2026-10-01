@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
 <style>
-.coc-modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(0,0,0,.45);backdrop-filter:blur(8px);z-index:1000}.coc-modal.show{display:flex}.coc-highlight{position:relative;min-width:min(92vw,430px);padding:32px;border:1px solid rgba(255,255,255,.22);border-radius:24px;background:#fff;box-shadow:0 24px 80px rgba(0,0,0,.25);text-align:center}.coc-highlight .eyebrow{font-size:11px;letter-spacing:.18em;opacity:.55}.coc-highlight h2{margin:10px 0 18px;font-size:42px;line-height:1}.coc-highlight .tag{display:inline-block;padding:9px 14px;border-radius:999px;background:#f1f1f1;font-family:monospace;font-size:16px}.coc-close{position:absolute;top:12px;right:14px;border:0;background:none;font-size:24px;cursor:pointer;color:inherit}
+.game-coc{position:relative}.coc-pop{position:absolute;left:-24px;top:50%;z-index:20;width:150px;height:120px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:18px 12px;background:#fff;border:4px solid #111;clip-path:polygon(50% 0%,61% 13%,76% 5%,78% 22%,95% 20%,86% 36%,100% 48%,83% 56%,91% 75%,72% 70%,68% 93%,53% 79%,39% 100%,33% 80%,14% 88%,20% 68%,0% 64%,16% 49%,3% 34%,23% 32%,20% 11%,39% 18%);transform:translate(-100%,-50%) rotate(-8deg) scale(.72);opacity:0;pointer-events:none;transition:opacity .22s ease,transform .22s ease}.coc-pop.show{opacity:1;transform:translate(-100%,-50%) rotate(-8deg) scale(1)}.coc-pop strong{font-size:18px;line-height:1.05}.coc-pop span{font-family:monospace;font-size:12px;margin-top:7px}.coc-pop::after{content:"";position:absolute;right:-28px;top:50%;width:38px;height:4px;background:#111;transform:rotate(18deg);transform-origin:left center}@media(max-width:800px){.coc-pop{left:50%;top:auto;bottom:-18px;transform:translate(-50%,100%) rotate(-4deg) scale(.72)}.coc-pop.show{transform:translate(-50%,100%) rotate(-4deg) scale(1)}.coc-pop::after{display:none}}
 </style></head>
 <body>
   <main class="page">
@@ -23,7 +23,7 @@
     <section class="games" aria-label="Games I've played">
       <div class="games-heading"><span>GAMES</span><span class="games-line"></span></div>
       <div class="game-grid">
-        <a class="game-card game-coc" href="#coc-profile" aria-label="Show Clash of Clans profile" id="coc-card"><div class="game-cover"><img src="https://i1.sndcdn.com/artworks-JgX3nByXADCahSFs-cIkhyQ-t1080x1080.jpg" alt="Clash of Clans cover"><span class="game-status" data-discord-game="VALORANT">● <span class="game-status-text">OFFLINE</span></span></div><div class="game-info"><span class="game-type">STRATEGY</span><h2>Clash of Clans</h2><p>Building bases, upgrading troops, and checking in for the grind.</p></div><div class="game-footer"><span>CLASH OF CLANS</span><span>01</span></div></a>
+        <a class="game-card game-coc" href="#coc-profile" aria-label="Show Clash of Clans profile" id="coc-card"><span class="coc-pop" id="coc-pop" aria-hidden="true"><strong>TH 18</strong><span>#2GLJLULQU</span></span><div class="game-cover"><img src="https://i1.sndcdn.com/artworks-JgX3nByXADCahSFs-cIkhyQ-t1080x1080.jpg" alt="Clash of Clans cover"><span class="game-status" data-discord-game="VALORANT">● <span class="game-status-text">OFFLINE</span></span></div><div class="game-info"><span class="game-type">STRATEGY</span><h2>Clash of Clans</h2><p>Building bases, upgrading troops, and checking in for the grind.</p></div><div class="game-footer"><span>CLASH OF CLANS</span><span>01</span></div></a>
         <article class="game-card game-val"><div class="game-cover"><img src="assets/images/Valo.png" alt="VALORANT banner"><span class="game-status">● <span class="game-status-text">OFFLINE</span></span></div><div class="game-info"><span class="game-type">TACTICAL FPS</span><h2>VALORANT</h2><p>Agents, abilities, and those matches that somehow take forever.</p></div><div class="game-footer"><span>VALORANT</span><span>02</span></div></article>
         <article class="game-card game-bgmi"><div class="game-cover"><img src="https://www.gizbot.com/img/2023/05/bgmi-1685341658.jpg" alt="BGMI banner"><span class="game-status">● <span class="game-status-text">OFFLINE</span></span></div><div class="game-info"><span class="game-type">BATTLE ROYALE</span><h2>BGMI</h2><p>Drop in, loot up, survive, and see how the match plays out.</p></div><div class="game-footer"><span>BATTLEGROUNDS MOBILE INDIA</span><span>03</span></div></article>
         <article class="game-card game-fifa"><div class="game-cover"><img src="https://drop-assets.ea.com/images/3eEHjjY2wGQ5tSWAaF37cL/b03bdcaa03bdba60d2b1b52d91bedbbe/fc26-twg-featured-image-16x9.jpg" alt="EA Sports FC 26 cover"><span class="game-status">● <span class="game-status-text">OFFLINE</span></span></div><div class="game-info"><span class="game-type">FOOTBALL</span><h2>FC 26</h2><p>Football, career mode, and getting back on the pitch.</p></div><div class="game-footer"><span>EA SPORTS FC 26</span><span>04</span></div></article>
@@ -44,6 +44,13 @@
     </nav>
   <script>
     const DISCORD_ID = "1034690701780328508";
+    const cocCard = document.getElementById("coc-card");
+    const cocPop = document.getElementById("coc-pop");
+    cocCard?.addEventListener("click", event => {
+      event.preventDefault();
+      cocPop?.classList.toggle("show");
+      cocPop?.setAttribute("aria-hidden", cocPop.classList.contains("show") ? "false" : "true");
+    });
 
     const cocCard = document.getElementById("coc-card");
     const cocModal = document.getElementById("coc-profile");
